@@ -2,7 +2,7 @@
 DIR="$( cd  "$( dirname $BASH_SOURCE[0])" && pwd )"
 
 export PYTHONUNBUFFERED=1
-export PYTHONPATH=${DIR}/../../python:${DIR}/..:.:$PYTHONPATH
+export PYTHONPATH=${DIR}/../../libraries/python:.:$PYTHONPATH
 
 START_SCRIPT="start_app.py"
 

@@ -13,3 +13,6 @@ __pycache__/
 dist/
 build/
 *.egg-info/
+
+# modules
+**/node_modules/**
