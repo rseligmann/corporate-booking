@@ -1,0 +1,8 @@
+{
+    "HOST": "127.0.0.1",
+    "PORT": 8000,
+    "PSQL_KEY_FILE": "/deploy/keys/ProdPSQL.json",
+    "MODULE_NAME": "main",
+    "APP_NAME": "app",
+    "WORKERS": 2
+}

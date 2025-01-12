@@ -1,0 +1,54 @@
+// Theme colors
+:root {
+  // Light theme
+  --background-primary: #ffffff;
+  --background-secondary: #f1f1f1;
+  --text-primary: #1a1a1a;
+  --text-secondary: #4a4a4a;
+  --border-color: rgba(0, 0, 0, 0.1);
+  
+  // Common colors
+  --primary-color: #646cff;
+  --primary-hover: #747bff;
+
+  // State colors
+  --error-color: #ef4444;
+  --error-light: rgba(239, 68, 68, 0.1);
+  --success-color: #22c55e;
+  --success-light: rgba(34, 197, 94, 0.1);
+  --warning-color: #f59e0b;
+  --warning-light: rgba(245, 158, 11, 0.1);
+  --info-color: #3b82f6;
+  --info-light: rgba(59, 130, 246, 0.1);
+  
+  // Focus/Interactive states
+  --focus-ring: rgba(100, 108, 255, 0.1);
+  --hover-overlay: rgba(0, 0, 0, 0.05);
+}
+
+// Dark theme
+[data-theme="dark"] {
+  --background-primary: #242424;
+  --background-secondary: #1a1a1a;
+  --text-primary: rgba(255, 255, 255, 0.87);
+  --text-secondary: rgba(255, 255, 255, 0.6);
+  --border-color: rgba(255, 255, 255, 0.1);
+
+  // State colors - adjusted for dark theme
+  --error-color: #f87171;
+  --error-light: rgba(248, 113, 113, 0.1);
+  --success-color: #4ade80;
+  --success-light: rgba(74, 222, 128, 0.1);
+  --warning-color: #fbbf24;
+  --warning-light: rgba(251, 191, 36, 0.1);
+  --info-color: #60a5fa;
+  --info-light: rgba(96, 165, 250, 0.1);
+  
+  // Focus/Interactive states
+  --focus-ring: rgba(100, 108, 255, 0.2);
+  --hover-overlay: rgba(255, 255, 255, 0.05);
+}
+
+// Animations
+$spinner-size: 50px;
+$spin-duration: 3s;
