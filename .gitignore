@@ -17,3 +17,5 @@ build/
 
 # modules
 **/node_modules/**
+
+**/.vscode/**

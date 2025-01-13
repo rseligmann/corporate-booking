@@ -1,0 +1,35 @@
+.auth-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-color);
+
+  &__header {
+    padding: 24px 32px;
+    width: 100%;
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+  }
+
+  &__logo-text {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  &__main {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;  /* Changed from center to flex-start */
+    justify-content: center;
+    padding: 80px 24px;  /* Increased top padding from 24px to 80px */
+  }
+
+  &__container {
+    width: 100%;
+    max-width: 420px;
+  }
+}
