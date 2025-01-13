@@ -1,0 +1,75 @@
+.login {
+    width: 100%;
+
+    &__card {
+        background: var(--bg-card);
+        border-radius: 8px;
+        padding: 42px;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    &__header {
+        text-align: left;
+        margin-bottom: 32px;
+    }
+
+    &__title {
+        color: rgba(60, 66, 97, 1);
+        margin-bottom: 8px;
+    }
+
+    &__subtitle {
+        color: var(--text-secondary);
+    }
+
+    &__link {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        margin-bottom: 24px;
+    }
+
+    &__input-group {
+        position: relative;
+    }
+
+    &__forgot-link {
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: 14px;
+        color: var(--primary-color);
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    &__submit {
+        width: 100%;
+        height: 40px;
+    }
+
+    &__error {
+        padding: 12px;
+        background-color: var(--danger-light);
+        border-radius: 4px;
+        border: 1px solid var(--danger-color);
+    }
+
+    &__footer {
+        text-align: center;
+        margin-top: 16px;
+    }
+}
