@@ -1,7 +1,8 @@
+import { FC } from 'react'; 
 import { Helmet } from 'react-helmet-async';
 import Reports from '@/features/reports/reports'
 
-function ReportsPage() {
+export const ReportsPage: FC = () => {
   return (
     <>
       <Helmet>

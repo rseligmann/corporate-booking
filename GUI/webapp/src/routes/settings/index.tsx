@@ -1,7 +1,8 @@
+import { FC } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Settings from '@/features/settings/settings'
 
-function SettingsPage() {
+export const SettingsPage: FC = () => {
   return (
     <>
       <Helmet>
@@ -12,5 +13,3 @@ function SettingsPage() {
     </>
   );
 }
-
-export default SettingsPage;
