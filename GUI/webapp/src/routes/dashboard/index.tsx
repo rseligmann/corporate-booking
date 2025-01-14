@@ -1,7 +1,8 @@
+import { FC } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Dashboard from '@/features/dashboard/dashboard'
 
-function DashboardPage() {
+export const DashboardPage: FC = () => {
   return (
     <>
       <Helmet>
@@ -12,5 +13,3 @@ function DashboardPage() {
     </>
   );
 }
-
-export default DashboardPage;
