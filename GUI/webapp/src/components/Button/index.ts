@@ -1,2 +1,2 @@
-export { default } from './Button';
-export type { ButtonProps, ButtonSize, ButtonVariant } from './Button';
+export { default } from '../ui/button';
+export type { ButtonProps, ButtonSize, ButtonVariant } from '../ui/button';
