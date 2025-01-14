@@ -1,17 +1,19 @@
 import React from 'react';
+import { Outlet } from 'react-router-dom';
 import '.../layouts/TravelMgrLayout/layout.scss';
 import "./globals.scss";
+import { RequireAuth } from '@/features/auth/RequireAuth';
 
-interface LayoutProps {
-    children: React.ReactNode;
-}
 
-export const TravelMgrLayout: React.FC<LayoutProps> = ({ children }) => {
+const TravelMgrLayout: React.FC = () => {
     return (
-        <div className="root-layout">
-            {children}
-        </div>
+        <RequireAuth>
+            <div className="root-layout">
+                <Outlet />
+            </div>
+        </RequireAuth>
     );
+        
 }
 
 export default TravelMgrLayout;
