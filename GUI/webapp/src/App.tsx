@@ -1,6 +1,6 @@
 import { FC } from "react"
 import { Routes, Route } from "react-router-dom"
-import { DefaultLayout } from "@/layouts/DefaultLayout"
+//import { DefaultLayout } from "@/layouts/DefaultLayout"
 import { AuthLayout } from "@/layouts/AuthLayout"
 import { Login } from "@/routes/login"
 import { RequireAuth } from "@/features/auth/RequireAuth"
@@ -21,22 +21,19 @@ const App: FC = () => {
                 {/* Add other auth routes like register, forgot-password here */}
             </Route>
             
-            {/* Protected routes */}
-            <Route
+            {/* routes with TravelMgrLayout only*/}
+            <Route 
                 path="/"
-                element={
-                    <RequireAuth>
-                        <DefaultLayout />
-                    </RequireAuth>
+                element = {
+                <RequireAuth>
+                    <TravelMgrLayout />
+                </RequireAuth>
                 }
             >
-                <Route element={<TravelMgrLayout />}>
-                 <Route path="/dashboard" element={<DashboardPage />} />
-                 <Route path="invite" element={<GuestInvitePage />} />
-                 <Route path="reports" element={<ReportsPage />} />
-                 <Route path="settings" element={<SettingsPage />} /> 
-                </Route>
-                
+                <Route path="/dashboard" element={<DashboardPage />} />
+                <Route path="/invite" element={<GuestInvitePage />} />
+                <Route path="/reports" element={<ReportsPage />} />
+                <Route path="/settings" element={<SettingsPage />} />
             </Route>
         </Routes>
     )

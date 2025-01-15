@@ -1,0 +1,131 @@
+// Variables
+$primary-color: var(--primary, #1f2937);
+$primary-foreground: var(--primary-foreground, #ffffff);
+$destructive-color: var(--destructive, #ef4444);
+$destructive-foreground: var(--destructive-foreground, #ffffff);
+$secondary-color: var(--secondary, #f3f4f6);
+$secondary-foreground: var(--secondary-foreground, #1f2937);
+$accent-color: var(--accent, #f3f4f6);
+$accent-foreground: var(--accent-foreground, #1f2937);
+$background-color: var(--background, #ffffff);
+$input-border: var(--input, #e5e7eb);
+$ring-color: var(--ring, #1f2937);
+
+// Base button styles
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+
+    &:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 1px $ring-color;
+    }
+
+    &:disabled {
+        pointer-events: none;
+        opacity: 0.5;
+    }
+
+    // SVG styles
+    svg {
+        pointer-events: none;
+        width: 1rem;
+        height: 1rem;
+        flex-shrink: 0;
+    }
+}
+
+// Variants
+.btn--default {
+    background-color: $primary-color;
+    color: $primary-foreground;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+
+    &:hover {
+        background-color: rgba($primary-color, 0.9);
+    }
+}
+
+.btn--destructive {
+    background-color: $destructive-color;
+    color: $destructive-foreground;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+
+    &:hover {
+        background-color: rgba($destructive-color, 0.9);
+    }
+}
+
+.btn--outline {
+    border: 1px solid $input-border;
+    background-color: $background-color;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+
+    &:hover {
+        background-color: $accent-color;
+        color: $accent-foreground;
+    }
+}
+
+.btn--secondary {
+    background-color: $secondary-color;
+    color: $secondary-foreground;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+
+    &:hover {
+        background-color: rgba($secondary-color, 0.8);
+    }
+}
+
+.btn--ghost {
+    &:hover {
+        background-color: $accent-color;
+        color: $accent-foreground;
+    }
+}
+
+.btn--link {
+    color: $primary-color;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+// Sizes
+.btn--default {
+    height: 2.25rem; // h-9
+    padding: 0.5rem 1rem;
+}
+
+.btn--sm {
+    height: 2rem; // h-8
+    padding: 0 0.75rem;
+    font-size: 0.75rem;
+}
+
+.btn--lg {
+    height: 2.5rem; // h-10
+    padding: 0 2rem;
+}
+
+.btn--icon {
+    height: 2.25rem; // h-9
+    width: 2.25rem; // w-9
+    padding: 0;
+}
+
+// Focus styles for all buttons
+button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 1px $ring-color;
+}
