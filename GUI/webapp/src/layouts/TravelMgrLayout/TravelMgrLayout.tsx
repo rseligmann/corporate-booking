@@ -1,15 +1,15 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import '.../layouts/TravelMgrLayout/layout.scss';
-import "./globals.scss";
+import "./global.scss";
 import { RequireAuth } from '@/features/auth/RequireAuth';
+import AppLayout from './app-layout';
 
 
 const TravelMgrLayout: React.FC = () => {
     return (
         <RequireAuth>
             <div className="root-layout">
-                <Outlet />
+               <AppLayout><Outlet /></AppLayout> 
             </div>
         </RequireAuth>
     );
