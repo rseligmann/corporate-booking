@@ -1,2 +1,2 @@
-export * from '../ui/form';
-export { Form as default } from '../ui/form';
+export * from './form';
+export { Form as default } from './form';

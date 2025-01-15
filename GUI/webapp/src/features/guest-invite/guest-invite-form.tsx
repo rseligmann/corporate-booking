@@ -9,7 +9,7 @@ import { GuestDetailsForm } from './GuestDetailsForm'
 import { ItineraryForm } from './ItineraryForm'
 import { PreferencesForm } from './PreferencesForm'
 import { ReviewForm } from './ReviewForm'
-import { createGuestInvite } from '@/api/api'
+//import { createGuestInvite } from '@/api/api'
 
 const GuestInvite: React.FC = () => {
   const { state, setCurrentStep } = useGuestInviteState();
@@ -31,7 +31,9 @@ const GuestInvite: React.FC = () => {
     }
   };
 
-  const handleSendInvite = async () => {
+  //add logic to submit guest invite
+
+  /*const handleSendInvite = async () => {
     try {
       await createGuestInvite(state)
       // Handle success (e.g., show a success message, redirect)
@@ -43,7 +45,7 @@ const GuestInvite: React.FC = () => {
       alert('Error sending invite. Please try again later.'); //Example error handling
 
     }
-  }
+  }*/
 
   return (
     <div className="min-h-screen bg-gray-50 p-8">
@@ -86,8 +88,11 @@ const GuestInvite: React.FC = () => {
               </Button>
             ) : (
               <Button
-                onClick={handleSendInvite}
-                className="bg-blue-600 text-white"
+                
+              // send guest invite on click
+              //onClick={handleSendInvite}
+               
+              className="bg-blue-600 text-white"
               >
                 <span>Send Invite</span>
               </Button>

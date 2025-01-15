@@ -1,6 +1,6 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3000/api'
+/*const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3000/api'
 
-async function handleApiError(error: unknown, context: string) {
+//async function handleApiError(error: unknown, context: string) {
   console.error(`Error in ${context}:`, error)
   if (error instanceof Error) {
     console.error('Error message:', error.message)
@@ -22,7 +22,7 @@ export const fetchTrips = async () => {
   }
 }
 
-export const createGuestInvite = async (inviteData: any) => {
+//export const createGuestInvite = async (inviteData: any) => {
   try {
     const response = await fetch(`${API_BASE_URL}/guest-invite`, {
       method: 'POST',
@@ -52,4 +52,4 @@ export const checkApiConnection = async () => {
   }
 }
 
-// Add more API functions as needed
+// Add more API functions as needed */
