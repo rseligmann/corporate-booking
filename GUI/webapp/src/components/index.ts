@@ -12,17 +12,17 @@ export type {
     TextVariant,
 } from "./Text/Text"
 
-// Button exports
-export { Button } from "./ui/Button/button"
-export type { ButtonProps } from "./ui/Button/button"
+//Button exports
+export { default as Button} from "./Button2"
+//export type { ButtonProps } from "./Button/button"
 
 // Input exports
-export { Input } from "./Input"
-export type { InputProps } from "./Input"
+export { Input} from "./Input2"
+//export type { InputProps } from "./Input"
 
 // Form exports
-export { Form } from "./Form"
-export type { FormProps } from "./Form"
+//export { Form } from "./Form"
+//export type { FormProps } from "./Form"
 
 // Spinner exports
 export { Spinner } from "./Spinner"

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import './ReportsLayout.scss';
+//import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/Card/card";
 
 interface ReportsLayoutProps {
   children: React.ReactNode;
@@ -7,11 +8,11 @@ interface ReportsLayoutProps {
 
 export const ReportsLayout: React.FC<ReportsLayoutProps> = ({ children }) => {
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
-      <div className="max-w-6xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-800">Reports</h1>
-          <p className="text-gray-600">Track and analyze your travel expenses</p>
+    <div className="reports-layout">
+      <div className="reports-layout__container">
+        <div className="reports-layout__header">
+          <h1 className="reports-layout__title">Reports</h1>
+          <p className="reports-layout__subtitle">Track and analyze your travel expenses</p>
         </div>
         {children}
       </div>

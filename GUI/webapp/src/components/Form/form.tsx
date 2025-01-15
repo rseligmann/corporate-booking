@@ -1,5 +1,8 @@
-import { FormEvent, forwardRef } from 'react';
-import { Input, Text, Button } from '@/components';
+/* import { FormEvent, forwardRef } from 'react';
+import  Button  from "@/components/Button/button"
+import  Input from "@/components/Input/input"
+import { Text } from '@/components';
+
 import './Form.scss';
 
 export type FormSize = 'sm' | 'md' | 'lg';
@@ -128,3 +131,4 @@ export const Form = forwardRef<HTMLFormElement, FormProps>(
 );
 
 Form.displayName = 'Form';
+*/
