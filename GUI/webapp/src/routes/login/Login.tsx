@@ -56,7 +56,7 @@ export const Login: FC = () => {
                         <Input
                             type="email"
                             label="Email"
-                            size="md"
+                            size="sm"
                             value={email}
                             onChange={e => setEmail(e.target.value)}
                             placeholder=""
@@ -68,17 +68,19 @@ export const Login: FC = () => {
                         <Input
                             type="password"
                             label="Password"
-                            size="md"
+                            size="sm"
                             value={password}
                             onChange={e => setPassword(e.target.value)}
                             required
                         />
-                        <a
-                            href="/forgot-password"
-                            className="login__forgot-link"
-                        >
-                            Forgot password?
-                        </a>
+                        <Text size="sm">
+                            <a
+                                href="/forgot-password"
+                                className="login__forgot-link"
+                            >
+                                Forgot password?
+                            </a>
+                        </Text>
                     </div>
 
                     <Button

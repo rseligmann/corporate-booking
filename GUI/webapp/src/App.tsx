@@ -14,7 +14,7 @@ const App: FC = () => {
                 <Route path="/login" element={<Login />} />
                 {/* Add other auth routes like register, forgot-password here */}
             </Route>
-            
+
             {/* Protected routes */}
             <Route
                 path="/"
