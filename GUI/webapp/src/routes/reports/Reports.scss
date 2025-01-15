@@ -1,0 +1,154 @@
+.trip-details {
+    // ... (previous styles remain the same)
+
+    &__status {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 9999px;
+        font-size: 12px;
+        margin-top: 4px;
+
+        &--completed {
+            background-color: #dcfce7;
+            color: #15803d;
+        }
+
+        &--in-progress {
+            background-color: #dbeafe;
+            color: #2563eb;
+        }
+
+        &--upcoming {
+            background-color: #fef9c3;
+            color: #854d0e;
+        }
+    }
+
+    &__meta {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        font-size: 14px;
+        color: #6b7280;
+    }
+
+    &__dates,
+    &__location {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    &__icon {
+        width: 16px;
+        height: 16px;
+        color: #6b7280;
+    }
+
+    &__view-more {
+        margin-top: 16px;
+        color: #2563eb;
+        font-size: 14px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        transition: color 0.2s ease;
+
+        &:hover {
+            color: #1e40af;
+        }
+    }
+}
+
+// Spending Overview Chart Styles
+.reports {
+    &__spending {
+        margin-bottom: 24px;
+    }
+
+    &__chart {
+        .recharts-cartesian-grid-horizontal line,
+        .recharts-cartesian-grid-vertical line {
+            stroke: #e5e7eb;
+        }
+
+        .recharts-tooltip-wrapper {
+            .recharts-default-tooltip {
+                background-color: #ffffff !important;
+                border: 1px solid #e5e7eb !important;
+                border-radius: 6px;
+                padding: 8px 12px !important;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        .recharts-xAxis,
+        .recharts-yAxis {
+            .recharts-text {
+                fill: #6b7280;
+                font-size: 12px;
+            }
+        }
+    }
+
+    // Filter Buttons
+    &__filter-button,
+    &__export-button {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.2s ease;
+
+        &:hover {
+            background-color: #f3f4f6;
+        }
+    }
+
+    // Responsive adjustments
+    @media (max-width: 768px) {
+        &__filters {
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        &__filters-left {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        &__search {
+            width: 100%;
+        }
+
+        &__export-button {
+            width: 100%;
+            justify-content: center;
+        }
+
+        &__meta {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 640px) {
+        &__tabs {
+            gap: 16px;
+        }
+
+        &__chart {
+            height: 240px;
+        }
+
+        .trip-details {
+            &__header {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            &__cost {
+                text-align: left;
+            }
+        }
+    }
+}

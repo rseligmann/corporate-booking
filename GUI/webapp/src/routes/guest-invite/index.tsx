@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Helmet } from 'react-helmet-async';
-import GuestInvite from '@/features/guest-invite/guest-invite-form'
+import GuestInvite from '@/routes/guest-invite/GuestInvite'
 
 export const GuestInvitePage: FC = () => {
   return (
@@ -13,3 +13,5 @@ export const GuestInvitePage: FC = () => {
     </>
   );
 }
+
+export default GuestInvitePage;

@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { LayoutDashboard, UserPlus, FileText, Settings, Bell } from 'lucide-react'
-import { Button } from "@/components/ui/Button/button"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import  Button  from "@/components/Button/button"
+import { Avatar } from "../../components/Avatar/avatar"
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
     const location = useLocation()
@@ -53,9 +53,9 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
                 <Bell className="h-5 w-5" />
                 <span className="sr-only">Notifications</span>
               </Button>
-              <Avatar>
-                <AvatarFallback>SA</AvatarFallback>
-              </Avatar>
+
+                <Avatar fallback = "SA"/>
+
             </div>
           </div>
         </div>

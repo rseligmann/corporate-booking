@@ -1,0 +1,57 @@
+.guest-invite {
+    min-height: 100vh;
+    background-color: #f9fafb;
+    padding: 32px;
+  
+    &__container {
+      max-width: 896px;
+      margin: 0 auto;
+    }
+  
+    &__header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+  
+    &__title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1f2937;
+    }
+  
+    &__content {
+      padding: 24px;
+    }
+  
+    &__actions {
+      margin-top: 32px;
+      display: flex;
+      justify-content: space-between;
+    }
+  
+    &__primary-action {
+      margin-left: auto;
+    }
+  }
+  
+  .back-button {
+    padding: 8px;
+    border-radius: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #4b5563;
+    transition: background-color 0.2s ease;
+  
+    &:hover {
+      background-color: #f3f4f6;
+    }
+  }
+  
+  .continue-icon {
+    margin-left: 8px;
+    height: 16px;
+    width: 16px;
+  }

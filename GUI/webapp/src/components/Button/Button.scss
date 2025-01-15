@@ -1,0 +1,78 @@
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+  
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  
+    // Variants
+    &--primary {
+      background-color: #0070f3;
+      color: white;
+  
+      &:hover:not(:disabled) {
+        background-color: #0061d9;
+      }
+    }
+  
+    &--secondary {
+      background-color: #666666;
+      color: white;
+  
+      &:hover:not(:disabled) {
+        background-color: #555555;
+      }
+    }
+  
+    &--outline {
+      background-color: transparent;
+      border: 1px solid #d1d5db;
+      color: #374151;
+  
+      &:hover:not(:disabled) {
+        background-color: #f3f4f6;
+      }
+    }
+  
+    &--ghost {
+      background-color: transparent;
+      color: #374151;
+  
+      &:hover:not(:disabled) {
+        background-color: #f3f4f6;
+      }
+    }
+  
+    // Sizes
+    &--icon {
+        padding: 16px 16px;
+        font-size: 14px;
+      }
+
+    &--sm {
+      padding: 6px 12px;
+      font-size: 14px;
+    }
+  
+    &--md {
+      padding: 8px 16px;
+      font-size: 16px;
+    }
+  
+    &--lg {
+      padding: 12px 24px;
+      font-size: 18px;
+    }
+  
+    &--full-width {
+      width: 100%;
+    }
+  }
