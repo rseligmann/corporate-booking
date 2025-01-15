@@ -13,8 +13,8 @@ export type {
 } from "./Text/Text"
 
 // Button exports
-export { Button } from "./ui/button"
-export type { ButtonProps } from "./ui/button"
+export { Button } from "./ui/Button/button"
+export type { ButtonProps } from "./ui/Button/button"
 
 // Input exports
 export { Input } from "./Input"

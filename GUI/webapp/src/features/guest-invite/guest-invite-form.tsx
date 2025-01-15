@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate}  from 'react-router-dom'
 import { ChevronRight, ArrowLeft } from 'lucide-react'
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/Button/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { ProgressBar } from './ProgressBar'
 import { useGuestInviteState } from '@/api/hooks/useGuestInviteState'

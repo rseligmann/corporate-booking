@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { LayoutDashboard, UserPlus, FileText, Settings, Bell } from 'lucide-react'
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/Button/button"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
