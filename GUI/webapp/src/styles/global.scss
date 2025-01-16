@@ -1,4 +1,13 @@
+// Reset
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
 /* Font faces */
+
 @font-face {
   font-family: 'Geist Sans';
   src: url('../fonts/GeistVF.woff') format('woff');
@@ -13,34 +22,78 @@
   font-display: swap;
 }
 
-/* Root variables */
+/* Root variables
 :root {
   --font-geist-sans: 'Geist Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   --font-geist-mono: 'Geist Mono', 'SF Mono', SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas, monospace;
-}
+} */
 
-/* Base styles */
-html {
-  font-family: var(--font-geist-sans);
-}
-
+// Base styles
 body {
-  margin: 0;
+  font-family: 'Geist Sans', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #fff;
+  color: #111827;
+}
+
+// Theme colors
+:root {
+  // Base colors
+  --color-primary: #0070f3;
+  --color-secondary: #666666;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+
+  // Background colors
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f9fafb;
+  --color-bg-tertiary: #f3f4f6;
+  
+  // Text colors
+  --color-text-primary: #111827;
+  --color-text-secondary: #374151;
+  --color-text-muted: #6b7280;
+  
+  // Border colors
+  --color-border: #e5e7eb;
+  --color-border-light: #f3f4f6;
+  
+  // Chart colors
+  --color-chart-1: #f87171;
+  --color-chart-2: #34d399;
+  --color-chart-3: #60a5fa;
+  --color-chart-4: #fcd34d;
+  --color-chart-5: #a78bfa;
+}
+
+// Dark mode (optional)
+/*@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg-primary: #1f2937;
+    --color-bg-secondary: #111827;
+    --color-bg-tertiary: #374151;
+    
+    --color-text-primary: #f9fafb;
+    --color-text-secondary: #e5e7eb;
+    --color-text-muted: #9ca3af;
+    
+    --color-border: #374151;
+    --color-border-light: #4b5563;
+  }
+}*/
+
+// Utility classes
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
   padding: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* Utility classes */
-.antialiased {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.font-mono {
-  font-family: var(--font-geist-mono);
-}
-
-.font-sans {
-  font-family: var(--font-geist-sans);
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

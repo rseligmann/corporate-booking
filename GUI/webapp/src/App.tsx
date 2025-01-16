@@ -6,10 +6,11 @@ import { Login } from "@/routes/login"
 import { RequireAuth } from "@/features/auth/RequireAuth"
 
 import { DashboardPage } from "@/routes/dashboard"
-import { GuestInvitePage } from "@/routes/guest-invite"
+import { GuestInvitePage } from "@/routes/guestinvite"
 import { ReportsPage } from "@/routes/reports"
 import { SettingsPage } from "@/routes/settings"
 import "~/styles/App.scss"
+import "~/styles/global.scss"
 import TravelMgrLayout from "./layouts/TravelMgrLayout/TravelMgrLayout"
 
 const App: FC = () => {
