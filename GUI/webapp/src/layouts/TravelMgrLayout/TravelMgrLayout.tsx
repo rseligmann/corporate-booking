@@ -1,8 +1,9 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import "./global.scss";
+import "./TravelMgrLayout.scss";
 //import { RequireAuth } from '@/features/auth/RequireAuth';
-import AppLayout from './app-layout';
+import AppLayout from './AppLayout/AppLayout';
+import './TravelMgrLayout.scss';
 
 
 const TravelMgrLayout: React.FC = () => {
