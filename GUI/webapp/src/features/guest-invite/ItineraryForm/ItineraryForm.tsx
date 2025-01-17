@@ -1,5 +1,5 @@
 import React from 'react';
-import  Input  from "@/components/Input/input";
+import { Input } from "@/components/Input"; 
 import { Label } from "@/components/Label/label";
 import { useGuestInviteState } from '@/api/hooks/useGuestInviteState';
 import { EstimatedBudget } from '../EstimatedBudget/EstimatedBudget';

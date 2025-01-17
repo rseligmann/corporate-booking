@@ -81,15 +81,15 @@ const GuestInvite: React.FC = () => {
             <div className="guest-invite__primary-action">
               {state.currentStep < totalSteps ? (
                 <Button
-                  variant="primary"
+                  variant="default"
                   onClick={() => setCurrentStep(state.currentStep + 1)}
                 >
                   <span>Continue</span>
-                  <ChevronRight className="continue-icon" />
+                  <ChevronRight className="guest-invite__action-icon" />
                 </Button>
               ) : (
                 <Button
-                  variant="primary"
+                  variant="default"
                   //onClick={handleSendInvite}
                 >
                   <span>Send Invite</span>

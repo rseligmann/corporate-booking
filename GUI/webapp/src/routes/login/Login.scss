@@ -1,75 +1,53 @@
 .login {
     width: 100%;
-
+    
     &__card {
-        background: var(--bg-card);
-        border-radius: 8px;
-        padding: 42px;
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+      background-color: var(--color-card);
+      border-radius: var(--radius);
+      border: 1px solid var(--color-border);
+      padding: var(--space-8);
+      box-shadow: var(--shadow-md);
     }
-
-    &__header {
-        text-align: left;
-        margin-bottom: 32px;
-    }
-
+    
     &__title {
-        color: rgba(60, 66, 97, 1);
-        margin-bottom: 8px;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--color-foreground);
+      margin-bottom: var(--space-6);
     }
-
-    &__subtitle {
-        color: var(--text-secondary);
-    }
-
-    &__link {
-        color: var(--primary-color);
-        text-decoration: none;
-        font-weight: 500;
-
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-
+    
     &__form {
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
-        margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
     }
-
-    &__input-group {
-        position: relative;
+    
+    &__field {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
     }
-
-    &__forgot-link {
-        position: absolute;
-        top: 0;
-        right: 0;
-        font-size: 12px;
-        color: var(--primary-color);
-        text-decoration: none;
-
-        &:hover {
-            text-decoration: underline;
-        }
+    
+    &__label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--color-foreground);
     }
-
-    &__submit {
-        width: 100%;
-        height: 40px;
-    }
-
-    &__error {
-        padding: 12px;
-        background-color: var(--danger-light);
-        border-radius: 4px;
-        border: 1px solid var(--danger-color);
-    }
-
+    
     &__footer {
-        text-align: center;
-        margin-top: 16px;
+      margin-top: var(--space-6);
+      text-align: center;
+      font-size: 0.875rem;
+      color: var(--color-muted-foreground);
     }
-}
+    
+    &__link {
+      color: var(--color-primary);
+      text-decoration: none;
+      font-weight: 500;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }

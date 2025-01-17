@@ -1,5 +1,5 @@
 import React from 'react';
-import  Input from "@/components/Input/input";
+import { Input } from "@/components/Input"; 
 import { Label } from "@/components/Label/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/Select/select";
 import { useGuestInviteState } from '@/api/hooks/useGuestInviteState';

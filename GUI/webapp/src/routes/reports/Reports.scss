@@ -1,154 +1,213 @@
-.trip-details {
-    // ... (previous styles remain the same)
-
-    &__status {
-        display: inline-block;
-        padding: 4px 8px;
-        border-radius: 9999px;
-        font-size: 12px;
-        margin-top: 4px;
-
-        &--completed {
-            background-color: #dcfce7;
-            color: #15803d;
+.reports-container {
+    .tabs-container {
+      border-bottom: 1px solid #e5e7eb;
+      
+      nav {
+        display: flex;
+        > * + * {
+          margin-left: 2rem;
         }
+        //gap: 2rem;
+      }
+  
+      .tab-button {
+        padding: 0.25rem 1rem;
+        padding-top: 1rem;      
+        padding-bottom: 1rem; 
+        font-size: 0.875rem;
+        font-weight: 500;
+        border-width: 0 0 2px 0;
+        border-style: solid;
+        //color: #6b7280;
 
-        &--in-progress {
-            background-color: #dbeafe;
-            color: #2563eb;
-        }
+        &:not(.active) {
+            border-color: transparent;
+            color: #6b7280;
 
-        &--upcoming {
-            background-color: #fef9c3;
-            color: #854d0e;
+            &:hover {
+                color: #374151;
+                border-color: #d1d5db;
+            }
         }
+        
+        &.active {
+          color: #2563eb;
+          border-bottom-color: #2563eb;
+        }
+        
+      }
     }
-
-    &__meta {
+  
+    .filters-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 1.5rem 0;
+  
+      .search-filters {
+        display: flex;
+        gap: 1rem;
+      }
+  
+      .search-wrapper {
+        position: relative;
+  
+        .search-icon {
+          position: absolute;
+          left: 0.75rem;
+          top: 0.625rem;
+          width: 1rem;
+          height: 1rem;
+          color: #6b7280;
+        }
+  
+        .search-input {
+          padding-left: 2.25rem;
+          padding-right: 1rem;
+          width: 16rem;
+        }
+      }
+  
+      .date-filter {
+        padding: 0.5rem 1rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
+        background-color: white;
+      }
+  
+      .filter-button,
+      .export-button {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+  
+        .icon {
+          width: 1rem;
+          height: 1rem;
+        }
+      }
+    }
+  
+    .trip-details {
+      padding: 1rem;
+      border-bottom: 1px solid #e5e7eb;
+      
+      &:last-child {
+        border-bottom: none;
+      }
+  
+      .trip-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 1rem;
+  
+        .guest-info {
+          display: flex;
+          align-items: flex-start;
+          gap: 0.75rem;
+  
+          .avatar {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 9999px;
+            background-color: #dbeafe;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            span {
+              color: #2563eb;
+              font-weight: 500;
+            }
+          }
+  
+          .guest-details {
+            .guest-name {
+              font-weight: 500;
+            }
+  
+            .guest-email {
+              font-size: 0.875rem;
+              color: #6b7280;
+            }
+  
+            .guest-type {
+              display: inline-block;
+              padding: 0.25rem 0.5rem;
+              font-size: 0.875rem;
+              background-color: #dbeafe;
+              color: #2563eb;
+              border-radius: 9999px;
+              margin-top: 0.25rem;
+            }
+          }
+        }
+  
+        .trip-cost {
+          text-align: right;
+  
+          .cost-amount {
+            font-weight: 500;
+            color: #111827;
+          }
+  
+          .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+            border-radius: 9999px;
+            margin-top: 0.25rem;
+  
+            &.completed {
+              background-color: #dcfce7;
+              color: #16a34a;
+            }
+  
+            &.pending {
+              background-color: #dbeafe;
+              color: #2563eb;
+            }
+          }
+        }
+      }
+  
+      .trip-metadata {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-        font-size: 14px;
-        color: #6b7280;
-    }
-
-    &__dates,
-    &__location {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    &__icon {
-        width: 16px;
-        height: 16px;
-        color: #6b7280;
-    }
-
-    &__view-more {
-        margin-top: 16px;
+        gap: 1rem;
+        font-size: 0.875rem;
+        color: #4b5563;
+  
+        .metadata-item {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+  
+          .icon {
+            width: 1rem;
+            height: 1rem;
+          }
+        }
+      }
+  
+      .view-details {
+        margin-top: 1rem;
         color: #2563eb;
-        font-size: 14px;
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 0;
-        transition: color 0.2s ease;
-
+        font-size: 0.875rem;
+        
         &:hover {
-            color: #1e40af;
+          color: #1d4ed8;
         }
+      }
     }
-}
-
-// Spending Overview Chart Styles
-.reports {
-    &__spending {
-        margin-bottom: 24px;
+  
+    .chart-container {
+      height: 18rem;
     }
-
-    &__chart {
-        .recharts-cartesian-grid-horizontal line,
-        .recharts-cartesian-grid-vertical line {
-            stroke: #e5e7eb;
-        }
-
-        .recharts-tooltip-wrapper {
-            .recharts-default-tooltip {
-                background-color: #ffffff !important;
-                border: 1px solid #e5e7eb !important;
-                border-radius: 6px;
-                padding: 8px 12px !important;
-                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            }
-        }
-
-        .recharts-xAxis,
-        .recharts-yAxis {
-            .recharts-text {
-                fill: #6b7280;
-                font-size: 12px;
-            }
-        }
-    }
-
-    // Filter Buttons
-    &__filter-button,
-    &__export-button {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        transition: all 0.2s ease;
-
-        &:hover {
-            background-color: #f3f4f6;
-        }
-    }
-
-    // Responsive adjustments
-    @media (max-width: 768px) {
-        &__filters {
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        &__filters-left {
-            flex-direction: column;
-            width: 100%;
-        }
-
-        &__search {
-            width: 100%;
-        }
-
-        &__export-button {
-            width: 100%;
-            justify-content: center;
-        }
-
-        &__meta {
-            grid-template-columns: 1fr;
-        }
-    }
-
-    @media (max-width: 640px) {
-        &__tabs {
-            gap: 16px;
-        }
-
-        &__chart {
-            height: 240px;
-        }
-
-        .trip-details {
-            &__header {
-                flex-direction: column;
-                gap: 12px;
-            }
-
-            &__cost {
-                text-align: left;
-            }
-        }
-    }
-}
+  }
+  
+  .spending-card {
+    margin-bottom: 1.5rem;
+  }

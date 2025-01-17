@@ -9,7 +9,7 @@ import {
 } from "@/components/Card/card"
 import { Alert } from "@/components/Alert/alert"
 import Button from "@/components/Button/button"
-import Input from "@/components/Input/input"
+import { Input } from "@/components/Input"; 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/Select/select"
 import { Checkbox } from "@/components/Checkbox/checkbox"
 //import { GuestType, PreferenceCardProps, defaultPreferences } from '@/features/settings/types'
@@ -194,7 +194,7 @@ const Settings = () => {
           </div>
           <Button
             onClick={handleSave}
-            variant="primary"
+            variant="default"
             className="settings__save-button"
           >
             <Save size={20} />

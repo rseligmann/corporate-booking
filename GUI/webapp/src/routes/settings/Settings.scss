@@ -41,6 +41,12 @@
       flex-direction: column;
       gap: 24px;
     }
+    
+    &__save-button {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
   }
   
   .guest-types {

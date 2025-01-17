@@ -1,17 +1,13 @@
 import { FC } from "react"
 import { Routes, Route } from "react-router-dom"
-//import { DefaultLayout } from "@/layouts/DefaultLayout"
-import { AuthLayout } from "@/layouts/AuthLayout"
+import AuthLayout from "@/layouts/AuthLayout/AuthLayout"
+import { DefaultLayout } from "@/layouts/DefaultLayout"
 import { Login } from "@/routes/login"
 import { RequireAuth } from "@/features/auth/RequireAuth"
-
 import { DashboardPage } from "@/routes/dashboard"
 import { GuestInvitePage } from "@/routes/guestinvite"
 import { ReportsPage } from "@/routes/reports"
 import { SettingsPage } from "@/routes/settings"
-import "~/styles/App.scss"
-import "~/styles/global.scss"
-import TravelMgrLayout from "./layouts/TravelMgrLayout/TravelMgrLayout"
 
 const App: FC = () => {
     return (
@@ -21,18 +17,15 @@ const App: FC = () => {
                 <Route path="/login" element={<Login />} />
                 {/* Add other auth routes like register, forgot-password here */}
             </Route>
-            
-            {/* routes with TravelMgrLayout only*/}
-            <Route 
-                path="/"
-                element = {
+
+            {/* Protected routes */}
+            <Route element={
                 <RequireAuth>
-                    <TravelMgrLayout />
+                    <DefaultLayout />
                 </RequireAuth>
-                }
-            >
+            }>
                 <Route path="/dashboard" element={<DashboardPage />} />
-                <Route path="/invite" element={<GuestInvitePage />} />
+                <Route path="/guest-invite" element={<GuestInvitePage />} />
                 <Route path="/reports" element={<ReportsPage />} />
                 <Route path="/settings" element={<SettingsPage />} />
             </Route>

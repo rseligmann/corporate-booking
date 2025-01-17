@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/Card/card
 import { Label } from "@/components/Label/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/Select/select";
 import { Checkbox } from "@/components/Checkbox/checkbox";
-import Input from "@/components/Input/input";
+import { Input } from "@/components/Input"; 
 import { useGuestInviteState } from '@/api/hooks/useGuestInviteState';
 import { EstimatedBudget } from '../EstimatedBudget/EstimatedBudget';
 import './PreferencesForm.scss';

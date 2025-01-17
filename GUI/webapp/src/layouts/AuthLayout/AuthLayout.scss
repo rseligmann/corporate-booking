@@ -1,35 +1,35 @@
 .auth-layout {
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background-color: var(--bg-color);
-
+    background-color: var(--color-background);
+    
     &__header {
-        padding: 24px 32px;
-        width: 100%;
+      background-color: var(--color-card);
+      padding: var(--space-6);
+      border-bottom: 1px solid var(--color-border);
     }
-
-    &__logo {
-        display: flex;
-        align-items: center;
-    }
-
-    &__logo-text {
-        font-size: 24px;
-        font-weight: 600;
-        color: var(--text-primary);
-    }
-
-    &__main {
-        flex: 1;
-        display: flex;
-        align-items: flex-start; /* Changed from center to flex-start */
-        justify-content: center;
-        padding: 40px 24px; /* Increased top padding from 24px to 80px */
-    }
-
+    
     &__container {
-        width: 100%;
-        max-width: 380px;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-4);
     }
-}
+    
+    &__logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-foreground);
+    }
+    
+    &__main {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 73px); // Full height minus header
+      padding: var(--space-8);
+      
+      .auth-layout__container {
+        max-width: 400px;
+      }
+    }
+  }

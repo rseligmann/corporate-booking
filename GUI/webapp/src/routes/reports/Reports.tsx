@@ -1,7 +1,7 @@
 import React from 'react'
 import { Filter, Search, Calendar, Download, MapPin } from 'lucide-react'
 import Button from "@/components/Button/button"
-import Input from "@/components/Input/input"
+import { Input } from "@/components/Input"; 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/Card/card"
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import { ReportsLayout } from '@/layouts//ReportsLayout/ReportsLayout'
@@ -9,40 +9,40 @@ import { QuickStats } from '@/features/reports/QuickStats/QuickStats'
 import { useReportsState, TripData } from '@/api/hooks/useReportsState'
 import './Reports.scss';
 
-const Reports: React.FC = () => {
+const ReportsPage: React.FC = () => {
   const { state, setActiveTab, setDateFilter } = useReportsState();
 
   const renderTripDetails = (trip: TripData) => (
     <div key={trip.id} className="trip-details">
-      <div className="trip-details__header">
-        <div className="trip-details__guest">
-          <div className="trip-details__avatar">
+      <div className="trip-header">
+        <div className="guest-info">
+          <div className="avatar">
             <span>{trip.guest.name.split(' ').map(n => n[0]).join('')}</span>
           </div>
-          <div className="trip-details__guest-info">
-            <div className="trip-details__guest-name">{trip.guest.name}</div>
-            <div className="trip-details__guest-email">{trip.guest.email}</div>
-            <span className="trip-details__guest-type">{trip.guest.type}</span>
+          <div className="guest-details">
+            <div className="guest-name">{trip.guest.name}</div>
+            <div className="guest-email">{trip.guest.email}</div>
+            <span className="guest-type">{trip.guest.type}</span>
           </div>
         </div>
-        <div className="trip-details__cost">
-          <div className="trip-details__cost-value">${trip.cost}</div>
-          <span className={`trip-details__status trip-details__status--${trip.status.toLowerCase()}`}>
+        <div className="trip-cost">
+          <div className="cost-amount">${trip.cost}</div>
+          <span className={`status-badge ${trip.status.toLowerCase()}`}>
             {trip.status}
           </span>
         </div>
       </div>
-      <div className="trip-details__meta">
-        <div className="trip-details__dates">
-          <Calendar className="trip-details__icon" />
+      <div className="trip-metadata">
+        <div className="metadata-item">
+          <Calendar className="icon" />
           <span>{trip.dates.start} - {trip.dates.end}</span>
         </div>
-        <div className="trip-details__location">
-          <MapPin className="trip-details__icon" />
+        <div className="metadata-item">
+          <MapPin className="icon" />
           <span>{trip.origin} → {trip.destination}</span>
         </div>
       </div>
-      <button className="trip-details__view-more">
+      <button className="view-details">
         View Full Details →
       </button>
     </div>
@@ -52,36 +52,36 @@ const Reports: React.FC = () => {
     <ReportsLayout>
       <QuickStats />
 
-      <div className="reports">
-        <nav className="reports__tabs">
-          <button
-            onClick={() => setActiveTab('trips')}
-            className={`reports__tab ${state.activeTab === 'trips' ? 'reports__tab--active' : ''}`}
-          >
-            Trip History
-          </button>
-          <button
-            onClick={() => setActiveTab('billing')}
-            className={`reports__tab ${state.activeTab === 'billing' ? 'reports__tab--active' : ''}`}
-          >
-            Billing
-          </button>
-        </nav>
-        
+      <div className="reports-container">
+        <div className="tabs-container">
+          <nav>
+            <button
+              onClick={() => setActiveTab('trips')}
+              className={`tab-button ${state.activeTab === 'trips' ? 'active' : ''}`}
+            >
+              Trip History
+            </button>
+            <button
+              onClick={() => setActiveTab('billing')}
+              className={`tab-button ${state.activeTab === 'billing' ? 'active' : ''}`}
+            >
+              Billing
+            </button>
+          </nav>
+        </div>
 
-        {/* Filters */}
-        <div className="reports__filters">
-          <div className="reports__filters-left">
-            <div className="reports__search">
-              <Search className="reports__search-icon" />
+        <div className="filters-section">
+          <div className="search-filters">
+            <div className="search-wrapper">
+              <Search className="search-icon" />
               <Input
                 type="text"
                 placeholder="Search trips..."
-                className="reports__search-input"
+                className="search-input"
               />
             </div>
             <select 
-              className="reports__date-filter"
+              className="date-filter"
               value={state.dateFilter}
               onChange={(e) => setDateFilter(e.target.value)}
             >
@@ -90,36 +90,42 @@ const Reports: React.FC = () => {
               <option value="lastYear">Last year</option>
               <option value="custom">Custom range</option>
             </select>
-            <Button variant="outline" className="reports__filter-button">
-              <Filter className="reports__button-icon" />
+            <Button variant="outline" className="filter-button">
+              <Filter className="icon" />
               <span>More Filters</span>
             </Button>
           </div>
-          <Button variant="outline" className="reports__export-button">
-            <Download className="reports__button-icon" />
+          <Button variant="outline" className="export-button">
+            <Download className="icon" />
             <span>Export</span>
           </Button>
         </div>
 
         {state.activeTab === 'trips' ? (
-          <Card>
+          <Card className="trips-card">
             <CardHeader>
               <CardTitle>Trip History</CardTitle>
-              <CardDescription>View and manage all guest travel arrangements</CardDescription>
+              <CardDescription>
+                View and manage all guest travel arrangements
+              </CardDescription>
             </CardHeader>
-            <CardContent className="reports__trips">
-              {state.tripData.map(trip => renderTripDetails(trip))}
+            <CardContent>
+              <div className="trips-list">
+                {state.tripData.map(trip => renderTripDetails(trip))}
+              </div>
             </CardContent>
           </Card>
         ) : (
           <>
-            <Card className="reports__spending">
+            <Card className="spending-card">
               <CardHeader>
                 <CardTitle>Spending Overview</CardTitle>
-                <CardDescription>Track your travel spending over time</CardDescription>
+                <CardDescription>
+                  Track your travel spending over time
+                </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="reports__chart">
+                <div className="chart-container">
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={state.spendingData}>
                       <CartesianGrid strokeDasharray="3 3" />
@@ -137,8 +143,6 @@ const Reports: React.FC = () => {
                 </div>
               </CardContent>
             </Card>
-
-            {/* Billing details cards remain unchanged */}
           </>
         )}
       </div>
@@ -146,4 +150,4 @@ const Reports: React.FC = () => {
   );
 };
 
-export default Reports;
+export default ReportsPage;

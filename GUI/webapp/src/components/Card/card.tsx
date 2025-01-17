@@ -25,7 +25,3 @@ export const CardDescription: React.FC<CardProps> = ({ children, className = '' 
 export const CardContent: React.FC<CardProps> = ({ children, className = '' }) => (
   <div className={`card__content ${className}`}>{children}</div>
 );
-
-export const CardFooter: React.FC<CardProps> = ({ children, className = '' }) => (
-  <div className={`card__footer ${className}`}>{children}</div>
-);

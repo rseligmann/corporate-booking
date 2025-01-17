@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Clock, UserCheck, AlertCircle, Search, Filter, UserPlus } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../components/Card/card';
 import Button  from '../../components/Button/button';
-import  Input  from '../../components/Input/input';
+import { Input } from "@/components/Input"; 
 import { Table, TableHeader, TableBody, TableRow, TableCell, TableHeaderCell } from '../../components/Table/table';
 import { Avatar } from '../../components/Avatar/avatar';
 import './Dashboard.scss';
@@ -79,11 +79,11 @@ const Dashboard = () => {
             <p className="dashboard__subtitle">Manage your guest travel arrangements</p>
           </div>
           <Button 
-            variant="primary" 
+            variant="default" 
             onClick={() => window.location.href = '/guest-invite'}
-            className="dashboard__new-invite-btn"
+            className="dashboard__invite-button"
           >
-            <UserPlus size={20} />
+            <UserPlus className="dashboard__button-icon" />
             <span>New Guest Invite</span>
           </Button>
         </div>
@@ -145,7 +145,11 @@ const Dashboard = () => {
                     className="search-input__field"
                   />
                 </div>
-                <Button variant="outline" className="filter-button">
+                <Button 
+                  variant="outline" 
+                  className="filter-button"
+                  size = "icon"
+                >
                   <Filter />
                   <span className="sr-only">Filter</span>
                 </Button>
@@ -196,9 +200,11 @@ const Dashboard = () => {
                       </span>
                     </TableCell>
                     <TableCell>
-                      <Link to={`/trips/${trip.id}`} className="view-details-link">
-                        View Details
-                      </Link>
+                      <Button variant = "link" asChild>
+                        <Link to={`/trips/${trip.id}`} className="view-details-link">
+                          View Details
+                        </Link>
+                      </Button>
                     </TableCell>
                   </TableRow>
                 ))}

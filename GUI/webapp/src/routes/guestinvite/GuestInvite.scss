@@ -26,7 +26,7 @@
     }
   
     &__actions {
-      margin-top: 32px;
+      margin-top: var(--space-8);
       display: flex;
       justify-content: space-between;
     }
@@ -34,6 +34,12 @@
     &__primary-action {
       margin-left: auto;
     }
+
+    &__action-icon {
+      width: 1rem;
+      height: 1rem;
+    }
+
   }
   
   .back-button {

@@ -1,34 +1,28 @@
 .card {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
+  background-color: var(--color-background);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow);
   
-    &__header {
-      padding: 16px 24px;
-      border-bottom: 1px solid #e5e7eb;
-    }
+  &__header {
+    padding: var(--space-6);
+    padding-bottom: 0;
+  }
   
-    &__title {
-      font-size: 18px;
-      font-weight: 600;
-      color: #111827;
-      margin: 0;
-    }
+  &__title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-foreground);
+    line-height: 1.2;
+  }
   
-    &__description {
-      font-size: 14px;
-      color: #6b7280;
-      margin: 4px 0 0 0;
-    }
+  &__description {
+    color: var(--color-muted-foreground);
+    font-size: 0.875rem;
+    margin-top: var(--space-1);
+  }
   
-    &__content {
-      padding: 24px;
-    }
-  
-    &__footer {
-      padding: 16px 24px;
-      border-top: 1px solid #e5e7eb;
-      background-color: #f9fafb;
+  &__content {
+    padding: var(--space-6);
     }
   }

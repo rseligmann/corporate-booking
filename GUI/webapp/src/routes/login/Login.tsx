@@ -1,106 +1,52 @@
 import { FC, FormEvent, useState } from "react"
-import { Button, Input, Text } from "@/components"
-
+import  Button  from "@/components/Button/button"
+import { Input } from "@/components/Input"; 
 import "./Login.scss"
 
 export const Login: FC = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [isLoading, setIsLoading] = useState(false)
-    const [error, setError] = useState("")
-
+    
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault()
-        setError("")
-        setIsLoading(true)
-
-        try {
-            // TODO: Implement actual login logic
-            await new Promise(resolve => setTimeout(resolve, 1000)) // Simulate API call
-            console.log("Login attempt with:", { email, password })
-        } catch (err) {
-            setError("Invalid email or password")
-        } finally {
-            setIsLoading(false)
-        }
+        // Handle login logic
     }
 
     return (
         <div className="login">
             <div className="login__card">
-                <div className="login__header">
-                    <Text
-                        variant="body"
-                        size="xl"
-                        weight="bold"
-                        className="login__title"
-                    >
-                        Sign in to your account
-                    </Text>
-                </div>
-
+                <h1 className="login__title">Sign in to your account</h1>
                 <form onSubmit={handleSubmit} className="login__form">
-                    {error && (
-                        <div className="login__error">
-                            <Text
-                                variant="body"
-                                size="sm"
-                                className="text-danger"
-                            >
-                                {error}
-                            </Text>
-                        </div>
-                    )}
-
-                    <div className="login__input-group">
+                    <div className="login__field">
+                        <label htmlFor="email" className="login__label">Email</label>
                         <Input
+                            id="email"
                             type="email"
-                            label="Email"
-                            size="sm"
                             value={email}
-                            onChange={e => setEmail(e.target.value)}
-                            placeholder=""
+                            onChange={(e) => setEmail(e.target.value)}
                             required
                         />
                     </div>
-
-                    <div className="login__input-group">
+                    
+                    <div className="login__field">
+                        <label htmlFor="password" className="login__label">Password</label>
                         <Input
+                            id="password"
                             type="password"
-                            label="Password"
-                            size="sm"
                             value={password}
-                            onChange={e => setPassword(e.target.value)}
+                            onChange={(e) => setPassword(e.target.value)}
                             required
                         />
-                        <Text size="sm">
-                            <a
-                                href="/forgot-password"
-                                className="login__forgot-link"
-                            >
-                                Forgot password?
-                            </a>
-                        </Text>
                     </div>
-
-                    <Button
-                        type="submit"
-                        variant="primary"
-                        className="login__submit"
-                        isLoading={isLoading}
-                        isDisabled={isLoading}
-                    >
+                    
+                    <Button type="submit" variant="default" fullWidth>
                         Sign In
                     </Button>
                 </form>
-
+                
                 <div className="login__footer">
-                    <Text variant="body" size="sm" className="login__subtitle">
-                        Don't have an account?{" "}
-                        <a href="/register" className="login__link">
-                            Sign up
-                        </a>
-                    </Text>
+                    <span>Don't have an account? </span>
+                    <a href="/register" className="login__link">Sign up</a>
                 </div>
             </div>
         </div>

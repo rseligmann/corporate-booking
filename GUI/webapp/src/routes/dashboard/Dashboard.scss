@@ -1,40 +1,37 @@
 .dashboard {
-    min-height: 100vh;
-    background-color: #f9fafb;
-  
-    &__main {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 32px;
+  &__main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-8);
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    margin-bottom: var(--space-8);
+
+    @media (min-width: 640px) {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
     }
-  
-    &__header {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      margin-bottom: 32px;
-  
-      @media (min-width: 640px) {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-      }
-    }
-  
-    &__title-group {
-      flex: 1;
-    }
-  
-    &__title {
-      font-size: 24px;
-      font-weight: 700;
-      color: #111827;
-    }
-  
-    &__subtitle {
-      color: #6b7280;
-      margin-top: 4px;
-    }
+  }
+
+  &__title-group {
+    flex: 1;
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-foreground);
+  }
+
+  &__subtitle {
+    color: var(--color-muted-foreground);
+    margin-top: var(--space-1);
+  }
   
     &__stats {
       display: grid;
@@ -50,6 +47,17 @@
     &__trips {
       margin-bottom: 32px;
     }
+
+    &__invite-button {
+      display: inline-flex;
+      align-items: center;
+      //gap: var(--space-2);
+    }
+  
+    //&__button-icon {
+    //  width: 1.25rem;
+    //  height: 1.25rem;
+    //}
   }
   
   .stats-card {
