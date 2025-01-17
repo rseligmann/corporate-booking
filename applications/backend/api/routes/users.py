@@ -11,5 +11,4 @@ async def get_users():
 @router.get("/{email}")
 async def get_user(config_reader: PSQLReaderDependency, email: str):
     user = config_reader.get_user_by_email(email)
-    print("USER IS: ", user)
     return user
