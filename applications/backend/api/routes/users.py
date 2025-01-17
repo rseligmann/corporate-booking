@@ -1,11 +1,15 @@
 from fastapi            import APIRouter
 
+from api.dependencies   import PSQLReaderDependency
+
 router = APIRouter()
 
 @router.get("/")
 async def get_users():
     return {"users": "users"}
 
-@router.get("/{user_id}")
-async def get_user(user_id: int):
-    return {"data": {"user": {"user_id": user_id}}}
+@router.get("/{email}")
+async def get_user(config_reader: PSQLReaderDependency, email: str):
+    user = config_reader.get_user_by_email(email)
+    print("USER IS: ", user)
+    return user
