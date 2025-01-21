@@ -1,0 +1,139 @@
+.guest-flight-booking {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+  
+    .booking-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+  
+      h1 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--color-foreground);
+      }
+  
+      .back-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 0.5rem;
+        border: none;
+        background: none;
+        cursor: pointer;
+        color: var(--color-muted-foreground);
+  
+        &:hover {
+          background-color: var(--color-muted);
+        }
+  
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+      }
+    }
+  
+    .booking-progress {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      position: relative;
+  
+      &:before {
+        content: '';
+        position: absolute;
+        top: 1.25rem;
+        left: 2.5rem;
+        right: 2.5rem;
+        height: 2px;
+        background-color: var(--color-border);
+        z-index: 0;
+      }
+  
+      .progress-step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        z-index: 1;
+        
+        .step-indicator {
+          width: 2.5rem;
+          height: 2.5rem;
+          border-radius: 50%;
+          background-color: var(--color-card);
+          border: 2px solid var(--color-border);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 600;
+          color: var(--color-muted-foreground);
+        }
+  
+        .step-title {
+          font-size: 0.875rem;
+          color: var(--color-muted-foreground);
+          text-align: center;
+        }
+  
+        &.active {
+          .step-indicator {
+            background-color: var(--color-primary);
+            border-color: var(--color-primary);
+            color: white;
+          }
+  
+          .step-title {
+            color: var(--color-foreground);
+            font-weight: 500;
+          }
+        }
+  
+        &.completed {
+          .step-indicator {
+            background-color: var(--color-primary);
+            border-color: var(--color-primary);
+            color: white;
+          }
+        }
+      }
+    }
+  
+    .booking-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+  
+      .next-button {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+  
+        .button-icon {
+          width: 1.25rem;
+          height: 1.25rem;
+        }
+      }
+    }
+  
+    @media (max-width: 768px) {
+      padding: 1rem;
+  
+      .booking-progress {
+        .step-title {
+          display: none;
+        }
+  
+        &:before {
+          left: 1.25rem;
+          right: 1.25rem;
+        }
+      }
+    }
+  }

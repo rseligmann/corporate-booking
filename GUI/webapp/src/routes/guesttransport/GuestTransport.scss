@@ -1,0 +1,245 @@
+.guest-transport {
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+  
+    .transport-header {
+      margin-bottom: 2rem;
+  
+      h1 {
+        font-size: 2rem;
+        font-weight: 600;
+        color: var(--color-foreground);
+        margin-bottom: 0.5rem;
+      }
+  
+      p {
+        color: var(--color-muted-foreground);
+        font-size: 1rem;
+      }
+    }
+  
+    .transport-overview,
+    .transport-vouchers,
+    .transport-info {
+      margin-bottom: 2rem;
+    }
+  
+    .location-timeline {
+      position: relative;
+      padding-left: 2rem;
+  
+      &::before {
+        content: '';
+        position: absolute;
+        left: 12px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background-color: var(--color-border);
+      }
+    }
+  
+    .location-item {
+      position: relative;
+      padding-bottom: 2rem;
+  
+      &:last-child {
+        padding-bottom: 0;
+      }
+  
+      .location-icon {
+        position: absolute;
+        left: -2rem;
+        width: 24px;
+        height: 24px;
+        background-color: var(--color-background);
+        border: 2px solid var(--color-primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+  
+        .icon {
+          width: 14px;
+          height: 14px;
+          color: var(--color-primary);
+        }
+      }
+  
+      .location-details {
+        background-color: var(--color-card);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius);
+        padding: 1rem;
+  
+        .location-type {
+          font-size: 0.875rem;
+          color: var(--color-primary);
+          font-weight: 500;
+          margin-bottom: 0.25rem;
+        }
+  
+        .location-name {
+          font-size: 1.125rem;
+          font-weight: 600;
+          margin-bottom: 0.25rem;
+          color: var(--color-foreground);
+        }
+  
+        .location-address {
+          color: var(--color-muted-foreground);
+          margin-bottom: 0.5rem;
+        }
+  
+        .location-time {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          font-size: 0.875rem;
+          color: var(--color-muted-foreground);
+  
+          .icon {
+            width: 1rem;
+            height: 1rem;
+          }
+        }
+  
+        .location-instructions {
+          margin-top: 0.5rem;
+          padding-top: 0.5rem;
+          border-top: 1px solid var(--color-border);
+          font-size: 0.875rem;
+          color: var(--color-muted-foreground);
+        }
+      }
+    }
+  
+    .voucher-item {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-left-width: 4px;
+  
+      &:last-child {
+        margin-bottom: 0;
+      }
+  
+      &.status-pending {
+        border-left-color: #f59e0b;
+      }
+  
+      &.status-active {
+        border-left-color: #10b981;
+      }
+  
+      &.status-used {
+        border-left-color: #6b7280;
+        opacity: 0.7;
+      }
+  
+      .voucher-info {
+        .voucher-service {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          font-weight: 600;
+          margin-bottom: 0.5rem;
+  
+          .icon {
+            width: 1.25rem;
+            height: 1.25rem;
+          }
+        }
+  
+        .voucher-code {
+          font-size: 0.875rem;
+          margin-bottom: 0.25rem;
+  
+          span {
+            font-family: monospace;
+            font-weight: 600;
+          }
+        }
+  
+        .voucher-validity,
+        .voucher-amount {
+          font-size: 0.875rem;
+          color: var(--color-muted-foreground);
+        }
+      }
+  
+      .voucher-actions {
+        flex-shrink: 0;
+        margin-left: 1rem;
+      }
+    }
+  
+    .transport-info {
+      .info-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+  
+        .icon {
+          width: 1.5rem;
+          height: 1.5rem;
+          color: var(--color-primary);
+        }
+  
+        h3 {
+          font-size: 1.125rem;
+          font-weight: 600;
+          color: var(--color-foreground);
+        }
+      }
+  
+      .info-list {
+        list-style: none;
+        padding: 0;
+  
+        li {
+          position: relative;
+          padding-left: 1.5rem;
+          margin-bottom: 0.75rem;
+          color: var(--color-muted-foreground);
+          font-size: 0.875rem;
+  
+          &:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--color-primary);
+          }
+  
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+  
+    @media (max-width: 640px) {
+      padding: 1rem;
+  
+      .voucher-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+  
+        .voucher-actions {
+          margin-left: 0;
+          width: 100%;
+  
+          button {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }

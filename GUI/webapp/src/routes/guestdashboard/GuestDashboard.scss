@@ -1,0 +1,354 @@
+.guest-dashboard {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .introduction-section {
+    margin-bottom: 2rem;
+
+    .intro-content {
+      padding: 1.5rem;
+
+      .intro-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 2rem;
+
+        .welcome-info {
+          h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--color-foreground);
+            margin-bottom: 0.5rem;
+          }
+
+          .trip-countdown {
+            color: var(--color-primary);
+            font-weight: 500;
+            margin-bottom: 1rem;
+          }
+
+          .intro-description {
+            color: var(--color-muted-foreground);
+            font-size: 1rem;
+          }
+        }
+
+        .weather-widget {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          padding: 1rem;
+          background-color: var(--color-background);
+          border-radius: 0.5rem;
+          
+          img {
+            width: 3rem;
+            height: 3rem;
+          }
+
+          .weather-details {
+            display: flex;
+            flex-direction: column;
+
+            .temperature {
+              font-size: 1.25rem;
+              font-weight: 600;
+            }
+
+            .condition {
+              color: var(--color-muted-foreground);
+              font-size: 0.875rem;
+            }
+          }
+        }
+      }
+
+      .intro-features {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 1.5rem 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.25rem;
+
+        li {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          color: var(--color-foreground);
+
+          .feature-icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            color: var(--color-primary);
+            flex-shrink: 0;
+          }
+
+          span {
+            font-size: 0.975rem;
+          }
+        }
+      }
+
+      .intro-help {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 0.875rem;
+        color: var(--color-muted-foreground);
+        padding-top: 1rem;
+        border-top: 1px solid var(--color-border);
+
+        .help-icon {
+          width: 1.25rem;
+          height: 1.25rem;
+          color: var(--color-primary);
+        }
+      }
+    }
+
+    @media (max-width: 768px) {
+      .intro-content {
+        .intro-header {
+          flex-direction: column;
+          gap: 1.5rem;
+
+          .weather-widget {
+            width: 100%;
+            justify-content: center;
+          }
+        }
+
+        .intro-features {
+          grid-template-columns: 1fr;
+        }
+      }
+    }
+  }
+
+  .dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    .welcome-section {
+      h1 {
+        font-size: 2rem;
+        font-weight: 600;
+        color: var(--color-foreground);
+        margin-bottom: 0.5rem;
+      }
+
+      .trip-countdown {
+        color: var(--color-muted-foreground);
+        font-size: 1rem;
+      }
+    }
+
+    .weather-widget {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background-color: var(--color-card);
+      border-radius: 0.5rem;
+      box-shadow: var(--shadow-sm);
+
+      img {
+        width: 3rem;
+        height: 3rem;
+      }
+
+      .weather-details {
+        display: flex;
+        flex-direction: column;
+
+        .temperature {
+          font-size: 1.25rem;
+          font-weight: 600;
+        }
+
+        .condition {
+          color: var(--color-muted-foreground);
+          font-size: 0.875rem;
+        }
+      }
+    }
+  }
+
+  .trip-overview {
+    margin-bottom: 2rem;
+
+    .trip-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 1.5rem;
+
+      .detail-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+
+        .icon {
+          width: 1.5rem;
+          height: 1.5rem;
+          color: var(--color-primary);
+          flex-shrink: 0;
+        }
+
+        .detail-content {
+          display: flex;
+          flex-direction: column;
+          gap: 0.25rem;
+
+          .label {
+            color: var(--color-muted-foreground);
+            font-size: 0.875rem;
+          }
+
+          .value {
+            font-weight: 500;
+            color: var(--color-foreground);
+          }
+        }
+      }
+    }
+  }
+
+  //.action-cards {
+    //display: grid;
+    //grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+   // gap: 1.5rem;
+   // margin-bottom: 2rem;
+   .action-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    
+    @media (min-width: 640px) {
+      grid-template-columns: repeat(2, 1fr);
+      max-width: 1fr;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .action-item {
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-left: 4px solid transparent;
+
+      &.status-pending {
+        border-left-color: #f59e0b;
+      }
+
+      &.status-confirmed {
+        border-left-color: #10b981;
+      }
+
+      &.status-completed {
+        border-left-color: #6366f1;
+      }
+
+      &.status-in-progress {
+        border-left-color: #3b82f6;
+      }
+
+      .action-content {
+        h3 {
+          font-size: 1.125rem;
+          font-weight: 600;
+          margin-bottom: 0.5rem;
+          color: var(--color-foreground);
+        }
+
+        p {
+          color: var(--color-muted-foreground);
+          font-size: 0.875rem;
+        }
+      }
+
+      .action-button {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--color-muted-foreground);
+
+        .button-icon {
+          width: 1.25rem;
+          height: 1.25rem;
+        }
+      }
+    }
+  }
+
+  .notifications {
+    .notification-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      padding: 1.5rem 1.5rem 0;
+
+      .icon {
+        width: 1.5rem;
+        height: 1.5rem;
+        color: var(--color-primary);
+      }
+
+      h3 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: var(--color-foreground);
+      }
+    }
+
+    .notification-list {
+      list-style: none;
+      padding: 0 1.5rem 1.5rem;
+
+      li {
+        position: relative;
+        padding-left: 1.5rem;
+        margin-bottom: 0.75rem;
+        color: var(--color-muted-foreground);
+        font-size: 0.875rem;
+
+        &:before {
+          content: "•";
+          position: absolute;
+          left: 0;
+          color: var(--color-primary);
+        }
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+
+    .dashboard-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .action-cards {
+      grid-template-columns: 1fr;
+    }
+
+    .trip-details {
+      grid-template-columns: 1fr;
+    }
+  }
+}

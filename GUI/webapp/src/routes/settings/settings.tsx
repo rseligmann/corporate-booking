@@ -12,7 +12,6 @@ import Button from "@/components/Button/button"
 import { Input } from "@/components/Input"; 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/Select"
 import { Checkbox } from "@/components/Checkbox/checkbox"
-//import { GuestType, PreferenceCardProps, defaultPreferences } from '@/features/settings/types'
 import './Settings.scss';
 
 interface GuestType {

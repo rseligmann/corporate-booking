@@ -1,0 +1,267 @@
+.flight-selection {
+    .search-filters {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+  
+      .search-box {
+        flex: 1;
+        min-width: 300px;
+        position: relative;
+  
+        .search-icon {
+          position: absolute;
+          left: 1rem;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 1.25rem;
+          height: 1.25rem;
+          color: var(--color-muted-foreground);
+        }
+  
+        .search-input {
+          width: 100%;
+          padding-left: 3rem;
+        }
+      }
+  
+      .filters {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+  
+        .filter-button {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+  
+          .icon {
+            width: 1.25rem;
+            height: 1.25rem;
+          }
+        }
+      }
+    }
+  
+    .flights-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2rem;
+  
+      .flight-card {
+        background-color: var(--color-card);
+        border: 1px solid var(--color-border);
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+  
+        &:hover {
+          border-color: var(--color-primary);
+          box-shadow: var(--shadow-sm);
+        }
+  
+        &.selected {
+          border-color: var(--color-primary);
+          background-color: var(--color-primary-foreground);
+          position: relative;
+        }
+  
+        .flight-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 1.5rem;
+  
+          .airline-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+  
+            .airline-logo {
+              width: 3rem;
+              height: 3rem;
+              border-radius: 0.5rem;
+              background-color: var(--color-muted);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-weight: 600;
+              color: var(--color-primary);
+            }
+  
+            .airline-name {
+              font-weight: 500;
+              color: var(--color-foreground);
+            }
+  
+            .flight-number {
+              font-size: 0.875rem;
+              color: var(--color-muted-foreground);
+            }
+          }
+  
+          .price {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--color-foreground);
+          }
+        }
+  
+        .flight-details {
+          .time-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+  
+            .departure, .arrival {
+              text-align: center;
+  
+              .time {
+                font-size: 1.25rem;
+                font-weight: 500;
+                color: var(--color-foreground);
+              }
+  
+              .airport {
+                font-size: 0.875rem;
+                color: var(--color-muted-foreground);
+              }
+            }
+  
+            .flight-path {
+              flex: 1;
+              margin: 0 2rem;
+  
+              .duration {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.5rem;
+                font-size: 0.875rem;
+                color: var(--color-muted-foreground);
+                margin-bottom: 0.5rem;
+  
+                .icon {
+                  width: 1rem;
+                  height: 1rem;
+                }
+              }
+  
+              .path {
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+  
+                .line {
+                  height: 2px;
+                  background-color: var(--color-border);
+                  width: 100%;
+                }
+  
+                .plane-icon {
+                  position: absolute;
+                  width: 1rem;
+                  height: 1rem;
+                  color: var(--color-primary);
+                  transform: rotate(90deg);
+                }
+  
+                .stops {
+                  position: absolute;
+                  bottom: -1.25rem;
+                  font-size: 0.75rem;
+                  color: var(--color-muted-foreground);
+                  background-color: var(--color-muted);
+                  padding: 0.25rem 0.5rem;
+                  border-radius: 1rem;
+                }
+              }
+            }
+          }
+  
+          .flight-info {
+            display: flex;
+            gap: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--color-border);
+  
+            .detail {
+              font-size: 0.875rem;
+  
+              .label {
+                color: var(--color-muted-foreground);
+                margin-right: 0.5rem;
+              }
+  
+              &.warning {
+                color: #f59e0b;
+              }
+            }
+          }
+        }
+  
+        .selected-indicator {
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
+          background-color: var(--color-primary);
+          color: white;
+          padding: 0.25rem 0.75rem;
+          border-radius: 1rem;
+          font-size: 0.75rem;
+          font-weight: 500;
+        }
+      }
+    }
+  
+    .selection-actions {
+      display: flex;
+      justify-content: flex-end;
+  
+      .continue-button {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+  
+        .icon {
+          width: 1.25rem;
+          height: 1.25rem;
+        }
+      }
+    }
+  
+    @media (max-width: 768px) {
+      .search-filters {
+        .search-box {
+          width: 100%;
+        }
+  
+        .filters {
+          width: 100%;
+          justify-content: space-between;
+        }
+      }
+  
+      .flight-details {
+        .time-info {
+          flex-direction: column;
+          gap: 1rem;
+  
+          .flight-path {
+            margin: 1rem 0;
+            width: 100%;
+          }
+        }
+  
+        .flight-info {
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+      }
+    }
+  }
