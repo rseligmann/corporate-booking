@@ -2,13 +2,7 @@ from abc import ABC, abstractmethod
 from datetime import datetime
 from typing import Optional
 
-from core.config.settings       import config
-
 from .types import User, Admin, Guest, Booking, GuestBooking, Flight, Hotel
-
-from database.connections       import get_psql_reader_from_key_file
-
-psql_reader = get_psql_reader_from_key_file(config.psql_key_file)
 
 class Database(ABC):
 

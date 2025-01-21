@@ -1,2 +1,1 @@
-from .PSQLConfigDBReader    import *
-from .PSQLConfigDBWriter    import *
+from .PSQLConfigDB    import *
