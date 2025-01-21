@@ -21,17 +21,17 @@ export const PreferencesForm: React.FC = () => {
           <div className="form-field">
             <Label htmlFor="flightCabinClass">Cabin Class</Label>
             <Select
-              value={state.travelPreferences.flightCabinClass}
-              onValueChange={(value) => updateTravelPreferences({ flightCabinClass: value })}
-            >
-              <SelectTrigger id="flightCabinClass">
+             value={state.travelPreferences.flightCabinClass}
+             onValueChange={(value) => updateTravelPreferences({ flightCabinClass: value })}
+           >
+             <SelectTrigger id="flightCabinClass">
                 <SelectValue placeholder="Select cabin class" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="Economy">Economy</SelectItem>
                 <SelectItem value="Premium Economy">Premium Economy</SelectItem>
                 <SelectItem value="Business">Business</SelectItem>
-              </SelectContent>
+              </SelectContent> 
             </Select>
           </div>
           <div className="checkbox-group">

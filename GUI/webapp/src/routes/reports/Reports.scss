@@ -19,6 +19,7 @@
         border-width: 0 0 2px 0;
         border-style: solid;
         //color: #6b7280;
+        background-color: transparent;
 
         &:not(.active) {
             border-color: transparent;
@@ -81,6 +82,7 @@
         display: flex;
         align-items: center;
         gap: 0.5rem;
+        color: var(--color-muted-foreground);
   
         .icon {
           width: 1rem;

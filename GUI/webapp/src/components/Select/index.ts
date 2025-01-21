@@ -1,2 +1,11 @@
-export { Select } from './select';
-//export type { SelectProps, SelectOption } from './select';
+export { Select,
+    SelectGroup,
+    SelectValue,
+    SelectTrigger,
+    SelectContent,
+    SelectLabel,
+    SelectItem,
+    SelectSeparator,
+    SelectScrollUpButton,
+    SelectScrollDownButton,} from './select';
+//export type { SelectProps } from './select';

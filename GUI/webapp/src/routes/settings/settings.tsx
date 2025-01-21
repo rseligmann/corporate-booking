@@ -10,7 +10,7 @@ import {
 import { Alert } from "@/components/Alert/alert"
 import Button from "@/components/Button/button"
 import { Input } from "@/components/Input"; 
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/Select/select"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/Select"
 import { Checkbox } from "@/components/Checkbox/checkbox"
 //import { GuestType, PreferenceCardProps, defaultPreferences } from '@/features/settings/types'
 import './Settings.scss';
@@ -276,14 +276,17 @@ const Settings = () => {
                 <label className="guest-preferences__label">
                   Select Guest Type
                 </label>
-                <Select value={selectedGuestType} onValueChange={setSelectedGuestType}>
-                  <SelectTrigger>
+                <Select 
+                  value={selectedGuestType} 
+                  onValueChange={setSelectedGuestType}
+                  >
+                  <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select a guest type" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="default">Default (All Guest Types)</SelectItem>
-                    {guestTypes.map(type => (
-                      <SelectItem key={type.id} value={type.id.toString()}> {type.name} </SelectItem>
+                    {guestTypes.map((type) => (
+                      <SelectItem key={type.id} value={type.id.toString()}>{type.name}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
@@ -317,8 +320,8 @@ const Settings = () => {
                     <div className="flight-preferences">
                       <div className="flight-preferences__cabin">
                         <label>Default Cabin Class</label>
-                        <Select value="economy">
-                          <SelectTrigger>
+                        <Select defaultValue="economy">
+                          <SelectTrigger className="w-full">
                             <SelectValue placeholder="Select cabin class" />
                           </SelectTrigger>
                           <SelectContent>
@@ -346,7 +349,7 @@ const Settings = () => {
                   <PreferenceCard title="Hotel Preferences" icon={Hotel}>
                     <div className="hotel-preferences">
                       <label>Default Hotel Quality</label>
-                      <Select value="3-star">
+                      <Select defaultValue="3-star">
                         <SelectTrigger className="w-full">
                           <SelectValue placeholder="Select hotel quality" />
                         </SelectTrigger>
@@ -363,14 +366,13 @@ const Settings = () => {
                     <div className="transport-preferences">
                       <div className="transport-preferences__service">
                         <label>Preferred Service</label>
-                        <Select value="standard">
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select car class" />
+                        <Select defaultValue="uber">
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Select preferred service" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="standard">Standard</SelectItem>
-                            <SelectItem value="premium">Premium</SelectItem>
-                            <SelectItem value="suv">SUV</SelectItem>
+                            <SelectItem value="uber">Uber</SelectItem>
+                            <SelectItem value="lyft">Lyft</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
