@@ -4,45 +4,57 @@ import enum
 
 Base = declarative_base()
 
-class UserRole(enum.Enum):
-    ADMIN = "admin"
-    GUEST = "guest"
-
-class User(Base):
-    __tablename__ = 'users'
+class Admin(Base):
+    __tablename__ = 'admins'
 
     id = Column(String, primary_key=True)
     email = Column(String, unique=True, nullable=False)
     first_name = Column(String, nullable=False)
     last_name = Column(String, nullable=False)
-    role = Column(Enum(UserRole), nullable=False)
 
-    bookings = relationship("Booking", back_populates="user")
-    guest_bookings = relationship("GuestBooking", back_populates="inviter")
+    pending_bookings = relationship("PendingBooking", back_populates="admins")
+    active_bookings = relationship("ActiveBooking", back_populates="admins")
+    guests = relationship("Guest", back_populates="admin")
 
-class Booking(Base):
-    __tablename__ = 'bookings'
+class Guest(Base):
+    __tablename__ = 'guests'
 
     id = Column(String, primary_key=True)
-    user_id = Column(String, ForeignKey('users.id'), nullable=False)
+    email = Column(String, unique=True, nullable=False)
+    first_name = Column(String, nullable=False)
+    last_name = Column(String, nullable=False)
+    admin_id = Column(String, ForeignKey('admins.id'), nullable=False)
+
+    admin = relationship("Admin", back_populates="guests")
+    pending_bookings = relationship("PendingBooking", back_populates="guests")
+    active_bookings = relationship("ActiveBooking", back_populates="guests")
+
+class PendingBooking(Base):
+    __tablename__ = 'pending_bookings'
+
+    id = Column(String, primary_key=True)
+    admin_id = Column(String, ForeignKey('admins.id'), nullable=False)
+    guest_id = Column(String, ForeignKey('guests.id'), nullable=False)
     flight_id = Column(String, ForeignKey('flights.id'), nullable=True)
     hotel_id = Column(String, ForeignKey('hotels.id'), nullable=True)
     total_price = Column(Float, nullable=False)
 
-    user = relationship("User", back_populates="bookings")
+    admin = relationship("Admin", back_populates="pending_bookings")
+    guest = relationship("Guest", back_populates="pending_bookings")
     flight = relationship("Flight")
     hotel = relationship("Hotel")
 
-class GuestBooking(Base):
-    __tablename__ = 'guest_bookings'
+class ActiveBooking(Base):
+    __tablename__ = 'active_bookings'
 
     id = Column(String, primary_key=True)
-    inviter_id = Column(String, ForeignKey('users.id'), nullable=False)
-    guest_email = Column(String, nullable=False)
+    admin_id = Column(String, ForeignKey('admins.id'), nullable=False)
+    guest_id = Column(String, ForeignKey('guests.id'), nullable=False)
     flight_id = Column(String, ForeignKey('flights.id'), nullable=True)
     hotel_id = Column(String, ForeignKey('hotels.id'), nullable=True)
 
-    inviter = relationship("User", back_populates="guest_bookings")
+    admin_id = relationship("Admin", back_populates="guest_bookings")
+    guest_id = relationship("Guest", back_populates="guest_bookings")
     flight = relationship("Flight")
     hotel = relationship("Hotel")
 

@@ -2,9 +2,9 @@ from abc import ABC, abstractmethod
 from datetime import datetime
 from typing import Optional
 
-from .types import User, Admin, Guest, Booking, GuestBooking, Flight, Hotel
+from config_types.types import User, Admin, Guest, Booking, GuestBooking, Flight, Hotel
 
-class Database(ABC):
+class ConfigDB(ABC):
 
     @abstractmethod
     async def get_admin(self, user_id: str) -> Optional[Admin]:
@@ -24,11 +24,6 @@ class Database(ABC):
     @abstractmethod
     async def insert_guest(self, email: str, first_name: str, last_name: str) -> Guest:
         """Insert a new guest"""
-        pass
-
-    @abstractmethod
-    async def update_user(self, user: User) -> User:
-        """Update an existing user"""
         pass
 
     @abstractmethod

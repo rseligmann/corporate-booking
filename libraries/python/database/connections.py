@@ -6,7 +6,7 @@ from database.constants import (
 )
 
 from database.postgresql import PostgresConfigDBReaderConfig
-from libraries.python.database.postgresql import PSQLConfigDB
+from database.postgresql import PSQLConfigDB
 
 def get_db_from_connnection_params(connection_params):
     return PSQLConfigDB.connect(PostgresConfigDBReaderConfig(

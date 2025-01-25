@@ -3,11 +3,10 @@ from sqlalchemy import create_engine, select
 from sqlalchemy.orm import sessionmaker
 from pydantic_core import MultiHostUrl
 from datetime import datetime
-from typing import Optional
+from typing import Optional, List
 
-from database import Database
-from types import User, Admin, Guest, Booking, GuestBooking, Flight, Hotel
-from models import User as DBUser, UserRole
+from ConfigDB import ConfigDB
+from database.postgresql.models import Admin, Guest, PendingBooking, ActiveBooking, Hotel, Flight
 
 @dataclass
 class PostgresConfigDBReaderConfig:
@@ -17,7 +16,7 @@ class PostgresConfigDBReaderConfig:
     db_host: str
     db_port: int
 
-class PSQLConfigDB(Database):
+class PSQLConfigDB(ConfigDB):
     def __init__(self, db_name, db_user, db_password, db_host, db_port):
         self.db_name = db_name
         self.db_user = db_user
@@ -49,9 +48,8 @@ class PSQLConfigDB(Database):
 
     async def get_admin(self, user_id: str) -> Optional[Admin]:
         with self.Session() as session:
-            stmt = select(DBUser).where(
-                DBUser.id == user_id,
-                DBUser.role == UserRole.ADMIN
+            stmt = select(Admin).where(
+                Admin.id == user_id,
             )
             result = session.execute(stmt)
             user = result.scalar_one_or_none()
@@ -64,12 +62,27 @@ class PSQLConfigDB(Database):
                     last_name=user.last_name
                 )
             return None
+    
+    async def get_admin_by_email(self, email: str) -> Optional[Admin]:
+        with self.Session() as session:
+            stmt = select(Admin).where(Admin.email == email)
+            result = session.execute(stmt)
+            db_user = result.scalar_one_or_none()
+
+            if not db_user:
+                return None
+
+            return Admin(
+                id=db_user.id,
+                email=db_user.email,
+                first_name=db_user.first_name,
+                last_name=db_user.last_name
+            )
 
     async def get_guest(self, user_id: str) -> Optional[Guest]:
         with self.Session() as session:
-            stmt = select(DBUser).where(
-                DBUser.id == user_id,
-                DBUser.role == UserRole.GUEST
+            stmt = select(Guest).where(
+                Guest.id == user_id,
             )
             result = session.execute(stmt)
             user = result.scalar_one_or_none()
@@ -79,17 +92,33 @@ class PSQLConfigDB(Database):
                     id=user.id,
                     email=user.email,
                     first_name=user.first_name,
-                    last_name=user.last_name
+                    last_name=user.last_name,
+                    admin_id=user.admin_id
                 )
             return None
 
+    async def get_admin_guests(self, admin_id: str) -> List[Guest]:
+        with self.Session() as session:
+            stmt = select(Guest).where(
+                Guest.admin_id == admin_id,
+            )
+            result = session.execute(stmt)
+            users = result.scalars().all()
+            
+            return [Guest(
+                id=user.id,
+                email=user.email,
+                first_name=user.first_name,
+                last_name=user.last_name,
+                admin_id=user.admin_id
+            ) for user in users]
+
     async def insert_admin(self, email: str, first_name: str, last_name: str) -> Admin:
         with self.Session() as session:
-            user = DBUser(
+            user = Admin(
                 email=email,
                 first_name=first_name,
                 last_name=last_name,
-                role=UserRole.ADMIN
             )
             session.add(user)
             session.commit()
@@ -101,13 +130,13 @@ class PSQLConfigDB(Database):
                 last_name=user.last_name
             )
 
-    async def insert_guest(self, email: str, first_name: str, last_name: str) -> Guest:
+    async def insert_guest(self, email: str, first_name: str, last_name: str, admin_id: str) -> Guest:
         with self.Session() as session:
-            user = DBUser(
+            user = Guest(
                 email=email,
                 first_name=first_name,
                 last_name=last_name,
-                role=UserRole.GUEST
+                admin_id=admin_id
             )
             session.add(user)
             session.commit()
@@ -116,52 +145,26 @@ class PSQLConfigDB(Database):
                 id=user.id,
                 email=user.email,
                 first_name=user.first_name,
-                last_name=user.last_name
+                last_name=user.last_name,
+                admin_id=user.admin_id
             )
 
-    async def update_user(self, user: User) -> User:
-        with self.Session() as session:
-            stmt = select(DBUser).where(DBUser.id == user.id)
-            result = session.execute(stmt)
-            db_user = result.scalar_one_or_none()
-            
-            if not db_user:
-                raise ValueError(f"User with id {user.id} not found")
-            
-            db_user.email = user.email
-            db_user.first_name = user.first_name
-            db_user.last_name = user.last_name
-            session.commit()
-            
-            if db_user.role == UserRole.ADMIN:
-                return Admin(
-                    id=db_user.id,
-                    email=db_user.email,
-                    first_name=db_user.first_name,
-                    last_name=db_user.last_name
-                )
-            return Guest(
-                id=db_user.id,
-                email=db_user.email,
-                first_name=db_user.first_name,
-                last_name=db_user.last_name
-            )
-
-    async def get_booking(self, booking_id: str) -> Optional[Booking]:
+    async def get_booking(self, booking_id: str) -> Optional[PendingBooking]:
         # Implement based on your database schema
         pass
 
-    async def get_guest_booking(self, booking_id: str) -> Optional[GuestBooking]:
+    async def get_guest_booking(self, booking_id: str) -> Optional[ActiveBooking]:
         # Implement based on your database schema
         pass
 
     async def insert_booking(
         self,
-        user_id: str,
+        admin_id: str,
+        guest_id: str,
         total_price: float,
         flight_id: Optional[str] = None,
         hotel_id: Optional[str] = None
-    ) -> Booking:
+    ) -> PendingBooking:
         # Implement based on your database schema
         pass
 
@@ -171,15 +174,15 @@ class PSQLConfigDB(Database):
         guest_email: str,
         flight_id: Optional[str] = None,
         hotel_id: Optional[str] = None
-    ) -> GuestBooking:
+    ) -> ActiveBooking:
         # Implement based on your database schema
         pass
 
-    async def update_booking(self, booking: Booking) -> Booking:
+    async def update_booking(self, booking: PendingBooking) -> PendingBooking:
         # Implement based on your database schema
         pass
 
-    async def update_guest_booking(self, booking: GuestBooking) -> GuestBooking:
+    async def update_guest_booking(self, booking: ActiveBooking) -> ActiveBooking:
         # Implement based on your database schema
         pass
 
@@ -223,9 +226,3 @@ class PSQLConfigDB(Database):
     async def update_hotel(self, hotel: Hotel) -> Hotel:
         # Implement based on your database schema
         pass
-
-    def get_user_by_email(self, email):
-        with self.Session() as session:
-            stmt = select(DBUser).where(DBUser.email == email)
-            result = session.execute(stmt)
-            return result.scalar_one_or_none()
