@@ -12,8 +12,8 @@ class Admin(Base):
     first_name = Column(String, nullable=False)
     last_name = Column(String, nullable=False)
 
-    pending_bookings = relationship("PendingBooking", back_populates="admins")
-    active_bookings = relationship("ActiveBooking", back_populates="admins")
+    pending_bookings = relationship("PendingBooking", back_populates="admin")
+    active_bookings = relationship("ActiveBooking", back_populates="admin")
     guests = relationship("Guest", back_populates="admin")
 
 class Guest(Base):
@@ -26,8 +26,8 @@ class Guest(Base):
     admin_id = Column(String, ForeignKey('admins.id'), nullable=False)
 
     admin = relationship("Admin", back_populates="guests")
-    pending_bookings = relationship("PendingBooking", back_populates="guests")
-    active_bookings = relationship("ActiveBooking", back_populates="guests")
+    pending_bookings = relationship("PendingBooking", back_populates="guest")
+    active_bookings = relationship("ActiveBooking", back_populates="guest")
 
 class PendingBooking(Base):
     __tablename__ = 'pending_bookings'
@@ -53,8 +53,8 @@ class ActiveBooking(Base):
     flight_id = Column(String, ForeignKey('flights.id'), nullable=True)
     hotel_id = Column(String, ForeignKey('hotels.id'), nullable=True)
 
-    admin_id = relationship("Admin", back_populates="guest_bookings")
-    guest_id = relationship("Guest", back_populates="guest_bookings")
+    admin = relationship("Admin", back_populates="active_bookings")
+    guest = relationship("Guest", back_populates="active_bookings")
     flight = relationship("Flight")
     hotel = relationship("Hotel")
 
