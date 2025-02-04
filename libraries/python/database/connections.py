@@ -5,10 +5,11 @@ from database.constants import (
     DEV_PSQL_KEY_FILE
 )
 
-from database.postgresql import PSQLConfigDBReader, PostgresConfigDBReaderConfig
+from database.postgresql import PostgresConfigDBReaderConfig
+from database.postgresql import PSQLConfigDB
 
 def get_db_from_connnection_params(connection_params):
-    return PSQLConfigDBReader.connect(PostgresConfigDBReaderConfig(
+    return PSQLConfigDB.connect(PostgresConfigDBReaderConfig(
         db_name     = connection_params["db_name"],
         db_user     = connection_params["db_user"],
         db_password = connection_params["db_password"],

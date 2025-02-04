@@ -6,6 +6,7 @@ This repository contains the Corporate Travel project. Follow these instructions
 
 - Python 3.10.10
 - Git
+- libpq (PostgreSQL client library)
 
 ## Python Installation
 
@@ -51,6 +52,40 @@ This repository contains the Corporate Travel project. Follow these instructions
    python3.10 --version
    ```
 
+## PostgreSQL Client Library (libpq) Installation
+
+To connect to PostgreSQL databases, you'll need the PostgreSQL client library (libpq).
+
+### Windows
+1. Download the PostgreSQL installer from [EnterpriseDB](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)
+2. Run the installer
+3. You can uncheck the option to install PostgreSQL Server if you only need the client tools
+4. Make sure to select "Command Line Tools" during installation
+5. Add the PostgreSQL bin directory to your PATH (typically `C:\Program Files\PostgreSQL\[version]\bin`)
+
+### macOS
+Using Homebrew:
+```bash
+brew install libpq
+```
+Then add it to your PATH:
+```bash
+echo 'export PATH="/opt/homebrew/opt/libpq/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+### Linux (Ubuntu/Debian)
+```bash
+sudo apt update
+sudo apt install libpq-dev
+```
+
+### Verify Installation
+After installing libpq, verify it's working:
+```bash
+psql --version
+```
+
 ## Project Setup
 
 1. Clone the repository:
@@ -81,6 +116,18 @@ This repository contains the Corporate Travel project. Follow these instructions
    pip install -r requirements.txt
    ```
 
+## Database Connection Test
+
+After installing libpq, you can test your connection to PostgreSQL:
+```bash
+psql -h [hostname] -p [port] -U [username] -d [database]
+```
+
+For example, to connect to a local database:
+```bash
+psql -U postgres -d corporate_travel
+```
+
 ## Verification
 
 After installation, verify your setup:
@@ -90,6 +137,10 @@ After installation, verify your setup:
    python --version
    ```
    Should output: `Python 3.10.10`
+3. Verify PostgreSQL client:
+   ```bash
+   psql --version
+   ```
 
 ## Troubleshooting
 
@@ -97,6 +148,11 @@ If you encounter any issues:
 1. Ensure Python 3.10.10 is correctly installed and in your PATH
 2. Make sure the virtual environment is activated
 3. Try removing and recreating the virtual environment if dependencies fail to install
+4. For database connection issues:
+   - Verify libpq is installed: `psql --version`
+   - Check if PostgreSQL service is running (if using local database)
+   - Confirm your connection credentials are correct
+   - Make sure your IP is allowed in pg_hba.conf (if connecting remotely)
 
 ## Notes
 
