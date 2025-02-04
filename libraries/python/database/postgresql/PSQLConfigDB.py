@@ -3,10 +3,11 @@ from sqlalchemy import create_engine, select
 from sqlalchemy.orm import sessionmaker
 from pydantic_core import MultiHostUrl
 from datetime import datetime
+from uuid import uuid4
 from typing import Optional, List
 
 from ConfigDB import ConfigDB
-from database.postgresql.models import Admin, Guest, PendingBooking, ActiveBooking, Hotel, Flight
+from database.postgresql.models import Base, Admin, Guest, PendingBooking, ActiveBooking, Hotel, Flight
 
 @dataclass
 class PostgresConfigDBReaderConfig:
@@ -34,6 +35,7 @@ class PSQLConfigDB(ConfigDB):
         )
         
         self.engine = create_engine(str(self.uri))
+        Base.metadata.create_all(self.engine)
         self.Session = sessionmaker(bind=self.engine)
 
     @classmethod
@@ -116,6 +118,7 @@ class PSQLConfigDB(ConfigDB):
     async def insert_admin(self, email: str, first_name: str, last_name: str) -> Admin:
         with self.Session() as session:
             user = Admin(
+                id=str(uuid4()),
                 email=email,
                 first_name=first_name,
                 last_name=last_name,
@@ -133,6 +136,7 @@ class PSQLConfigDB(ConfigDB):
     async def insert_guest(self, email: str, first_name: str, last_name: str, admin_id: str) -> Guest:
         with self.Session() as session:
             user = Guest(
+                id=str(uuid4()),
                 email=email,
                 first_name=first_name,
                 last_name=last_name,
