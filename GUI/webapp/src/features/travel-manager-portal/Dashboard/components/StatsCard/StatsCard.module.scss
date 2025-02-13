@@ -1,0 +1,10 @@
+.stats-card {  
+    &__icon {
+        color: var(--mantine-color-gray-6);
+
+      &--warning {
+        color: var(--mantine-color-orange-6);
+      }
+    }
+
+}

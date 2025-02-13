@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Helmet } from 'react-helmet-async';
-import Dashboard from '@/routes/dashboard/dashboard';
+import Dashboard from '@/features/travel-manager-portal/Dashboard/dashboard';
 
 export const DashboardPage: FC = () => {
   return (
