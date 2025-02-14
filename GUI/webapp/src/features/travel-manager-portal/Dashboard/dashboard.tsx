@@ -1,7 +1,8 @@
 import { Clock, UserCheck, AlertCircle, UserPlus } from 'lucide-react';
 import { Button, Card, Space, Text } from '@mantine/core'
 import { StatsCard } from './components/StatsCard/StatsCard';
-import { getSampleTripData } from './utils/sampleTripData';
+import { getSampleTripData } from '../utils/sampleTripData';
+import { TravelMgrPageLayout } from '@/layouts';
 import { calculateStats } from './utils/calculateStats';
 import { CurrentTripsTable } from './components/CurrentTripsTable/CurrentTripsTable';
 import './Dashboard.scss';
@@ -9,22 +10,23 @@ import './Dashboard.scss';
 const Dashboard = () => {
   const tripData = getSampleTripData();
   const stats = calculateStats(tripData);
+
+  const actionButton = (
+    <Button 
+      variant="filled"
+      onClick={() => window.location.href = '/guest-invite'}
+      leftSection={<UserPlus size={14} />}
+    >
+      <span>New Guest Invite</span>
+    </Button>
+  );
+
   return (
-    <div className="dashboard">
-      <main className="dashboard__main">
-        <div className="dashboard__header">
-          <div className="dashboard__title-group">
-            <h1 className="dashboard__title">Welcome back, Sarah</h1>
-            <p className="dashboard__subtitle">Manage your guest travel arrangements</p>
-          </div>
-          <Button 
-            variant = "filled"
-            onClick={() => window.location.href = '/guest-invite'}
-            leftSection={<UserPlus size={14} />}
-          >
-            <span>New Guest Invite</span>
-          </Button>
-        </div>
+    <TravelMgrPageLayout
+      title="Welcome back, Sarah"
+      subtitle="Manage your guest travel arrangements"
+      action={actionButton}
+    >
 
         <div className="dashboard__stats">
           <StatsCard 
@@ -51,7 +53,7 @@ const Dashboard = () => {
         </div>
 
         <Card shadow ="xs" padding="lg" radius="md" withBorder>
-            <Text size ="xl" fw={700}>
+            <Text size ="lg" fw={700}>
               Current Trips
             </Text>
             <Text size ="md" c="dimmed">
@@ -60,8 +62,7 @@ const Dashboard = () => {
             <Space h="md"/>
             <CurrentTripsTable trips={tripData}/>
         </Card>
-      </main>
-    </div>
+    </TravelMgrPageLayout>
   );
 };
 

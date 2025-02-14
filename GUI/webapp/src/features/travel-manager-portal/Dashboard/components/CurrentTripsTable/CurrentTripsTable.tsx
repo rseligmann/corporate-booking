@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { ChevronDown, ChevronUp, Search, ChevronsUpDown} from 'lucide-react';
-import { Anchor, Avatar, Badge, Center, Group, Pagination, ScrollArea, Table, Text, TextInput, UnstyledButton,} from '@mantine/core';
+import { ArrowRight, Calendar, Clock, Mail, MapPin, Search } from 'lucide-react';
+import { Anchor, Badge, Center, Flex, Group, Pagination, ScrollArea, Space, Stack, Table, Text, TextInput } from '@mantine/core';
 import { calculateTripLength, formatStartDate, formatEndDate } from '@/lib/utils';
 import { TripDetails } from '@/types';
 import classes from './CurrentTripsTable.module.scss';
@@ -14,13 +14,13 @@ interface ProcessedTripData {
     tripLength: string;
     tripType: string;
     tripStatus: string;
+    origin?: string;
+    destination?: string;
+    tripCost: string;
 }
 
 interface ThProps {
   children: React.ReactNode;
-  reversed: boolean;
-  sorted: boolean;
-  onSort: () => void;
 }
 
 interface CurrentTripsTableProps {
@@ -32,6 +32,7 @@ const processTripsData = (trips: TripDetails[]): ProcessedTripData[] => {
         const tripStartDate = formatStartDate(trip.flight.outbound ? trip.flight.outbound.departureTime : trip.hotel.check_in)
         const tripEndDate = formatEndDate(trip.flight.return ? trip.flight.return.arrivalTime : trip.hotel.check_out)
         const tripLength = calculateTripLength(trip).toString()
+        const tripCost = (trip.hotel.price + (trip.flight.outbound?.price || 0) + (trip.flight.return?.price || 0)).toString()
         const id = trip.id.toString()
         return{
             id,
@@ -41,30 +42,29 @@ const processTripsData = (trips: TripDetails[]): ProcessedTripData[] => {
             tripEndDate,
             tripLength,
             tripType: trip.trip_type,
-            tripStatus: trip.status
+            tripStatus: trip.status,
+            origin: trip.flight.outbound?.origin,
+            destination: trip.flight.outbound?.destination,
+            tripCost,
         }
     })
 }
 
-function Th({ children, reversed, sorted, onSort }: ThProps) {
-  const Icon = sorted ? (reversed ? ChevronUp : ChevronDown) : ChevronsUpDown;
+function Th({ children}: ThProps) {
   return (
     <Table.Th className={classes.th}>
-      <UnstyledButton onClick={onSort} className={classes.control}>
         <Group justify="space-between">
           <Text fw={500} fz="sm">
             {children}
           </Text>
           <Center className={classes.icon}>
-            <Icon size={16} strokeWidth={1.5} />
           </Center>
         </Group>
-      </UnstyledButton>
     </Table.Th>
   );
 }
 
-function filterData(processedTrips: ProcessedTripData[], search: string) {
+function filterData(data: ProcessedTripData[], search: string) {
     const query = search.toLowerCase().trim();
     const searchableFields: (keyof ProcessedTripData)[] = [
         'guestName',
@@ -73,67 +73,37 @@ function filterData(processedTrips: ProcessedTripData[], search: string) {
         'tripEndDate',
         'tripLength',
         'tripType',
-        'tripStatus'
+        'tripStatus',
+        'origin',
+        'destination',
       ];
-    return processedTrips.filter((item) =>
-      searchableFields.some((key) => item[key].toLowerCase().includes(query))
+    return data.filter((item) =>
+        searchableFields.some((key) => {
+            const value = item[key];
+            return value ? value.toLowerCase().includes(query): false;
+        })
     );
   }
-
-function sortData(
-    processedTrips: ProcessedTripData[],
-    payload: { sortBy: keyof ProcessedTripData | null; reversed: boolean; search: string }
-    ) {
-        const { sortBy } = payload;
-
-        if (!sortBy) {
-            return filterData(processedTrips, payload.search);
-        }
-
-        return filterData(
-            [...processedTrips].sort((a, b) => {
-            if (sortBy === 'tripStartDate') {
-                const dateA = new Date(a.tripStartDate).getTime();
-                const dateB = new Date(b.tripStartDate).getTime();
-                return payload.reversed ? dateB - dateA : dateA - dateB;
-            }
-            if (payload.reversed) {
-                return b[sortBy].localeCompare(a[sortBy]);
-            }
-
-            return a[sortBy].localeCompare(b[sortBy]);
-            }),
-            payload.search
-        );
-}
 
 export const CurrentTripsTable = ({ trips }: CurrentTripsTableProps) => {
     const processedTrips = processTripsData(trips);
     const [search, setSearch] = useState('');
-    const [sortedData, setSortedData] = useState(processedTrips);
-    const [sortBy, setSortBy] = useState<keyof ProcessedTripData | null>(null);
-    const [reverseSortDirection, setReverseSortDirection] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
   
     const ITEMS_PER_PAGE = 10;
 
-    const setSorting = (field: keyof ProcessedTripData) => {
-        const reversed = field === sortBy ? !reverseSortDirection : false;
-        setReverseSortDirection(reversed);
-        setSortBy(field);
-        setSortedData(sortData(processedTrips, { sortBy: field, reversed, search }));
-    };
-
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = event.currentTarget;
         setSearch(value);
-        setSortedData(sortData(processedTrips, { sortBy, reversed: reverseSortDirection, search: value }));
         setCurrentPage(1); //Reset to first page when searching
     };
 
+    // Filter data based on search
+    const filteredData = filterData(processedTrips, search);
+
     // Calculate pagination
-    const totalPages = Math.ceil(sortedData.length / ITEMS_PER_PAGE);
-    const paginatedData = sortedData.slice(
+    const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
+    const paginatedData = filteredData.slice(
         (currentPage - 1) * ITEMS_PER_PAGE,
         currentPage * ITEMS_PER_PAGE
     );
@@ -142,43 +112,65 @@ export const CurrentTripsTable = ({ trips }: CurrentTripsTableProps) => {
     const rows = paginatedData.map((row) => (
         <Table.Tr key={row.guestName}>
             <Table.Td>
-                <Group wrap="nowrap" gap="sm">
-                        <Avatar size = "sm" name={row.guestName} />
-                    <div>
-                        <Text size="sm" fw={500}>{row.guestName}</Text>
-                        <Text size ="sm" c="dimmed">{row.guestEmail}</Text>
-                    </div>
-                </Group>
-            </Table.Td>
-            <Table.Td>
-                <Badge variant="light">{row.tripType}</Badge>
-            </Table.Td>
-            <Table.Td>
-                <Group wrap="nowrap" gap="sm">
-                    <div>
-                    <Text size="sm">{`${row.tripStartDate} - ${row.tripEndDate}`}</Text>
-                    <Text size="sm" c="dimmed">{`${row.tripLength} days`}</Text>
-                    </div>
-                </Group>
-            </Table.Td>
-            <Table.Td>
-                <Badge 
-                    variant={row.tripStatus === 'In Progress' ? "transparent" : "light"} 
-                    color={
-                        row.tripStatus === 'Upcoming' ? 'green' : 
-                        row.tripStatus === 'Pending' ? 'yellow' : 
-                        'default'
-                    }>
-                    {row.tripStatus}
-                </Badge>
-            </Table.Td>
-            <Table.Td>
-                <Anchor 
-                    href={`/trips/${row.id}`}
-                    underline="hover"
-                    fz="sm">
-                    View Details
-                </Anchor>
+            <Flex justify="space-between">
+                <div>
+                    <Group wrap="nowrap" gap="sm">
+                        <Text size="md" fw={500}>{row.guestName}</Text>
+                        <Badge variant="light">{row.tripType}</Badge>
+                    </Group>
+                    <Space h="xs"/>
+                    <Group wrap="nowrap" gap="xl">
+                        <div>
+                            <Group wrap="nowrap" gap="xs">
+                                <Mail className={classes.icon}/>
+                                <Text size ="sm" c="dimmed">{row.guestEmail}</Text>
+                            </Group>
+                            <Space h="xs"/>
+                            <Group wrap="nowrap" gap="xs">
+                                <MapPin className={classes.icon}/>
+                                <Text c="dimmed" size="sm" fw={500}>{row.origin}</Text>    
+                                <ArrowRight className={classes.iconArrow} />
+                                <Text c="dimmed" size="sm" fw={500}>{row.destination}</Text>
+                            </Group>
+                        </div>
+                        <div>
+                            <Group wrap="nowrap" gap="xs">
+                                <Calendar className={classes.icon}/>
+                                <Text c="dimmed" size="sm" fw={500}>{`${row.tripStartDate} - ${row.tripEndDate}`}</Text>
+                            </Group>  
+                            <Space h="xs"/>
+                            <Group wrap="nowrap" gap="xs">
+                                <Clock className={classes.icon} />
+                                <Text c="dimmed" size="sm" fw={500}>{`${row.tripLength} days`}</Text>
+                            </Group>
+                        </div>
+                    </Group>
+                    <Space h="xs"/>
+                    <Anchor 
+                        href={`/trips/${row.id}`}
+                        underline="hover"
+                        fz="sm">
+                        View Details
+                    </Anchor>
+                </div>
+                <div>
+                    <Stack align="flex-end" justify="flex-start" gap ="xs">
+                    <Text size="lg" fw={500}>
+                        ${row.tripCost}
+                    </Text>
+                    <Badge 
+                        variant={row.tripStatus === 'In Progress' ? "transparent" : "light"}
+                        size = "lg"
+                        color={
+                            row.tripStatus === 'Upcoming' ? 'green' : 
+                            row.tripStatus === 'Pending' ? 'yellow' : 
+                            'default'
+                        }>
+                        {row.tripStatus}
+                    </Badge>
+                    </Stack>
+                </div>
+                </Flex>
             </Table.Td>
         </Table.Tr>
     ));
@@ -193,44 +185,14 @@ export const CurrentTripsTable = ({ trips }: CurrentTripsTableProps) => {
             onChange={handleSearchChange}
         />
         <Table.ScrollContainer minWidth={1000}>
-        <Table horizontalSpacing="md" verticalSpacing="xs" miw={700}  highlightOnHover>
+        <Table horizontalSpacing="md" verticalSpacing="sm" miw={700}  highlightOnHover>
             <Table.Tbody>
             <Table.Tr>
-                <Th
-                sorted={sortBy === 'guestName'}
-                reversed={reverseSortDirection}
-                onSort={() => setSorting('guestName')}
-                >
-                Guest
-                </Th>
-                <Th
-                sorted={sortBy === 'tripType'}
-                reversed={reverseSortDirection}
-                onSort={() => setSorting('tripType')}
-                >
-                Type
-                </Th>
-                <Th
-                sorted={sortBy === 'tripStartDate'}
-                reversed={reverseSortDirection}
-                onSort={() => setSorting('tripStartDate')}
-                >
-                Date
-                </Th>
-                <Th
-                sorted={sortBy === 'tripStatus'}
-                reversed={reverseSortDirection}
-                onSort={() => setSorting('tripStatus')}
-                >
-                Status
-                </Th>
-                <Table.Th>
-                    <Text fw={500} fz="sm">Actions</Text>
-                </Table.Th>
+                <Th>Guest</Th>
             </Table.Tr>
             </Table.Tbody>
             <Table.Tbody>
-            {rows.length > 0 ? (
+            {paginatedData.length > 0 ? (
                 rows
             ) : (
                 <Table.Tr>
@@ -246,7 +208,7 @@ export const CurrentTripsTable = ({ trips }: CurrentTripsTableProps) => {
         </Table.ScrollContainer>
             <Group justify="space-between" mt="md">
             <Text size="sm">
-                Showing {Math.min(paginatedData.length, ITEMS_PER_PAGE)} of {sortedData.length} trips
+                Showing {Math.min(paginatedData.length, ITEMS_PER_PAGE)} of {filteredData.length} trips
             </Text>
             <Pagination
                 value={currentPage}

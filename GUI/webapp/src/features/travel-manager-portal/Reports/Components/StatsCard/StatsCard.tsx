@@ -1,29 +1,25 @@
 import React from 'react';
 import { Card, Group, Text } from '@mantine/core';
-import { LucideIcon } from 'lucide-react';
-import styles from './StatsCard.module.scss';
 
 interface StatsCardProps {
     cardTitle: string;
-    icon: LucideIcon;
-    guestCount: number;
-    quickStat: string;
+    stat: string;
+    statDetail: string;
 }
 
-export const StatsCard: React.FC<StatsCardProps> = ({cardTitle, icon: Icon, guestCount, quickStat}) => {
+export const StatsCard: React.FC<StatsCardProps> = ({cardTitle, stat, statDetail}) => {
     return(
         <Card shadow ="xs" padding="lg" radius="md" withBorder>
             <Card.Section inheritPadding>
             <Group justify="space-between" mt="md" mb="xs">
-                <Text size ="lg" fw={700}>{cardTitle}</Text>
-                <Icon size = {16} className={cardTitle === "Requires Attention" ? styles["stats-card__icon--warning"] : styles["stats-card__icon"]} />
+                <Text size ="lg" fw={500} c="dimmed">{cardTitle}</Text>
             </Group>
             </Card.Section>
             <Text size = "xl" fw={700}>
-                {guestCount}
+                {stat}
             </Text>
             <Text size="sm" c={cardTitle === "Requires Attention" ? "orange" : "dimmed"}>
-                {quickStat}
+                {statDetail}
             </Text>
 
         </Card>

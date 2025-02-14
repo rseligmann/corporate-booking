@@ -6,6 +6,7 @@ import { HelmetProvider } from 'react-helmet-async'
 import { ThemeProvider } from "~/contexts/ThemeContext"
 import { MantineProvider } from "@mantine/core"
 import '@mantine/core/styles.css'
+import '@mantine/charts/styles.css'
 import { queryClient } from "~/api/query-client"
 import App from "./App"
 import "./styles/index.scss"

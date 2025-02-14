@@ -1,6 +1,6 @@
 import { FC } from 'react'; 
 import { Helmet } from 'react-helmet-async';
-import Reports from '@/routes/reports/Reports'
+import Reports from '@/features/travel-manager-portal/Reports/Reports'
 
 export const ReportsPage: FC = () => {
   return (

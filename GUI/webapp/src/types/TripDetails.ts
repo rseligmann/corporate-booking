@@ -6,8 +6,8 @@ export interface TripDetails {
     id: number //1
     guest: Guest
     flight:{
-        outbound: Flight
-        return: Flight
+        outbound?: Flight
+        return?: Flight
     }
     hotel: Hotel;
     trip_type: string //'Interview',

@@ -380,7 +380,7 @@ export const getSampleTripData = (): TripDetails[] => {
               price: 2800.00
             },
             trip_type: "Contractor",
-            status: "In Progress"
+            status: "Completed"
           },
           {
             id: 12,
@@ -408,7 +408,7 @@ export const getSampleTripData = (): TripDetails[] => {
               price: 8500.00
             },
             trip_type: "Interview",
-            status: "In Progress"
+            status: "Completed"
           },
           {
             id: 13,
@@ -445,7 +445,7 @@ export const getSampleTripData = (): TripDetails[] => {
               price: 1200.00
             },
             trip_type: "Interview",
-            status: "In Progress"
+            status: "Completed"
           },
           {
             id: 14,

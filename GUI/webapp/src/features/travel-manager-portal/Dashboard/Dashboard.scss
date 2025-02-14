@@ -1,38 +1,4 @@
 .dashboard {
-  &__main {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: var(--space-8);
-  }
-
-  &__header {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-    margin-bottom: var(--space-8);
-
-    @media (min-width: 640px) {
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-    }
-  }
-
-  &__title-group {
-    flex: 1;
-  }
-
-  &__title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--color-foreground);
-  }
-
-  &__subtitle {
-    color: var(--color-muted-foreground);
-    margin-top: var(--space-1);
-  }
-  
     &__stats {
       display: grid;
       grid-template-columns: 1fr;
