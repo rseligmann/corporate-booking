@@ -1,4 +1,2 @@
-export * from './Flight';
-export * from './Hotel';
-export * from './Guest';
-export * from './TripDetails';
+export * from './TripDetails/TripDetails';
+export * from './GuestTypePreferences/GuestTypePreferences';

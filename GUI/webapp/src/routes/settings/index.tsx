@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Helmet } from 'react-helmet-async';
-import Settings from '@/routes/settings/settings'
+import Settings from '@/features/travel-manager-portal/Settings/Settings'
 
 export const SettingsPage: FC = () => {
   return (

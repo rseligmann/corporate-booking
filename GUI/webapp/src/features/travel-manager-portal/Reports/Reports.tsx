@@ -1,5 +1,5 @@
 import React from 'react'
-import { getSampleTripData } from '../utils/sampleTripData';
+import { getSampleTripData } from '../utils/getSampleTripData';
 import { Grid, Space} from'@mantine/core'
 import { TravelMgrPageLayout } from '@/layouts';
 import { StatsCard } from './Components/StatsCard/StatsCard'

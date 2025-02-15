@@ -1,6 +1,6 @@
-import { Flight } from "./Flight";
-import { Hotel } from "./Hotel";
-import { Guest } from "./Guest";
+import { Flight } from "./subtypes/Flight";
+import { Hotel } from "./subtypes/Hotel";
+import { Guest } from "./subtypes/Guest";
 
 export interface TripDetails {
     id: number //1

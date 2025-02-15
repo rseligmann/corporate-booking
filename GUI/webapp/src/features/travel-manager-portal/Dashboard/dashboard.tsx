@@ -1,7 +1,7 @@
 import { Clock, UserCheck, AlertCircle, UserPlus } from 'lucide-react';
 import { Button, Card, Space, Text } from '@mantine/core'
 import { StatsCard } from './components/StatsCard/StatsCard';
-import { getSampleTripData } from '../utils/sampleTripData';
+import { getSampleTripData } from '../utils/getSampleTripData';
 import { TravelMgrPageLayout } from '@/layouts';
 import { calculateStats } from './utils/calculateStats';
 import { CurrentTripsTable } from './components/CurrentTripsTable/CurrentTripsTable';
