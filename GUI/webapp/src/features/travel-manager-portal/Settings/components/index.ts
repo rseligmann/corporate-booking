@@ -1,4 +1,4 @@
-export * from './GuestTypePreferencesForm/GuestTypePreferencesForm'
-export * from './ManageGuestTypes/ManageGuestTypes'
-export * from './SelectGuestType/SelectGuestType'
+export * from './BookingPreferences/components/GuestTypePreferencesForm/GuestTypePreferencesForm'
+export * from './BookingPreferences/components/ManageGuestTypes/ManageGuestTypes'
+export * from './BookingPreferences/components/SelectGuestType/SelectGuestType'
 export * from './SettingsNav/SettingsNav'

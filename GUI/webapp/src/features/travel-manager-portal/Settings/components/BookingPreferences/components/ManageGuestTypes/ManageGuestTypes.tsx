@@ -51,8 +51,8 @@ export const ManageGuestTypes: React.FC<ManageGuestTypesProps> = ({
             <Space h="md" />
             <Grid>
             {guestTypePreferences.map((type)=>(
-                <Grid.Col span={{ base: 6, md: 3, lg: 2 }}>
-                <Card padding="xs" radius="md" withBorder>
+                <Grid.Col span={{ base: 6, md: 4, lg: 3 }}>
+                <Card padding="xs" radius="md" withBorder >
                     <Group justify='space-between'>
                         {type.guestType}
                         <CloseButton 

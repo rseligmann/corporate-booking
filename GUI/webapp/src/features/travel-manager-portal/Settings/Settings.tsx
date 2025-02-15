@@ -1,74 +1,19 @@
 import { useState } from 'react'
 import { Save } from 'lucide-react'
 import { Alert } from "@/components/Alert/alert"
-import Button from "@/components/Button/button"
+import { Button } from "@mantine/core"
 import { TravelMgrPageLayout } from '@/layouts'
-import { SettingsNav, SelectGuestType, ManageGuestTypes, GuestTypePreferencesForm} from './components'
-import { GuestTypePreferences } from '@/types'
-import { getSampleTravelPreferencesData } from '../utils/getSampleTravelPreferencesData'
-import './Settings.scss';
+import { SettingsNav } from './components/SettingsNav/SettingsNav';
+import { BookingPreferences } from './components/BookingPreferences/BookPreferences'
+import { PaymentMethods } from './components/PaymentMethods/PaymentMethods'
+import { PreferredVendors } from './components/PreferredVendors/PreferredVendors'
+import styles from './Settings.module.scss'
 
-
-const createDefaultGuestType = (name: string): GuestTypePreferences => ({
-  id: Date.now(),
-  guestType: name,
-  flight: {
-    cabinClass: 'economy',
-    maxStops: 'any',
-    refundableTicket: false
-  },
-  hotel: {
-    minimumRating: 1
-  },
-  groundTransport: {
-    preferredServices: 'uber'
-  },
-  dailyPerDiem: 0
-});
+type SettingsSection = 'payment' | 'vendors' | 'booking';
 
 const Settings = () => {
-  
-  const travelerPreferences = getSampleTravelPreferencesData();
-  
-  const [guestTypePreferences, setGuestTypePreferences] = useState<GuestTypePreferences[]>(travelerPreferences);
-  const [selectedGuestType, setSelectedGuestType] = useState<string>(travelerPreferences[0].guestType);
+  const [activeSection, setActiveSection] = useState<SettingsSection>('booking');
   const [showSaveAlert, setShowSaveAlert] = useState(false);
-  const [newGuestType, setNewGuestType] = useState('');
-  const [error, setError] = useState<string | null>(null);
-      
-  const handleAddGuestType = () => {
-    const trimmedName = newGuestType.trim();   
-    if (!trimmedName) {
-      setError('Guest type name cannot be empty');
-      return;
-    }
-    if (guestTypePreferences.some(type => type.guestType.toLowerCase() === trimmedName.toLowerCase())) {
-      setError('A guest type with this name already exists');
-      return;
-    }
-    // Create new guest type with default values
-    const newType = createDefaultGuestType(trimmedName);
-    setGuestTypePreferences([...guestTypePreferences, newType]);
-          
-    // Reset form
-    setNewGuestType('');
-    setError(null);
-    };
-  
-    const handleRemoveGuestType = (id: number) => {
-      if (guestTypePreferences.length <= 1) {
-        setError('Cannot remove the last guest type');
-        return;
-      }
-      const updatedGuestTypes = guestTypePreferences.filter(type => type.id !== id);
-      // If we're deleting the currently selected guest type,
-      // update the selected guest type to the first available one
-      if (selectedGuestType === id.toString()) {
-      const firstAvailableId = updatedGuestTypes[0]?.id.toString();
-      setSelectedGuestType(firstAvailableId);
-      }
-      setGuestTypePreferences(updatedGuestTypes);
-    };
 
   const handleSave = () => {
     setShowSaveAlert(true);
@@ -78,53 +23,54 @@ const Settings = () => {
   const actionButton = (
     <Button
       onClick={handleSave}
-      variant="default"
+      variant="filled"
       className="settings__save-button"
+      leftSection={<Save size={14} />}
     >
-      <Save size={20} />
       <span>Save Changes</span>
     </Button>
   );
 
+  const renderContent = () => {
+    switch (activeSection) {
+      case 'payment':
+        return <PaymentMethods />;
+      case 'vendors':
+        return <PreferredVendors />;
+      case 'booking':
+        return <BookingPreferences />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <TravelMgrPageLayout
       title="Settings"
-      subtitle="Manage your travel preferences and guest types"
+      subtitle="Manage your travel settings"
       action={actionButton}
     >
-      <SettingsNav />
-        {showSaveAlert && (
-          <Alert 
-            variant="success"
-            className="settings__alert"
-          >
-            Settings saved successfully!
-          </Alert>
-        )}
-
-        <div className="settings__content">
-          <ManageGuestTypes
-            guestTypePreferences={guestTypePreferences}
-            newGuestType={newGuestType}
-            setNewGuestType={setNewGuestType}
-            error={error}
-            setError={setError}
-            handleAddGuestType={handleAddGuestType}
-            handleRemoveGuestType={handleRemoveGuestType}
+      <div className={styles.settingsLayout}>
+        <div className={styles.settingsLayout__nav}>
+          <SettingsNav 
+            activeSection={activeSection}
+            onSectionChange={setActiveSection}
           />
-
-          <SelectGuestType 
-            guestTypes={guestTypePreferences.map(t => t.guestType)}
-            selectedGuestType={selectedGuestType}
-            updateGuestTypeState={setSelectedGuestType} 
-          />
-          <GuestTypePreferencesForm 
-            selectedGuestType={selectedGuestType}
-            guestTypePreferences={guestTypePreferences}
-            updateGuestTypePreferences={setGuestTypePreferences}
-            updateGuestTypeState={setSelectedGuestType}
-            />
         </div>
+        
+        <div className={styles.settingsLayout__content}>
+          {showSaveAlert && (
+            <Alert 
+              variant="success"
+              className="settings__alert"
+            >
+              Settings saved successfully!
+            </Alert>
+          )}
+          
+          {renderContent()}
+        </div>
+      </div>
     </TravelMgrPageLayout>
   );
 };

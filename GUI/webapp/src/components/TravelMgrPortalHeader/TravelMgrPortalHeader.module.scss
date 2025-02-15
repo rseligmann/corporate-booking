@@ -1,0 +1,56 @@
+.header {
+    height: 60px;
+    background-color: var(--mantine-color-body);
+    border-bottom: 1px solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+    z-index: 100;
+
+    
+  }
+  
+  .headerContent {
+    height: 60px;
+    display: flex;
+    align-items: center;
+
+  }
+  
+  .logo {
+    color: var(--mantine-color-blue-6);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  
+  .navLink {
+    display: flex;
+    align-items: center;
+    gap: var(--mantine-spacing-xs);
+    line-height: 1;
+    padding: 8px 12px;
+    border-radius: var(--mantine-radius-sm);
+    text-decoration: none;
+    color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
+    font-size: var(--mantine-font-size-sm);
+    font-weight: 500;
+  
+    &:not(.navLinkActive):hover {
+        background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6));
+    }
+  }
+  
+  .navLinkActive {
+    color: var(--mantine-color-white);
+    background-color: var(--mantine-color-blue-filled);
+  }
+  
+  .navIcon {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .iconButton {
+    color: var(--mantine-color-gray-6);
+    
+    &:hover {
+      background-color: var(--mantine-color-gray-1);
+    }
+  }

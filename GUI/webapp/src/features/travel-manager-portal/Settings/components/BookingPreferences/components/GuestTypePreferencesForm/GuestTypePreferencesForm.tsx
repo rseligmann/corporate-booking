@@ -1,6 +1,6 @@
 import { Card, Checkbox, NativeSelect, NumberInput, Space, Text } from '@mantine/core';
 import { useEffect } from 'react';
-import { getCabinClassOptions, getMaxStopsOptions, getGrondTransportOptions, getHotelRating } from '../../utils';
+import { getCabinClassOptions, getMaxStopsOptions, getGrondTransportOptions, getHotelRating } from '../../../../utils'
 import { GuestTypePreferences } from '@/types';
 
 interface GuestTypePreferencesFormProps {

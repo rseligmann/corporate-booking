@@ -1,37 +1,42 @@
 import { Card, Divider, NavLink, Text } from '@mantine/core';
 import { CreditCard, Handshake, Hotel } from 'lucide-react';
-import { useState } from 'react';
+
+type SettingsSection = 'payment' | 'vendors' | 'booking';
+
+interface SettingsNavProps {
+  activeSection: SettingsSection;
+  onSectionChange: (section: SettingsSection) => void;
+}
+
 
 const data = [
     {
         icon: CreditCard,
         label: "Payment Methods",
-        href: "/settings"
+        value: 'payment' as SettingsSection
     },
     {
         icon: Handshake,
         label: "Preffered Vendors",
-        href: "/settings"
+        value: 'vendors' as SettingsSection
     },
     {
         icon: Hotel,
         label: "Booking Preferences",
-        href: "/settings"
+        value: 'booking' as SettingsSection
     }
 
 ];
 
-export const SettingsNav = () => {
-    const [active, setActive] = useState(2);
+export const SettingsNav = ({ activeSection, onSectionChange }: SettingsNavProps) => {
 
-    const items = data.map((item, index) => (
+    const items = data.map((item) => (
         <NavLink 
             key={item.label}
-            href={item.href}
             label={item.label}
             leftSection={<item.icon size={15} strokeWidth={1.5} />}
-            active={index === active}
-            onClick={() => setActive(index)}
+            active={item.value === activeSection}
+            onClick={() => onSectionChange(item.value)}
             variant = "filled"
         />
     ));
