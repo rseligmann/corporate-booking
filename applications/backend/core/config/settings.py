@@ -24,10 +24,8 @@ class Config:
 
 class Settings(BaseSettings):
     ENVIRONMENT: str
-    
-    class Config:
-        env_file            = find_dotenv()
-        env_file_encoding   = 'utf-8'
 
-settings    = Settings()
-config      = Config(settings.ENVIRONMENT)
+def get_config():
+    settings    = Settings()
+    config      = Config(settings.ENVIRONMENT)
+    return config

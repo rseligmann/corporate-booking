@@ -1,14 +1,16 @@
 from fastapi                import Depends
 from typing                 import Annotated
 
-from core.database          import psql_reader
+from core.config.settings   import get_config
 
-from database.postgresql    import PSQLConfigDBReader
+from database.connections    import get_psql_reader_from_key_file
+from database.postgresql     import PSQLConfigDB
 
 def get_psql_reader():
-    return psql_reader
+    config = get_config()
+    return get_psql_reader_from_key_file(config.psql_key_file)
 
-PSQLReaderDependency = Annotated[PSQLConfigDBReader, Depends(get_psql_reader)]
+PSQLReaderDependency = Annotated[PSQLConfigDB, Depends(get_psql_reader)]
 
 
 
