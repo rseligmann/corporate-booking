@@ -6,4 +6,4 @@ export PYTHONPATH=${DIR}/../../libraries/python:.:$PYTHONPATH
 
 START_SCRIPT="start_app.py"
 
-python3 ${DIR}/${START_SCRIPT}
+python3 ${DIR}/${START_SCRIPT} $@
