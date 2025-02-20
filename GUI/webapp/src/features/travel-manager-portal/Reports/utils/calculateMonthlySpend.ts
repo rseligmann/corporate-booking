@@ -1,4 +1,4 @@
-import { TripDetails } from '@/types';
+import { Trip } from '@/types';
 
 interface MonthlySpend {
     month: string;  // Format: "YYYY-MM"
@@ -6,13 +6,12 @@ interface MonthlySpend {
     hotelSpend: number;
 }
 
-export const calculateMonthlySpend = (trips: TripDetails[]): MonthlySpend[] => {
+export const calculateMonthlySpend = (trips: Trip[]): MonthlySpend[] => {
     // Create a map to store spending by month
     const monthlySpendMap = new Map<string, MonthlySpend>();
 
     trips.forEach(trip => {
-        // Get the month from hotel check-in date
-        const monthKey = trip.hotel.check_in.toISOString().slice(0, 7); // Gets YYYY-MM
+        const monthKey = trip.itinerary.startDate.toISOString().slice(0, 7); // Gets YYYY-MM
 
         // Initialize or get the monthly spend object
         let monthSpend = monthlySpendMap.get(monthKey) || {
@@ -22,14 +21,15 @@ export const calculateMonthlySpend = (trips: TripDetails[]): MonthlySpend[] => {
         };
 
         // Add hotel spend
+        if(trip.hotel)
         monthSpend.hotelSpend += trip.hotel.price;
 
         // Add flight spend if exists
-        if (trip.flight.outbound) {
-            monthSpend.flightSpend += trip.flight.outbound.price;
+        if (trip.flights?.outbound) {
+            monthSpend.flightSpend += trip.flights.outbound.price;
         }
-        if (trip.flight.return) {
-            monthSpend.flightSpend += trip.flight.return.price;
+        if (trip.flights?.return) {
+            monthSpend.flightSpend += trip.flights.return.price;
         }
 
         // Update the map

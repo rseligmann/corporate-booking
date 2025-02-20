@@ -1,6 +1,6 @@
 import { Card, Space, Tabs, Text, } from '@mantine/core';
 import { TripsTable } from '../TripsTable/TripsTable';
-import { TripDetails } from '@/types';
+import { Trip } from '@/types';
 import { MonthlySpendChart } from '../MonthlySpendChart/MonthlySpendChart';
 import classes from './ReportsContainer.module.scss';
 
@@ -10,7 +10,7 @@ const tabs = [
 ];
 
 interface ReportsContainerProps {
-    trips: TripDetails[];
+    trips: Trip[];
   }
 
 export const ReportsContainer: React.FC<ReportsContainerProps> = ({trips})=> {

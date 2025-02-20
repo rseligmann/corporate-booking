@@ -8,7 +8,7 @@ interface ManageGuestTypesProps {
     error: string | null;
     setError: (error: string | null) => void;
     handleAddGuestType: () => void;
-    handleRemoveGuestType: (id: number) => void;
+    handleRemoveGuestType: (id: string) => void;
 }
 
 export const ManageGuestTypes: React.FC<ManageGuestTypesProps> = ({

@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Helmet } from 'react-helmet-async';
-import GuestInvite from '@/routes/guestinvite/GuestInvite'
+import GuestInvite from '@/features/travel-manager-portal/GuestInvite/GuestInvite'
 
 export const GuestInvitePage: FC = () => {
   return (

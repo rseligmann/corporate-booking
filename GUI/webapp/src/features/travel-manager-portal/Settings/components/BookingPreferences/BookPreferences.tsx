@@ -5,7 +5,7 @@ import { getSampleTravelPreferencesData } from '../../../utils/getSampleTravelPr
 import styles from './BookingPreferences.module.scss';
 
 const createDefaultGuestType = (name: string): GuestTypePreferences => ({
-    id: Date.now(),
+    id: Date.now().toString(),
     guestType: name,
     flight: {
       cabinClass: 'economy',
@@ -22,7 +22,7 @@ const createDefaultGuestType = (name: string): GuestTypePreferences => ({
   });
 
 export const BookingPreferences =() => {
-    const travelerPreferences = getSampleTravelPreferencesData();
+  const travelerPreferences = getSampleTravelPreferencesData();
   
   const [guestTypePreferences, setGuestTypePreferences] = useState<GuestTypePreferences[]>(travelerPreferences);
   const [selectedGuestType, setSelectedGuestType] = useState<string>(travelerPreferences[0].guestType);
@@ -48,7 +48,7 @@ export const BookingPreferences =() => {
     setError(null);
     };
   
-    const handleRemoveGuestType = (id: number) => {
+    const handleRemoveGuestType = (id: string) => {
       if (guestTypePreferences.length <= 1) {
         setError('Cannot remove the last guest type');
         return;

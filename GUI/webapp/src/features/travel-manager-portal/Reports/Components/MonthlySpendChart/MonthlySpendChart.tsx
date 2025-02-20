@@ -1,8 +1,8 @@
 import { calculateMonthlySpend } from "../../utils/calculateMonthlySpend";
-import { TripDetails } from "@/types";
+import { Trip } from "@/types";
 import { LineChart } from '@mantine/charts';
 
-export const MonthlySpendChart = ({ trips }: { trips: TripDetails[] }) => {
+export const MonthlySpendChart = ({ trips }: { trips: Trip[] }) => {
     const monthlySpend = calculateMonthlySpend(trips);
 
     return (

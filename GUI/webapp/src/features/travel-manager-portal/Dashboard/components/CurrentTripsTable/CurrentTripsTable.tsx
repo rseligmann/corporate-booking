@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ArrowRight, Calendar, Clock, Mail, MapPin, Search } from 'lucide-react';
 import { Anchor, Badge, Center, Flex, Group, Pagination, ScrollArea, Space, Stack, Table, Text, TextInput } from '@mantine/core';
 import { calculateTripLength, formatStartDate, formatEndDate } from '@/lib/utils';
-import { TripDetails } from '@/types';
+import { Trip } from '@/types';
 import classes from './CurrentTripsTable.module.scss';
 
 interface ProcessedTripData {
@@ -24,27 +24,27 @@ interface ThProps {
 }
 
 interface CurrentTripsTableProps {
-    trips: TripDetails[];
+    trips: Trip[];
 }
 
-const processTripsData = (trips: TripDetails[]): ProcessedTripData[] => {
-    return trips.map((trip: TripDetails) =>{
-        const tripStartDate = formatStartDate(trip.flight.outbound ? trip.flight.outbound.departureTime : trip.hotel.check_in)
-        const tripEndDate = formatEndDate(trip.flight.return ? trip.flight.return.arrivalTime : trip.hotel.check_out)
+const processTripsData = (trips: Trip[]): ProcessedTripData[] => {
+    return trips.map((trip: Trip) =>{
+        const tripStartDate = formatStartDate(trip.itinerary.startDate)
+        const tripEndDate = formatEndDate(trip.itinerary.endDate)
         const tripLength = calculateTripLength(trip).toString()
-        const tripCost = (trip.hotel.price + (trip.flight.outbound?.price || 0) + (trip.flight.return?.price || 0)).toString()
-        const id = trip.id.toString()
+        const tripCost = (trip.actualSpend|| 0).toString()
+        const id = trip.id
         return{
             id,
-            guestName: trip.guest.name,
+            guestName: (`${trip.guest.firstName} ${trip.guest.lastName}`),
             guestEmail: trip.guest.email,
             tripStartDate,
             tripEndDate,
             tripLength,
-            tripType: trip.trip_type,
+            tripType: trip.guestType,
             tripStatus: trip.status,
-            origin: trip.flight.outbound?.origin,
-            destination: trip.flight.outbound?.destination,
+            origin: trip.itinerary.origin,
+            destination: trip.itinerary.destination,
             tripCost,
         }
     })

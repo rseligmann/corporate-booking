@@ -1,6 +1,6 @@
-import { TripDetails } from '@/types';
+import { Trip } from '@/types';
 
-export const calculateStats = (trips: TripDetails[]) => {
+export const calculateStats = (trips: Trip[]) => {
     const now = new Date();
     
     const stats = {
@@ -16,8 +16,8 @@ export const calculateStats = (trips: TripDetails[]) => {
     };
 
     trips.forEach(trip => {
-        const checkIn = new Date(trip.hotel.check_in);
-        const checkOut = new Date(trip.hotel.check_out);
+        const checkIn = new Date(trip.itinerary.startDate);
+        const checkOut = new Date(trip.itinerary.endDate);
         
         // Calculate upcoming trips
         const sevenDaysFromNow = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
@@ -33,12 +33,12 @@ export const calculateStats = (trips: TripDetails[]) => {
         // Calculate total spend over past 30 days
         const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
         if (checkOut > thirtyDaysAgo && checkOut <= now) {
-            stats.past30DaySpend += trip.hotel.price + (trip.flight.outbound?.price || 0) + (trip.flight.return?.price || 0);
+            stats.past30DaySpend += (trip.actualSpend || 0);
         }
 
         // Calculate spend 60 days to 30 days ago
         if (checkOut > new Date(thirtyDaysAgo.getTime() - 30 * 24 * 60 * 60 * 1000) && checkOut <= thirtyDaysAgo) {
-            stats.past30to60DaySpend += trip.hotel.price + (trip.flight.outbound?.price || 0) + (trip.flight.return?.price || 0);
+            stats.past30to60DaySpend += (trip.actualSpend || 0);
         }
 
         // Calculate total guests over past 30 days
@@ -53,7 +53,7 @@ export const calculateStats = (trips: TripDetails[]) => {
 
         // Calculate total spend
         if(checkOut < now){
-        stats.totalSpend += trip.hotel.price + (trip.flight.outbound?.price || 0) + (trip.flight.return?.price || 0);
+        stats.totalSpend += (trip.actualSpend || 0);
         }
         
     });

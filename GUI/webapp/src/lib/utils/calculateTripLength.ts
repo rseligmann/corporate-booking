@@ -1,13 +1,13 @@
-import { TripDetails } from '@/types';
+import { Trip } from '@/types';
 
 //Helper function to calculate trip length in days
-export const calculateTripLength =(trip: TripDetails): number => {
+export const calculateTripLength =(trip: Trip): number => {
     let startDate: Date;
     let endDate: Date;
 
     // If there are flights, use flight dates, else use hotel dates
-    startDate = trip.flight.outbound ? trip.flight.outbound.departureTime : trip.hotel.check_in;
-    endDate = trip.flight.return ? trip.flight.return.arrivalTime : trip.hotel.check_out;
+    startDate = trip.itinerary.startDate;
+    endDate = trip.itinerary.endDate;
 
     // Calculate difference in days
     const diffTime = Math.abs(endDate.getTime() - startDate.getTime());

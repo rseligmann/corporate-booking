@@ -1,6 +1,6 @@
-import { TripDetails } from '@/types';
+import { Trip } from '@/types';
 
-export const calculateStats = (trips: TripDetails[]) => {
+export const calculateStats = (trips: Trip[]) => {
     const now = new Date();
     
     const stats = {
@@ -12,27 +12,27 @@ export const calculateStats = (trips: TripDetails[]) => {
     };
 
     trips.forEach(trip => {
-        const checkIn = new Date(trip.hotel.check_in);
-        const checkOut = new Date(trip.hotel.check_out);
+        const tripStartDate = new Date(trip.itinerary.startDate);
+        const tripEndDate = new Date(trip.itinerary.endDate);
         
         // Calculate upcoming trips
-        if (checkIn > now) {
+        if (tripStartDate > now) {
             stats.upcoming++;
             
             // Calculate days until next arrival
             const daysUntilArrival = Math.ceil(
-                (checkIn.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+                (tripStartDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
             if (stats.nextArrivalIn === null || daysUntilArrival < stats.nextArrivalIn) {
             stats.nextArrivalIn = daysUntilArrival;
             }
         }
         
         // Calculate active trips
-        if (checkIn <= now && checkOut >= now) {
+        if (tripStartDate <= now && tripEndDate >= now) {
             stats.active++;
             
             // Calculate checking out today
-            if (checkOut.toDateString() === now.toDateString()) {
+            if (tripEndDate.toDateString() === now.toDateString()) {
             stats.checkingOutToday++;
             }
         }

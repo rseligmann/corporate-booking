@@ -1,2 +1,2 @@
-export * from './TripDetails/TripDetails';
-export * from './GuestTypePreferences/GuestTypePreferences';
+export * from './Trip/Trip';
+export * from './Trip/subtypes/GuestTypePreferences/GuestTypePreferences';

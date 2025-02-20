@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ChevronDown, ChevronUp, Search, ChevronsUpDown} from 'lucide-react';
 import { Anchor, Avatar, Badge, Center, Group, Pagination, ScrollArea, Space, Table, Text, TextInput, UnstyledButton,} from '@mantine/core';
 import { calculateTripLength, formatStartDate, formatEndDate } from '@/lib/utils';
-import { TripDetails } from '@/types';
+import { Trip } from '@/types';
 import classes from './TripsTable.module.scss';
 
 interface ProcessedTripData {
@@ -24,23 +24,23 @@ interface ThProps {
 }
 
 interface CurrentTripsTableProps {
-    trips: TripDetails[];
+    trips: Trip[];
 }
 
-const processTripsData = (trips: TripDetails[]): ProcessedTripData[] => {
-    return trips.map((trip: TripDetails) =>{
-        const tripStartDate = formatStartDate(trip.flight.outbound ? trip.flight.outbound.departureTime : trip.hotel.check_in)
-        const tripEndDate = formatEndDate(trip.flight.return ? trip.flight.return.arrivalTime : trip.hotel.check_out)
+const processTripsData = (trips: Trip[]): ProcessedTripData[] => {
+    return trips.map((trip: Trip) =>{
+        const tripStartDate = formatStartDate(trip.itinerary.startDate)
+        const tripEndDate = formatEndDate(trip.itinerary.endDate)
         const tripLength = calculateTripLength(trip).toString()
         const id = trip.id.toString()
         return{
             id,
-            guestName: trip.guest.name,
+            guestName: (`${trip.guest.firstName} ${trip.guest.lastName}`),
             guestEmail: trip.guest.email,
             tripStartDate,
             tripEndDate,
             tripLength,
-            tripType: trip.trip_type,
+            tripType: trip.tripType,
             tripStatus: trip.status
         }
     })

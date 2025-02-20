@@ -16,7 +16,7 @@ export function getSampleTravelPreferencesData(): GuestTypePreferences[] {
                 preferredServices: "lyft"
             },
             dailyPerDiem: 75,
-            id: 1
+            id: "1"
         },
         {
             guestType: "contractor",
@@ -32,7 +32,7 @@ export function getSampleTravelPreferencesData(): GuestTypePreferences[] {
                 preferredServices: "uber"
             },
             dailyPerDiem: 100,
-            id: 2
+            id: "2"
         },
         {
             guestType: "interview",
@@ -48,7 +48,7 @@ export function getSampleTravelPreferencesData(): GuestTypePreferences[] {
                 preferredServices: "uber"
             },
             dailyPerDiem: 125,
-            id: 3
+            id: "3"
         },
         {
             guestType: "visitor",
@@ -64,7 +64,7 @@ export function getSampleTravelPreferencesData(): GuestTypePreferences[] {
                 preferredServices: "lyft"
             },
             dailyPerDiem: 85,
-            id: 4
+            id: "4"
         },
         {
             guestType: "other",
@@ -80,7 +80,7 @@ export function getSampleTravelPreferencesData(): GuestTypePreferences[] {
                 preferredServices: "uber"
             },
             dailyPerDiem: 80,
-            id: 5
+            id: "5"
         }
     ];
 }

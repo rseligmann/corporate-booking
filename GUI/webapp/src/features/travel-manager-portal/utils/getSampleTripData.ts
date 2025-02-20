@@ -1,684 +1,1148 @@
-import { TripDetails } from "@/types";
+import { Trip } from "@/types";
 
-export const getSampleTripData = (): TripDetails[] => {
+export const getSampleTripData = (): Trip[] => {
     return [
-        {
-            id: 1,
-            guest: {
-              name: "Sarah Johnson",
-              email: "sarah.j@email.com"
-            },
-            flight: {
-              outbound: {
-                flightNumber: "AA1234",
-                airline: "American Airlines",
-                origin: "LAX",
-                destination: "JFK",
-                departureTime: new Date("2025-03-15T08:30:00"),
-                arrivalTime: new Date("2025-03-15T16:45:00"),
-                price: 450.00
-              },
-              return: {
-                flightNumber: "AA1235",
-                airline: "American Airlines",
-                origin: "JFK",
-                destination: "LAX",
-                departureTime: new Date("2025-03-20T18:30:00"),
-                arrivalTime: new Date("2025-03-20T22:15:00"),
-                price: 425.00
-              }
-            },
-            hotel: {
-              name: "The Ritz-Carlton New York",
-              location: "New York City",
-              check_in: new Date("2025-03-15T15:00:00"),
-              check_out: new Date("2025-03-20T11:00:00"),
-              room_type: "Deluxe King",
-              price: 2500.00
-            },
-            trip_type: "Interview",
-            status: "Upcoming"
+      {
+        id: "T1001",
+        guest: {
+          id: "G1001",
+          firstName: "Sarah",
+          lastName: "Chen",
+          email: "sarah.chen@company.com",
+          phone: "+1-415-555-0101",
+          nationality: "USA",
+          passportNumber: "123456789",
+          passportExpiryDate: new Date("2026-12-31"),
+          loyaltyPrograms: [
+            {
+              provider: "United Airlines",
+              programName: "MileagePlus",
+              memberNumber: "UA123456",
+              status: "1K"
+            }
+          ]
+        },
+        tripType: "business",
+        status: "Completed",
+        travelPreferences: {
+          id: "TP1001",
+          guestType: "executive",
+          flight: {
+            cabinClass: "business",
+            maxStops: "nonstop",
+            refundableTicket: true
           },
-          {
-            id: 2,
-            guest: {
-              name: "Michael Chen",
-              email: "mchen@email.com"
-            },
-            flight: {
-              outbound: {
-                flightNumber: "UA789",
-                airline: "United Airlines",
-                origin: "SFO",
-                destination: "HNL",
-                departureTime: new Date("2025-04-01T11:00:00"),
-                arrivalTime: new Date("2025-04-01T14:30:00"),
-                price: 650.00
-              }
-            },
-            hotel: {
-              name: "Four Seasons Resort Maui",
-              location: "Maui",
-              check_in: new Date("2025-04-01T16:00:00"),
-              check_out: new Date("2025-04-08T10:00:00"),
-              room_type: "Ocean View Suite",
-              price: 4200.00
-            },
-            trip_type: "Vacation",
-            status: "Pending"
+          hotel: {
+            minimumRating: 5
           },
-          {
-            id: 3,
-            guest: {
-              name: "Emily Rodriguez",
-              email: "e.rodriguez@email.com"
-            },
-            flight: {
-              outbound: {
-                flightNumber: "DL456",
-                airline: "Delta Airlines",
-                origin: "ATL",
-                destination: "CDG",
-                departureTime: new Date("2025-05-10T19:15:00"),
-                arrivalTime: new Date("2025-05-11T10:30:00"),
-                price: 875.00
-              },
-              return: {
-                flightNumber: "DL457",
-                airline: "Delta Airlines",
-                origin: "CDG",
-                destination: "ATL",
-                departureTime: new Date("2025-05-17T12:45:00"),
-                arrivalTime: new Date("2025-05-17T16:30:00"),
-                price: 890.00
-              }
-            },
-            hotel: {
-              name: "Le Bristol Paris",
-              location: "Paris",
-              check_in: new Date("2025-05-11T14:00:00"),
-              check_out: new Date("2025-05-17T11:00:00"),
-              room_type: "Superior Suite",
-              price: 5600.00
-            },
-            trip_type: "Conference",
-            status: "Upcoming"
+          groundTransport: {
+            preferredServices: "uber"
           },
-          {
-            id: 4,
-            guest: {
-              name: "David Smith",
-              email: "d.smith@email.com"
+          dailyPerDiem: 150
+        },
+        itinerary: {
+          id: "I1001",
+          origin: "SFO",
+          destination: "NYC",
+          startDate: new Date("2025-03-15"),
+          endDate: new Date("2025-03-17")
+        },
+        flights: {
+          outbound: {
+            id: "F1001",
+            bookingReference: "ABC123",
+            flightNumber: "UA123",
+            airline: "United Airlines",
+            origin: {
+              airport: "SFO",
+              terminal: "3"
             },
-            flight: {
-              outbound: {
-                flightNumber: "WN221",
-                airline: "Southwest Airlines",
-                origin: "MDW",
-                destination: "LAS",
-                departureTime: new Date("2025-03-25T06:00:00"),
-                arrivalTime: new Date("2025-03-25T08:15:00"),
-                price: 225.00
-              },
-              return: {
-                flightNumber: "WN224",
-                airline: "Southwest Airlines",
-                origin: "LAS",
-                destination: "MDW",
-                departureTime: new Date("2025-03-28T09:30:00"),
-                arrivalTime: new Date("2025-03-28T14:45:00"),
-                price: 245.00
-              }
+            destination: {
+              airport: "JFK",
+              terminal: "4"
             },
-            hotel: {
-              name: "Bellagio",
-              location: "Las Vegas",
-              check_in: new Date("2025-03-25T15:00:00"),
-              check_out: new Date("2025-03-28T11:00:00"),
-              room_type: "Fountain View Room",
-              price: 890.00
-            },
-            trip_type: "Training",
-            status: "Upcoming"
+            departureTime: new Date("2025-03-15T08:00:00Z"),
+            arrivalTime: new Date("2025-03-15T16:30:00Z"),
+            price: 1200,
+            bookingStatus: "confirmed"
           },
-          {
-            id: 5,
-            guest: {
-              name: "Lisa Wong",
-              email: "lwong@email.com"
+          return: {
+            id: "F1002",
+            bookingReference: "ABC124",
+            flightNumber: "UA456",
+            airline: "United Airlines",
+            origin: {
+              airport: "JFK",
+              terminal: "4"
             },
-            flight: {
-              outbound: {
-                flightNumber: "JL007",
-                airline: "Japan Airlines",
-                origin: "JFK",
-                destination: "NRT",
-                departureTime: new Date("2025-06-01T13:45:00"),
-                arrivalTime: new Date("2025-06-02T16:15:00"),
-                price: 1250.00
-              },
-              return: {
-                flightNumber: "JL008",
-                airline: "Japan Airlines",
-                origin: "NRT",
-                destination: "JFK",
-                departureTime: new Date("2025-06-08T18:30:00"),
-                arrivalTime: new Date("2025-06-08T17:45:00"),
-                price: 1300.00
-              }
+            destination: {
+              airport: "SFO",
+              terminal: "3"
             },
-            hotel: {
-              name: "Park Hyatt Tokyo",
-              location: "Tokyo",
-              check_in: new Date("2025-06-02T15:00:00"),
-              check_out: new Date("2025-06-08T12:00:00"),
-              room_type: "Park Suite",
-              price: 4800.00
-            },
-            trip_type: "Contractor",
-            status: "Pending"
-          },
-          {
-            id: 6,
-            guest: {
-              name: "James Wilson",
-              email: "jwilson@email.com"
-            },
-            flight: {
-              outbound: {
-                flightNumber: "BA184",
-                airline: "British Airways",
-                origin: "EWR",
-                destination: "LHR",
-                departureTime: new Date("2025-07-15T21:30:00"),
-                arrivalTime: new Date("2025-07-16T09:45:00"),
-                price: 780.00
-              }
-            },
-            hotel: {
-              name: "The Savoy",
-              location: "London",
-              check_in: new Date("2025-07-16T14:00:00"),
-              check_out: new Date("2025-07-23T12:00:00"),
-              room_type: "River View Deluxe",
-              price: 3900.00
-            },
-            trip_type: "Interview",
-            status: "In Progress"
-          },
-          {
-            id: 7,
-            guest: {
-              name: "Maria Garcia",
-              email: "mgarcia@email.com"
-            },
-            flight: {
-              outbound: {
-                flightNumber: "IB6252",
-                airline: "Iberia",
-                origin: "MIA",
-                destination: "MAD",
-                departureTime: new Date("2025-08-05T16:20:00"),
-                arrivalTime: new Date("2025-08-06T07:35:00"),
-                price: 925.00
-              },
-              return: {
-                flightNumber: "IB6253",
-                airline: "Iberia",
-                origin: "MAD",
-                destination: "MIA",
-                departureTime: new Date("2025-08-12T11:45:00"),
-                arrivalTime: new Date("2025-08-12T15:20:00"),
-                price: 880.00
-              }
-            },
-            hotel: {
-              name: "Hotel Ritz Madrid",
-              location: "Madrid",
-              check_in: new Date("2025-08-06T15:00:00"),
-              check_out: new Date("2025-08-12T11:00:00"),
-              room_type: "Deluxe Suite",
-              price: 3200.00
-            },
-            trip_type: "Other",
-            status: "Upcoming"
-          },
-          {
-            id: 8,
-            guest: {
-              name: "Robert Taylor",
-              email: "rtaylor@email.com"
-            },
-            flight: {
-              outbound: {
-                flightNumber: "AC901",
-                airline: "Air Canada",
-                origin: "YYZ",
-                destination: "YVR",
-                departureTime: new Date("2025-09-20T07:30:00"),
-                arrivalTime: new Date("2025-09-20T09:45:00"),
-                price: 320.00
-              },
-              return: {
-                flightNumber: "AC902",
-                airline: "Air Canada",
-                origin: "YVR",
-                destination: "YYZ",
-                departureTime: new Date("2025-09-25T10:30:00"),
-                arrivalTime: new Date("2025-09-25T17:45:00"),
-                price: 340.00
-              }
-            },
-            hotel: {
-              name: "Fairmont Pacific Rim",
-              location: "Vancouver",
-              check_in: new Date("2025-09-20T16:00:00"),
-              check_out: new Date("2025-09-25T11:00:00"),
-              room_type: "Harbor View Room",
-              price: 1800.00
-            },
-            trip_type: "Interview",
-            status: "Upcoming"
-          },
-          {
-            id: 9,
-            guest: {
-              name: "Anna Kowalski",
-              email: "akowalski@email.com"
-            },
-            flight: {
-              outbound: {
-                flightNumber: "LH452",
-                airline: "Lufthansa",
-                origin: "ORD",
-                destination: "MUC",
-                departureTime: new Date("2025-10-01T15:45:00"),
-                arrivalTime: new Date("2025-10-02T07:30:00"),
-                price: 850.00
-              }
-            },
-            hotel: {
-              name: "Mandarin Oriental Munich",
-              location: "Munich",
-              check_in: new Date("2025-10-02T15:00:00"),
-              check_out: new Date("2025-10-09T11:00:00"),
-              room_type: "Junior Suite",
-              price: 4100.00
-            },
-            trip_type: "Interview",
-            status: "Pending"
-          },
-          {
-            id: 10,
-            guest: {
-              name: "Thomas Anderson",
-              email: "tanderson@email.com"
-            },
-            flight: {
-              outbound: {
-                flightNumber: "QF12",
-                airline: "Qantas",
-                origin: "LAX",
-                destination: "SYD",
-                departureTime: new Date("2025-11-15T22:30:00"),
-                arrivalTime: new Date("2025-11-17T07:45:00"),
-                price: 1450.00
-              },
-              return: {
-                flightNumber: "QF11",
-                airline: "Qantas",
-                origin: "SYD",
-                destination: "LAX",
-                departureTime: new Date("2025-11-25T11:30:00"),
-                arrivalTime: new Date("2025-11-25T06:45:00"),
-                price: 1380.00
-              }
-            },
-            hotel: {
-              name: "Park Hyatt Sydney",
-              location: "Sydney",
-              check_in: new Date("2025-11-17T15:00:00"),
-              check_out: new Date("2025-11-25T11:00:00"),
-              room_type: "Opera View Room",
-              price: 5600.00
-            },
-            trip_type: "Interview",
-            status: "Upcoming"
-          },
-          {
-            id: 11,
-            guest: {
-              name: "Rachel Green",
-              email: "rgreen@email.com"
-            },
-            flight: {
-              outbound: {
-                flightNumber: "DL2468",
-                airline: "Delta Airlines",
-                origin: "SEA",
-                destination: "MIA",
-                departureTime: new Date("2024-01-05T06:30:00"),
-                arrivalTime: new Date("2024-01-05T15:45:00"),
-                price: 385.00
-              },
-              return: {
-                flightNumber: "DL2469",
-                airline: "Delta Airlines",
-                origin: "MIA",
-                destination: "SEA",
-                departureTime: new Date("2024-01-12T16:30:00"),
-                arrivalTime: new Date("2024-01-12T20:15:00"),
-                price: 395.00
-              }
-            },
-            hotel: {
-              name: "Fontainebleau Miami Beach",
-              location: "Miami",
-              check_in: new Date("2024-01-05T16:00:00"),
-              check_out: new Date("2024-01-12T11:00:00"),
-              room_type: "Oceanfront Junior Suite",
-              price: 2800.00
-            },
-            trip_type: "Contractor",
-            status: "Completed"
-          },
-          {
-            id: 12,
-            guest: {
-              name: "Marcus Johnson",
-              email: "mjohnson@email.com"
-            },
-            flight: {
-              outbound: {
-                flightNumber: "EK203",
-                airline: "Emirates",
-                origin: "JFK",
-                destination: "DXB",
-                departureTime: new Date("2023-12-10T22:30:00"),
-                arrivalTime: new Date("2023-12-11T19:45:00"),
-                price: 1750.00
-              }
-            },
-            hotel: {
-              name: "Burj Al Arab",
-              location: "Dubai",
-              check_in: new Date("2023-12-11T20:00:00"),
-              check_out: new Date("2023-12-18T12:00:00"),
-              room_type: "Deluxe Suite",
-              price: 8500.00
-            },
-            trip_type: "Interview",
-            status: "Completed"
-          },
-          {
-            id: 13,
-            guest: {
-              name: "Sophie Martin",
-              email: "smartin@email.com"
-            },
-            flight: {
-              outbound: {
-                flightNumber: "AF1180",
-                airline: "Air France",
-                origin: "BOS",
-                destination: "CDG",
-                departureTime: new Date("2024-02-01T19:15:00"),
-                arrivalTime: new Date("2024-02-02T08:30:00"),
-                price: 780.00
-              },
-              return: {
-                flightNumber: "AF1181",
-                airline: "Air France",
-                origin: "CDG",
-                destination: "BOS",
-                departureTime: new Date("2024-02-05T11:45:00"),
-                arrivalTime: new Date("2024-02-05T14:30:00"),
-                price: 795.00
-              }
-            },
-            hotel: {
-              name: "Hotel du Louvre",
-              location: "Paris",
-              check_in: new Date("2024-02-02T15:00:00"),
-              check_out: new Date("2024-02-05T11:00:00"),
-              room_type: "Classic Room",
-              price: 1200.00
-            },
-            trip_type: "Interview",
-            status: "Completed"
-          },
-          {
-            id: 14,
-            guest: {
-              name: "Alexander Kim",
-              email: "akim@email.com"
-            },
-            flight: {
-              outbound: {
-                flightNumber: "NH1075",
-                airline: "All Nippon Airways",
-                origin: "SFO",
-                destination: "HND",
-                departureTime: new Date("2023-11-20T11:00:00"),
-                arrivalTime: new Date("2023-11-21T15:30:00"),
-                price: 1150.00
-              }
-            },
-            hotel: {
-              name: "Aman Tokyo",
-              location: "Tokyo",
-              check_in: new Date("2023-11-21T16:00:00"),
-              check_out: new Date("2023-11-28T11:00:00"),
-              room_type: "Deluxe Room",
-              price: 6200.00
-            },
-            trip_type: "Interview",
-            status: "In Progress"
-          },
-          {
-            id: 15,
-            guest: {
-              name: "Isabella Santos",
-              email: "isantos@email.com"
-            },
-            flight: {
-              outbound: {
-                flightNumber: "LA2345",
-                airline: "LATAM Airlines",
-                origin: "MIA",
-                destination: "GRU",
-                departureTime: new Date("2024-01-15T22:30:00"),
-                arrivalTime: new Date("2024-01-16T09:45:00"),
-                price: 890.00
-              },
-              return: {
-                flightNumber: "LA2346",
-                airline: "LATAM Airlines",
-                origin: "GRU",
-                destination: "MIA",
-                departureTime: new Date("2024-01-22T11:30:00"),
-                arrivalTime: new Date("2024-01-22T17:45:00"),
-                price: 910.00
-              }
-            },
-            hotel: {
-              name: "Palácio Tangará",
-              location: "São Paulo",
-              check_in: new Date("2024-01-16T15:00:00"),
-              check_out: new Date("2024-01-22T12:00:00"),
-              room_type: "Premium Room",
-              price: 3200.00
-            },
-            trip_type: "Intern",
-            status: "In Progress"
-          },
-          // Future Trips
-          {
-            id: 16,
-            guest: {
-              name: "Oliver Bennett",
-              email: "obennett@email.com"
-            },
-            flight: {
-              outbound: {
-                flightNumber: "VS23",
-                airline: "Virgin Atlantic",
-                origin: "LAX",
-                destination: "LHR",
-                departureTime: new Date("2025-05-01T16:30:00"),
-                arrivalTime: new Date("2025-05-02T10:45:00"),
-                price: 950.00
-              }
-            },
-            hotel: {
-              name: "Claridge's",
-              location: "London",
-              check_in: new Date("2025-05-02T15:00:00"),
-              check_out: new Date("2025-05-09T11:00:00"),
-              room_type: "Mayfair Suite",
-              price: 4800.00
-            },
-            trip_type: "Intern",
-            status: "Upcoming"
-          },
-          {
-            id: 17,
-            guest: {
-              name: "Emma Thompson",
-              email: "ethompson@email.com"
-            },
-            flight: {
-              outbound: {
-                flightNumber: "QF9381",
-                airline: "Qantas",
-                origin: "MEL",
-                destination: "AKL",
-                departureTime: new Date("2025-04-10T08:30:00"),
-                arrivalTime: new Date("2025-04-10T13:45:00"),
-                price: 420.00
-              },
-              return: {
-                flightNumber: "QF9382",
-                airline: "Qantas",
-                origin: "AKL",
-                destination: "MEL",
-                departureTime: new Date("2025-04-15T15:30:00"),
-                arrivalTime: new Date("2025-04-15T17:45:00"),
-                price: 390.00
-              }
-            },
-            hotel: {
-              name: "SO/ Auckland",
-              location: "Auckland",
-              check_in: new Date("2025-04-10T15:00:00"),
-              check_out: new Date("2025-04-15T11:00:00"),
-              room_type: "SO Studio",
-              price: 1800.00
-            },
-            trip_type: "Conference",
-            status: "Upcoming"
-          },
-          {
-            id: 18,
-            guest: {
-              name: "Luis Ramirez",
-              email: "lramirez@email.com"
-            },
-            flight: {
-              outbound: {
-                flightNumber: "AM456",
-                airline: "Aeromexico",
-                origin: "ORD",
-                destination: "MEX",
-                departureTime: new Date("2025-06-20T10:15:00"),
-                arrivalTime: new Date("2025-06-20T14:30:00"),
-                price: 480.00
-              }
-            },
-            hotel: {
-              name: "St. Regis Mexico City",
-              location: "Mexico City",
-              check_in: new Date("2025-06-20T15:00:00"),
-              check_out: new Date("2025-06-27T11:00:00"),
-              room_type: "Deluxe Room",
-              price: 2400.00
-            },
-            trip_type: "Interview",
-            status: "Pending"
-          },
-          {
-            id: 19,
-            guest: {
-              name: "Nina Patel",
-              email: "npatel@email.com"
-            },
-            flight: {
-              outbound: {
-                flightNumber: "EY130",
-                airline: "Etihad Airways",
-                origin: "IAD",
-                destination: "AUH",
-                departureTime: new Date("2025-07-15T21:45:00"),
-                arrivalTime: new Date("2025-07-16T19:30:00"),
-                price: 1650.00
-              },
-              return: {
-                flightNumber: "EY131",
-                airline: "Etihad Airways",
-                origin: "AUH",
-                destination: "IAD",
-                departureTime: new Date("2025-07-22T02:30:00"),
-                arrivalTime: new Date("2025-07-22T09:15:00"),
-                price: 1580.00
-              }
-            },
-            hotel: {
-              name: "Emirates Palace",
-              location: "Abu Dhabi",
-              check_in: new Date("2025-07-16T20:00:00"),
-              check_out: new Date("2025-07-22T12:00:00"),
-              room_type: "Coral Room",
-              price: 3900.00
-            },
-            trip_type: "Interview",
-            status: "Upcoming"
-          },
-          {
-            id: 20,
-            guest: {
-              name: "Christine Weber",
-              email: "cweber@email.com"
-            },
-            flight: {
-              outbound: {
-                flightNumber: "LX167",
-                airline: "Swiss International Air Lines",
-                origin: "MIA",
-                destination: "ZRH",
-                departureTime: new Date("2025-08-01T17:30:00"),
-                arrivalTime: new Date("2025-08-02T09:45:00"),
-                price: 980.00
-              },
-              return: {
-                flightNumber: "LX168",
-                airline: "Swiss International Air Lines",
-                origin: "ZRH",
-                destination: "MIA",
-                departureTime: new Date("2025-08-08T11:30:00"),
-                arrivalTime: new Date("2025-08-08T16:15:00"),
-                price: 950.00
-              }
-            },
-            hotel: {
-              name: "Baur au Lac",
-              location: "Zurich",
-              check_in: new Date("2025-08-02T15:00:00"),
-              check_out: new Date("2025-08-08T11:00:00"),
-              room_type: "Deluxe Room",
-              price: 4200.00
-            },
-            trip_type: "Interview",
-            status: "Pending"
+            departureTime: new Date("2025-03-17T17:00:00Z"),
+            arrivalTime: new Date("2025-03-17T20:30:00Z"),
+            price: 1200,
+            bookingStatus: "confirmed"
           }
-    ]
-}
+        },
+        hotel: {
+          id: "H1001",
+          bookingReference: "HIL789",
+          name: "Four Seasons New York",
+          location: {
+            street: "57 E 57th St",
+            city: "New York",
+            state: "NY",
+            country: "USA",
+            postalCode: "10022"
+          },
+          checkIn: new Date("2025-03-15T15:00:00Z"),
+          checkOut: new Date("2025-03-17T12:00:00Z"),
+          roomType: "Executive Suite",
+          price: 800,
+          bookingStatus: "confirmed"
+        },
+        groundTransport: [
+          {
+            id: "GT1001",
+            type: "uber",
+            pickupLocation: {
+              street: "SFO International Terminal",
+              city: "San Francisco",
+              state: "CA",
+              country: "USA",
+              postalCode: "94128"
+            },
+            dropoffLocation: {
+              street: "57 E 57th St",
+              city: "New York",
+              state: "NY",
+              country: "USA",
+              postalCode: "10022"
+            },
+            estimatedPrice: 85,
+            actualPrice: 92,
+            status: "completed"
+          }
+        ],
+        perDiem: {
+          id: "PD1001",
+          dailyRate: 150,
+          startDate: new Date("2025-03-15"),
+          endDate: new Date("2025-03-17"),
+          totalAmount: 300,
+          status: "approved",
+          expenses: [
+            {
+              id: "E1001",
+              category: "meals",
+              amount: 145,
+              date: new Date("2025-03-15"),
+              receipt: "receipt_url_1",
+              status: "approved",
+              notes: "Business dinner with clients"
+            }
+          ]
+        },
+        created: new Date("2025-02-01T10:00:00Z"),
+        modified: new Date("2025-02-15T14:30:00Z"),
+        createdBy: "ADMIN_USER_001",
+        totalBudget: 4000,
+        actualSpend: 3737
+      },
+    
+      // 2. Consultant Short Trip
+      {
+        id: "T1002",
+        guest: {
+          id: "G1002",
+          firstName: "Mike",
+          lastName: "Johnson",
+          email: "mike.johnson@consultant.com",
+          phone: "+1-312-555-0202",
+          dietaryRestrictions: ["vegetarian"]
+        },
+        tripType: "consulting",
+        status: "Completed",
+        travelPreferences: {
+          id: "TP1002",
+          guestType: "consultant",
+          flight: {
+            cabinClass: "economy",
+            maxStops: "1-stop",
+            refundableTicket: false
+          },
+          hotel: {
+            minimumRating: 3
+          },
+          groundTransport: {
+            preferredServices: "lyft"
+          },
+          dailyPerDiem: 75
+        },
+        itinerary: {
+          id: "I1002",
+          origin: "ORD",
+          destination: "SEA",
+          startDate: new Date("2025-02-20"),
+          endDate: new Date("2025-02-21")
+        },
+        flights: {
+          outbound: {
+            id: "F1003",
+            bookingReference: "DEF456",
+            flightNumber: "AS234",
+            airline: "Alaska Airlines",
+            origin: {
+              airport: "ORD",
+              terminal: "3"
+            },
+            destination: {
+              airport: "SEA",
+              terminal: "N"
+            },
+            departureTime: new Date("2025-02-20T06:00:00Z"),
+            arrivalTime: new Date("2025-02-20T08:45:00Z"),
+            price: 350,
+            bookingStatus: "confirmed"
+          }
+        },
+        hotel: {
+          id: "H1002",
+          bookingReference: "MAR456",
+          name: "Courtyard Seattle Downtown",
+          location: {
+            street: "612 2nd Ave",
+            city: "Seattle",
+            state: "WA",
+            country: "USA",
+            postalCode: "98104"
+          },
+          checkIn: new Date("2025-02-20T15:00:00Z"),
+          checkOut: new Date("2025-02-21T12:00:00Z"),
+          roomType: "Standard King",
+          price: 200,
+          bookingStatus: "confirmed"
+        },
+        created: new Date("2025-01-15T09:00:00Z"),
+        modified: new Date("2025-01-15T09:00:00Z"),
+        createdBy: "ADMIN_USER_002",
+        totalBudget: 800,
+        actualSpend: 625
+      },
+    
+      // 3. International Conference Attendee
+      {
+        id: "T1003",
+        guest: {
+          id: "G1003",
+          firstName: "Emma",
+          lastName: "Garcia",
+          email: "emma.garcia@company.com",
+          phone: "+1-650-555-0303",
+          nationality: "Spain",
+          passportNumber: "XYZ789012",
+          passportExpiryDate: new Date("2027-06-30"),
+          accessibilityNeeds: ["wheelchair_access"],
+          emergencyContact: {
+            name: "Carlos Garcia",
+            relationship: "Brother",
+            phone: "+34-555-0303"
+          }
+        },
+        tripType: "conference",
+        status: "Completed",
+        travelPreferences: {
+          id: "TP1003",
+          guestType: "employee",
+          flight: {
+            cabinClass: "premium-economy",
+            maxStops: "1-stop",
+            refundableTicket: true
+          },
+          hotel: {
+            minimumRating: 4
+          },
+          groundTransport: {
+            preferredServices: "uber"
+          },
+          dailyPerDiem: 100
+        },
+        itinerary: {
+          id: "I1003",
+          origin: "SFO",
+          destination: "LHR",
+          startDate: new Date("2025-04-10"),
+          endDate: new Date("2025-04-15")
+        },
+        flights: {
+          outbound: {
+            id: "F1004",
+            bookingReference: "GHI789",
+            flightNumber: "BA284",
+            airline: "British Airways",
+            origin: {
+              airport: "SFO",
+              terminal: "I"
+            },
+            destination: {
+              airport: "LHR",
+              terminal: "5"
+            },
+            departureTime: new Date("2025-04-10T16:15:00Z"),
+            arrivalTime: new Date("2025-04-11T10:30:00Z"),
+            price: 1800,
+            bookingStatus: "confirmed"
+          }
+        },
+        hotel: {
+          id: "H1003",
+          bookingReference: "HIL101112",
+          name: "Hilton London Bankside",
+          location: {
+            street: "2-8 Great Suffolk Street",
+            city: "London",
+            country: "UK",
+            postalCode: "SE1 0UG"
+          },
+          checkIn: new Date("2025-04-11T15:00:00Z"),
+          checkOut: new Date("2025-04-15T11:00:00Z"),
+          roomType: "Accessible King Room",
+          price: 1200,
+          bookingStatus: "confirmed"
+        },
+        created: new Date("2025-01-10T11:00:00Z"),
+        modified: new Date("2025-02-01T16:45:00Z"),
+        createdBy: "ADMIN_USER_003",
+        totalBudget: 4500,
+        actualSpend: 4100
+      },
+    
+      // 4. New Hire Training Trip
+      {
+        id: "T1004",
+        guest: {
+          id: "G1004",
+          firstName: "Alex",
+          lastName: "Kim",
+          email: "alex.kim@company.com",
+          phone: "+1-206-555-0404",
+          dietaryRestrictions: ["gluten-free"]
+        },
+        tripType: "training",
+        status: "Completed",
+        travelPreferences: {
+          id: "TP1004",
+          guestType: "new_hire",
+          flight: {
+            cabinClass: "economy",
+            maxStops: "any",
+            refundableTicket: false
+          },
+          hotel: {
+            minimumRating: 3
+          },
+          groundTransport: {
+            preferredServices: "lyft"
+          },
+          dailyPerDiem: 50
+        },
+        itinerary: {
+          id: "I1004",
+          origin: "SEA",
+          destination: "AUS",
+          startDate: new Date("2025-03-01"),
+          endDate: new Date("2025-03-05")
+        },
+        flights: {
+          outbound: {
+            id: "F1005",
+            bookingReference: "JKL012",
+            flightNumber: "AA1234",
+            airline: "American Airlines",
+            origin: {
+              airport: "SEA",
+              terminal: "N"
+            },
+            destination: {
+              airport: "AUS"
+            },
+            departureTime: new Date("2025-03-01T08:00:00Z"),
+            arrivalTime: new Date("2025-03-01T14:30:00Z"),
+            price: 450,
+            bookingStatus: "confirmed"
+          }
+        },
+        hotel: {
+          id: "H1004",
+          bookingReference: "MAR131415",
+          name: "Austin Marriott South",
+          location: {
+            street: "4415 South IH-35",
+            city: "Austin",
+            state: "TX",
+            country: "USA",
+            postalCode: "78744"
+          },
+          checkIn: new Date("2025-03-01T15:00:00Z"),
+          checkOut: new Date("2025-03-05T11:00:00Z"),
+          roomType: "Double Queen",
+          price: 600,
+          bookingStatus: "confirmed"
+        },
+        created: new Date("2025-02-01T13:15:00Z"),
+        modified: new Date("2025-02-01T13:15:00Z"),
+        createdBy: "ADMIN_USER_004",
+        totalBudget: 1500,
+        actualSpend: 1250
+      },
+      {
+        id: "T1006",
+        guest: {
+          id: "G1006",
+          firstName: "Maria",
+          lastName: "Santos",
+          email: "maria.santos@email.com",
+          phone: "+351-910-555-0606",
+          nationality: "Portugal",
+          passportNumber: "PRT123456",
+          passportExpiryDate: new Date("2026-08-15"),
+          dietaryRestrictions: ["halal"],
+          emergencyContact: {
+            name: "João Santos",
+            relationship: "Spouse",
+            phone: "+351-910-555-0607"
+          }
+        },
+        tripType: "interview",
+        status: "Completed",
+        travelPreferences: {
+          id: "TP1006",
+          guestType: "candidate",
+          flight: {
+            cabinClass: "business",
+            maxStops: "1-stop",
+            refundableTicket: true
+          },
+          hotel: {
+            minimumRating: 4
+          },
+          groundTransport: {
+            preferredServices: "uber"
+          },
+          dailyPerDiem: 100
+        },
+        itinerary: {
+          id: "I1006",
+          origin: "LIS",
+          destination: "SFO",
+          startDate: new Date("2025-04-20"),
+          endDate: new Date("2025-04-23")
+        },
+        flights: {
+          outbound: {
+            id: "F1006",
+            bookingReference: "TAP789",
+            flightNumber: "TP456",
+            airline: "TAP Air Portugal",
+            origin: {
+              airport: "LIS",
+              terminal: "1"
+            },
+            destination: {
+              airport: "SFO",
+              terminal: "I"
+            },
+            departureTime: new Date("2025-04-20T10:00:00Z"),
+            arrivalTime: new Date("2025-04-20T20:30:00Z"),
+            price: 2800,
+            bookingStatus: "confirmed"
+          },
+          return: {
+            id: "F1007",
+            bookingReference: "TAP790",
+            flightNumber: "TP457",
+            airline: "TAP Air Portugal",
+            origin: {
+              airport: "SFO",
+              terminal: "I"
+            },
+            destination: {
+              airport: "LIS",
+              terminal: "1"
+            },
+            departureTime: new Date("2025-04-23T22:00:00Z"),
+            arrivalTime: new Date("2025-04-24T16:30:00Z"),
+            price: 2800,
+            bookingStatus: "confirmed"
+          }
+        },
+        hotel: {
+          id: "H1006",
+          bookingReference: "SFH123",
+          name: "San Francisco Palace Hotel",
+          location: {
+            street: "2 New Montgomery St",
+            city: "San Francisco",
+            state: "CA",
+            country: "USA",
+            postalCode: "94105"
+          },
+          checkIn: new Date("2025-04-20T16:00:00Z"),
+          checkOut: new Date("2025-04-23T11:00:00Z"),
+          roomType: "Deluxe King",
+          price: 1200,
+          bookingStatus: "confirmed"
+        },
+        created: new Date("2025-03-01T09:00:00Z"),
+        modified: new Date("2025-03-15T14:30:00Z"),
+        createdBy: "ADMIN_USER_006",
+        totalBudget: 8000,
+        actualSpend: 7100
+      },
+    
+      // 7. Vendor Meeting in Chicago
+      {
+        id: "T1007",
+        guest: {
+          id: "G1007",
+          firstName: "Robert",
+          lastName: "Lee",
+          email: "robert.lee@company.com",
+          phone: "+1-650-555-0707",
+          loyaltyPrograms: [
+            {
+              provider: "American Airlines",
+              programName: "AAdvantage",
+              memberNumber: "AA789012",
+              status: "Platinum"
+            },
+            {
+              provider: "Marriott",
+              programName: "Bonvoy",
+              memberNumber: "MB123456",
+              status: "Gold"
+            }
+          ]
+        },
+        tripType: "vendor_meeting",
+        status: "Completed",
+        travelPreferences: {
+          id: "TP1007",
+          guestType: "procurement",
+          flight: {
+            cabinClass: "economy",
+            maxStops: "nonstop",
+            refundableTicket: true
+          },
+          hotel: {
+            minimumRating: 3
+          },
+          groundTransport: {
+            preferredServices: "lyft"
+          },
+          dailyPerDiem: 75
+        },
+        itinerary: {
+          id: "I1007",
+          origin: "SFO",
+          destination: "ORD",
+          startDate: new Date("2025-05-05"),
+          endDate: new Date("2025-05-06")
+        },
+        flights: {
+          outbound: {
+            id: "F1008",
+            bookingReference: "AA345",
+            flightNumber: "AA1856",
+            airline: "American Airlines",
+            origin: {
+              airport: "SFO",
+              terminal: "2"
+            },
+            destination: {
+              airport: "ORD",
+              terminal: "3"
+            },
+            departureTime: new Date("2025-05-05T06:00:00Z"),
+            arrivalTime: new Date("2025-05-05T12:15:00Z"),
+            price: 450,
+            bookingStatus: "confirmed"
+          },
+          return: {
+            id: "F1009",
+            bookingReference: "AA346",
+            flightNumber: "AA1857",
+            airline: "American Airlines",
+            origin: {
+              airport: "ORD",
+              terminal: "3"
+            },
+            destination: {
+              airport: "SFO",
+              terminal: "2"
+            },
+            departureTime: new Date("2025-05-06T17:00:00Z"),
+            arrivalTime: new Date("2025-05-06T19:45:00Z"),
+            price: 450,
+            bookingStatus: "confirmed"
+          }
+        },
+        hotel: {
+          id: "H1007",
+          bookingReference: "MAR789",
+          name: "Chicago Marriott Downtown",
+          location: {
+            street: "540 N Michigan Ave",
+            city: "Chicago",
+            state: "IL",
+            country: "USA",
+            postalCode: "60611"
+          },
+          checkIn: new Date("2025-05-05T15:00:00Z"),
+          checkOut: new Date("2025-05-06T12:00:00Z"),
+          roomType: "Standard Queen",
+          price: 250,
+          bookingStatus: "confirmed"
+        },
+        groundTransport: [
+          {
+            id: "GT1002",
+            type: "lyft",
+            pickupLocation: {
+              street: "O'Hare International Airport",
+              city: "Chicago",
+              state: "IL",
+              country: "USA",
+              postalCode: "60666"
+            },
+            dropoffLocation: {
+              street: "540 N Michigan Ave",
+              city: "Chicago",
+              state: "IL",
+              country: "USA",
+              postalCode: "60611"
+            },
+            estimatedPrice: 45,
+            actualPrice: 52,
+            status: "completed"
+          }
+        ],
+        created: new Date("2025-04-01T10:00:00Z"),
+        modified: new Date("2025-04-01T10:00:00Z"),
+        createdBy: "ADMIN_USER_007",
+        totalBudget: 1500,
+        actualSpend: 1402
+      },
+    
+      // 8. Regional Training Session
+      {
+        id: "T1008",
+        guest: {
+          id: "G1008",
+          firstName: "Julia",
+          lastName: "Martinez",
+          email: "julia.martinez@company.com",
+          phone: "+1-512-555-0808",
+          dietaryRestrictions: ["vegan"],
+          accessibilityNeeds: ["hearing_assisted_room"]
+        },
+        tripType: "training",
+        status: "Completed",
+        travelPreferences: {
+          id: "TP1008",
+          guestType: "trainer",
+          flight: {
+            cabinClass: "economy",
+            maxStops: "1-stop",
+            refundableTicket: false
+          },
+          hotel: {
+            minimumRating: 3
+          },
+          groundTransport: {
+            preferredServices: "uber"
+          },
+          dailyPerDiem: 65
+        },
+        itinerary: {
+          id: "I1008",
+          origin: "AUS",
+          destination: "DFW",
+          startDate: new Date("2025-05-15"),
+          endDate: new Date("2025-05-17")
+        },
+        flights: {
+          outbound: {
+            id: "F1010",
+            bookingReference: "SW567",
+            flightNumber: "WN1234",
+            airline: "Southwest Airlines",
+            origin: {
+              airport: "AUS"
+            },
+            destination: {
+              airport: "DFW",
+              terminal: "E"
+            },
+            departureTime: new Date("2025-05-15T08:00:00Z"),
+            arrivalTime: new Date("2025-05-15T09:15:00Z"),
+            price: 200,
+            bookingStatus: "confirmed"
+          }
+        },
+        hotel: {
+          id: "H1008",
+          bookingReference: "HI456",
+          name: "Holiday Inn DFW Airport South",
+          location: {
+            street: "14320 Centre Station Dr",
+            city: "Fort Worth",
+            state: "TX",
+            country: "USA",
+            postalCode: "76155"
+          },
+          checkIn: new Date("2025-05-15T15:00:00Z"),
+          checkOut: new Date("2025-05-17T11:00:00Z"),
+          roomType: "Accessible King",
+          price: 320,
+          bookingStatus: "confirmed"
+        },
+        perDiem: {
+          id: "PD1002",
+          dailyRate: 65,
+          startDate: new Date("2025-05-15"),
+          endDate: new Date("2025-05-17"),
+          totalAmount: 130,
+          status: "approved",
+          expenses: [
+            {
+              id: "E1002",
+              category: "meals",
+              amount: 55,
+              date: new Date("2025-05-15"),
+              receipt: "receipt_url_2",
+              status: "approved",
+              notes: "Dinner at hotel restaurant"
+            }
+          ]
+        },
+        created: new Date("2025-04-15T11:30:00Z"),
+        modified: new Date("2025-04-15T11:30:00Z"),
+        createdBy: "ADMIN_USER_008",
+        totalBudget: 800,
+        actualSpend: 705
+      },
+      {
+        id: "T1010",
+        guest: {
+          id: "G1010",
+          firstName: "Akiko",
+          lastName: "Tanaka",
+          email: "akiko.tanaka@company.com",
+          phone: "+81-90-1234-5678",
+          nationality: "Japan",
+          passportNumber: "JP789012",
+          passportExpiryDate: new Date("2027-12-31"),
+          dietaryRestrictions: ["pescatarian"],
+          loyaltyPrograms: [
+            {
+              provider: "JAL",
+              programName: "Mileage Bank",
+              memberNumber: "JL567890",
+              status: "Sapphire"
+            }
+          ]
+        },
+        tripType: "workshop",
+        status: "Completed",
+        travelPreferences: {
+          id: "TP1010",
+          guestType: "facilitator",
+          flight: {
+            cabinClass: "business",
+            maxStops: "1-stop",
+            refundableTicket: true
+          },
+          hotel: {
+            minimumRating: 4
+          },
+          groundTransport: {
+            preferredServices: "uber"
+          },
+          dailyPerDiem: 125
+        },
+        itinerary: {
+          id: "I1010",
+          origin: "NRT",
+          destination: "SIN",
+          startDate: new Date("2025-07-10"),
+          endDate: new Date("2025-07-15")
+        },
+        flights: {
+          outbound: {
+            id: "F1013",
+            bookingReference: "JL123",
+            flightNumber: "JL711",
+            airline: "Japan Airlines",
+            origin: {
+              airport: "NRT",
+              terminal: "2"
+            },
+            destination: {
+              airport: "SIN",
+              terminal: "3"
+            },
+            departureTime: new Date("2025-07-10T09:00:00Z"),
+            arrivalTime: new Date("2025-07-10T15:30:00Z"),
+            price: 2200,
+            bookingStatus: "confirmed"
+          },
+          return: {
+            id: "F1014",
+            bookingReference: "JL124",
+            flightNumber: "JL712",
+            airline: "Japan Airlines",
+            origin: {
+              airport: "SIN",
+              terminal: "3"
+            },
+            destination: {
+              airport: "NRT",
+              terminal: "2"
+            },
+            departureTime: new Date("2025-07-15T16:30:00Z"),
+            arrivalTime: new Date("2025-07-15T23:45:00Z"),
+            price: 2200,
+            bookingStatus: "confirmed"
+          }
+        },
+        hotel: {
+          id: "H1010",
+          bookingReference: "MBS789",
+          name: "Marina Bay Sands",
+          location: {
+            street: "10 Bayfront Avenue",
+            city: "Singapore",
+            country: "Singapore",
+            postalCode: "018956"
+          },
+          checkIn: new Date("2025-07-10T15:00:00Z"),
+          checkOut: new Date("2025-07-15T12:00:00Z"),
+          roomType: "Premier Room",
+          price: 2500,
+          bookingStatus: "confirmed"
+        },
+        created: new Date("2025-05-15T08:00:00Z"),
+        modified: new Date("2025-06-01T14:30:00Z"),
+        createdBy: "ADMIN_USER_010",
+        totalBudget: 8000,
+        actualSpend: 7400
+      },
+    
+      // 11. Board Member Visit
+      {
+        id: "T1011",
+        guest: {
+          id: "G1011",
+          firstName: "Victoria",
+          lastName: "Blackwood",
+          email: "victoria.blackwood@board.company.com",
+          phone: "+44-7700-900123",
+          nationality: "UK",
+          passportNumber: "GBR456789",
+          passportExpiryDate: new Date("2028-03-15"),
+          dietaryRestrictions: ["dairy-free"],
+          loyaltyPrograms: [
+            {
+              provider: "British Airways",
+              programName: "Executive Club",
+              memberNumber: "BA234567",
+              status: "Gold"
+            }
+          ]
+        },
+        tripType: "board_meeting",
+        status: "Completed",
+        travelPreferences: {
+          id: "TP1011",
+          guestType: "board_member",
+          flight: {
+            cabinClass: "first",
+            maxStops: "nonstop",
+            refundableTicket: true
+          },
+          hotel: {
+            minimumRating: 5
+          },
+          groundTransport: {
+            preferredServices: "uber"
+          },
+          dailyPerDiem: 200
+        },
+        itinerary: {
+          id: "I1011",
+          origin: "LHR",
+          destination: "SFO",
+          startDate: new Date("2025-08-01"),
+          endDate: new Date("2025-08-03")
+        },
+        flights: {
+          outbound: {
+            id: "F1015",
+            bookingReference: "BA456",
+            flightNumber: "BA287",
+            airline: "British Airways",
+            origin: {
+              airport: "LHR",
+              terminal: "5"
+            },
+            destination: {
+              airport: "SFO",
+              terminal: "I"
+            },
+            departureTime: new Date("2025-08-01T10:30:00Z"),
+            arrivalTime: new Date("2025-08-01T13:45:00Z"),
+            price: 8500,
+            bookingStatus: "confirmed"
+          },
+          return: {
+            id: "F1016",
+            bookingReference: "BA457",
+            flightNumber: "BA286",
+            airline: "British Airways",
+            origin: {
+              airport: "SFO",
+              terminal: "I"
+            },
+            destination: {
+              airport: "LHR",
+              terminal: "5"
+            },
+            departureTime: new Date("2025-08-03T16:15:00Z"),
+            arrivalTime: new Date("2025-08-04T10:30:00Z"),
+            price: 8500,
+            bookingStatus: "confirmed"
+          }
+        },
+        hotel: {
+          id: "H1011",
+          bookingReference: "RCH123",
+          name: "Ritz-Carlton San Francisco",
+          location: {
+            street: "600 Stockton St",
+            city: "San Francisco",
+            state: "CA",
+            country: "USA",
+            postalCode: "94108"
+          },
+          checkIn: new Date("2025-08-01T15:00:00Z"),
+          checkOut: new Date("2025-08-03T12:00:00Z"),
+          roomType: "Presidential Suite",
+          price: 3500,
+          bookingStatus: "confirmed"
+        },
+        groundTransport: [
+          {
+            id: "GT1004",
+            type: "uber",
+            voucherID: "UV789",
+            pickupLocation: {
+              street: "San Francisco International Airport",
+              city: "San Francisco",
+              state: "CA",
+              country: "USA",
+              postalCode: "94128"
+            },
+            dropoffLocation: {
+              street: "600 Stockton St",
+              city: "San Francisco",
+              state: "CA",
+              country: "USA",
+              postalCode: "94108"
+            },
+            estimatedPrice: 120,
+            actualPrice: 135,
+            status: "completed"
+          }
+        ],
+        created: new Date("2025-06-15T09:00:00Z"),
+        modified: new Date("2025-07-01T16:45:00Z"),
+        createdBy: "ADMIN_USER_011",
+        totalBudget: 22000,
+        actualSpend: 21035
+      },
+    
+      // 12. Sales Kickoff Attendee
+      {
+        id: "T1012",
+        guest: {
+          id: "G1012",
+          firstName: "Marcus",
+          lastName: "Rodriguez",
+          email: "marcus.rodriguez@company.com",
+          phone: "+1-305-555-0101",
+          dietaryRestrictions: ["none"],
+          loyaltyPrograms: [
+            {
+              provider: "Delta",
+              programName: "SkyMiles",
+              memberNumber: "DL901234",
+              status: "Silver"
+            }
+          ]
+        },
+        tripType: "sales_kickoff",
+        status: "Completed",
+        travelPreferences: {
+          id: "TP1012",
+          guestType: "sales_rep",
+          flight: {
+            cabinClass: "economy",
+            maxStops: "1-stop",
+            refundableTicket: false
+          },
+          hotel: {
+            minimumRating: 4
+          },
+          groundTransport: {
+            preferredServices: "lyft"
+          },
+          dailyPerDiem: 75
+        },
+        itinerary: {
+          id: "I1012",
+          origin: "MIA",
+          destination: "LAS",
+          startDate: new Date("2025-09-15"),
+          endDate: new Date("2025-09-19")
+        },
+        flights: {
+          outbound: {
+            id: "F1017",
+            bookingReference: "DL789",
+            flightNumber: "DL1234",
+            airline: "Delta Airlines",
+            origin: {
+              airport: "MIA",
+              terminal: "S"
+            },
+            destination: {
+              airport: "LAS",
+              terminal: "1"
+            },
+            departureTime: new Date("2025-09-15T07:00:00Z"),
+            arrivalTime: new Date("2025-09-15T09:45:00Z"),
+            price: 450,
+            bookingStatus: "confirmed"
+          }
+        },
+        hotel: {
+          id: "H1012",
+          bookingReference: "BLG456",
+          name: "Bellagio Las Vegas",
+          location: {
+            street: "3600 S Las Vegas Blvd",
+            city: "Las Vegas",
+            state: "NV",
+            country: "USA",
+            postalCode: "89109"
+          },
+          checkIn: new Date("2025-09-15T16:00:00Z"),
+          checkOut: new Date("2025-09-19T11:00:00Z"),
+          roomType: "Fountain View King",
+          price: 1200,
+          bookingStatus: "confirmed"
+        },
+        created: new Date("2025-07-01T10:30:00Z"),
+        modified: new Date("2025-07-15T13:45:00Z"),
+        createdBy: "ADMIN_USER_012",
+        totalBudget: 2500,
+        actualSpend: 2100
+      },
+    
+      // 13. Remote Employee Onboarding
+      {
+        id: "T1013",
+        guest: {
+          id: "G1013",
+          firstName: "Sophie",
+          lastName: "Anderson",
+          email: "sophie.anderson@company.com",
+          phone: "+1-208-555-0202",
+          dietaryRestrictions: ["vegetarian"],
+          emergencyContact: {
+            name: "James Anderson",
+            relationship: "Father",
+            phone: "+1-208-555-0203"
+          }
+        },
+        tripType: "onboarding",
+        status: "Completed",
+        travelPreferences: {
+          id: "TP1013",
+          guestType: "new_hire",
+          flight: {
+            cabinClass: "economy",
+            maxStops: "1-stop",
+            refundableTicket: false
+          },
+          hotel: {
+            minimumRating: 3
+          },
+          groundTransport: {
+            preferredServices: "uber"
+          },
+          dailyPerDiem: 60
+        },
+        itinerary: {
+          id: "I1013",
+          origin: "BOI",
+          destination: "SEA",
+          startDate: new Date("2025-10-01"),
+          endDate: new Date("2025-10-05")
+        },
+        flights: {
+          outbound: {
+            id: "F1018",
+            bookingReference: "AS234",
+            flightNumber: "AS2345",
+            airline: "Alaska Airlines",
+            origin: {
+              airport: "BOI"
+            },
+            destination: {
+              airport: "SEA",
+              terminal: "N"
+            },
+            departureTime: new Date("2025-10-01T08:00:00Z"),
+            arrivalTime: new Date("2025-10-01T09:15:00Z"),
+            price: 300,
+            bookingStatus: "confirmed"
+          }
+        },
+        hotel: {
+          id: "H1013",
+          bookingReference: "WES789",
+          name: "Westin Seattle",
+          location: {
+            street: "1900 5th Ave",
+            city: "Seattle",
+            state: "WA",
+            country: "USA",
+            postalCode: "98101"
+          },
+          checkIn: new Date("2025-10-01T16:00:00Z"),
+          checkOut: new Date("2025-10-05T11:00:00Z"),
+          roomType: "Traditional Room",
+          price: 800,
+          bookingStatus: "confirmed"
+        },
+        created: new Date("2025-08-15T11:30:00Z"),
+        modified: new Date("2025-08-15T11:30:00Z"),
+        createdBy: "ADMIN_USER_013",
+        totalBudget: 1500,
+        actualSpend: 1300
+      },
+  ]
+}   
