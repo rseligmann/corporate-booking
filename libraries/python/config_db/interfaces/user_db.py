@@ -22,7 +22,7 @@ class UserDB(ABC):
         pass
     
     @abstractmethod
-    async def insert_admin(self, email: str, first_name: str, last_name: str, company_id: str) -> Admin:
+    async def insert_admin(self, user_id: str, email: str, first_name: str, last_name: str, company_id: str, role: str) -> Admin:
         """Insert a new admin"""
         pass
     

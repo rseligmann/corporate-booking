@@ -19,6 +19,7 @@ class Config:
         self.app_port       = config_json["PORT"]
         self.workers        = config_json["WORKERS"]
         self.psql_key_file  = config_json["PSQL_KEY_FILE"]
+        self.cognito_key_file   = config_json["COGNITO_KEY_FILE"]
         self.module_name    = config_json["MODULE_NAME"]
         self.app_name       = config_json["APP_NAME"]
 

@@ -1,18 +1,79 @@
-from api.dependencies           import ConfigDBDependency
-from fastapi                    import APIRouter
+from fastapi import APIRouter, HTTPException, Depends, status
+from fastapi.security import OAuth2PasswordRequestForm
+from typing import Optional
 
-from database.postgresql.models import Admin
+#from auth.service import CognitoService
+from api.dependencies import ConfigDBDependency, CognitoConfigDependency, CurrentUserDependency
+from api.models.auth import Token, UserResponse, RefreshTokenRequest
 
 router = APIRouter()
 
-class Token:
-    access_token: str
-    token_type: str
+@router.post("/token", response_model=Token)
+async def login_for_access_token(
+    cognito: CognitoConfigDependency,
+    config_db: ConfigDBDependency,
+    form_data: OAuth2PasswordRequestForm = Depends()
+):
+    """
+    Authenticate user and return access token
+    """
+    try:
+        # Authenticate with Cognito
+        auth_response = await cognito.initiate_auth(form_data.username, form_data.password)
+        
+        # Check if user exists in our database
+        user = await config_db.get_admin_by_email(form_data.username)
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="User not registered in application database",
+            )
+        
+        # Extract tokens
+        auth_result = auth_response.get('AuthenticationResult', {})
+        
+        return {
+            "access_token": auth_result.get('AccessToken', ''),
+            "token_type": "bearer",
+            "refresh_token": auth_result.get('RefreshToken', ''),
+            "id_token": auth_result.get('IdToken', ''),
+            "expires_in": auth_result.get('ExpiresIn', 3600)
+        }
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=f"Authentication failed: {str(e)}",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
 
-async def get_admin(config_reader: ConfigDBDependency, email: str) -> Admin:
-    user = config_reader.get_admin_by_email(email)
-    return user
+@router.get("/me", response_model=UserResponse)
+async def read_users_me(current_user: CurrentUserDependency):
+    """
+    Get current authenticated user info
+    """
+    return {
+        "email": current_user.email,
+        "first_name": current_user.first_name,
+        "last_name": current_user.last_name,
+        "company_id": current_user.company_id
+    }
 
-@router.post("/token")
-async def login_for_access_token(config_reader: ConfigDBDependency, email: str, password: str):
-    pass
+@router.post("/refresh")
+async def refresh_access_token(refresh_data: RefreshTokenRequest):
+    """
+    Get a new access token using a refresh token
+    """
+    refresh_result = CognitoService.refresh_token(refresh_data.refresh_token)
+    
+    if not refresh_result['success']:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid or expired refresh token"
+        )
+    
+    return {
+        "access_token": refresh_result['access_token'],
+        "id_token": refresh_result['id_token'],
+        "token_type": "bearer",
+        "expires_in": refresh_result['expires_in']
+    }

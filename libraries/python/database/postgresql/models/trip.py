@@ -30,6 +30,7 @@ class Trip(Base):
     admin = relationship("Admin", back_populates="trips")
     flight_itinerary = relationship("FlightItinerary", back_populates="trip")
     ground_transports = relationship("GroundTransport", back_populates="trip")
+    status = relationship("TripStatus", back_populates="trips")
 
     def __repr__(self):
         return f"<Trip(id='{self.id}', guest_profile_id='{self.guest_profile_id}', guest_type='{self.guest_type}', status='{self.status}', meeting_id='{self.meeting_id}', hotel_id='{self.hotel_id}', per_diem_id='{self.per_diem_id}', created='{self.created}', modified='{self.modified}', created_by='{self.created_by}', total_budget='{self.total_budget}', actual_spend='{self.actual_spend}')>"

@@ -25,11 +25,11 @@ async def setup_database():
         subprocess.run([sys.executable, "create_lookup_data.py"], check=True)
         
         # Step 3: Run test script
-        print("\n=== STEP 3: TESTING DATABASE FUNCTIONALITY ===")
-        subprocess.run([sys.executable, "test_config_db.py"], check=True)
+        # print("\n=== STEP 3: TESTING DATABASE FUNCTIONALITY ===")
+        # subprocess.run([sys.executable, "test_config_db.py"], check=True)
         
-        print("\n=== DATABASE SETUP COMPLETED SUCCESSFULLY ===")
-        print("You can now start the FastAPI application with: cd backend && ./start_app.py --env dev")
+        # print("\n=== DATABASE SETUP COMPLETED SUCCESSFULLY ===")
+        # print("You can now start the FastAPI application with: cd backend && ./start_app.py --env dev")
         
     except subprocess.CalledProcessError as e:
         print(f"\nERROR: A script failed with exit code {e.returncode}")

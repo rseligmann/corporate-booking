@@ -2,6 +2,8 @@
     "HOST": "127.0.0.1",
     "PORT": 8000,
     "PSQL_KEY_FILE": "/Users/deploy/keys/DevPSQL.json",
+    "COGNITO_KEY_FILE": "/Users/deploy/keys/DevCognito.json",
+    "AWS_KEY_FILE": "/Users/deploy/keys/DevAWSAccess.json",
     "MODULE_NAME": "main",
     "APP_NAME": "app",
     "WORKERS": 1

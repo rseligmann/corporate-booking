@@ -1,10 +1,9 @@
 from typing import Optional, List
 from sqlalchemy import select
-from uuid import uuid4
-from datetime import datetime
 
 from config_types.user_types import Admin
 from config_db.interfaces.user_db import UserDB
+from config_types.base import Role
 from database.postgresql.models import Admin as DBAdmin
 
 class PostgreSQLUserDB(UserDB):
@@ -18,6 +17,8 @@ class PostgreSQLUserDB(UserDB):
             
             if not db_admin:
                 return None
+            
+            role_enum = Role(db_admin.role)
                 
             return Admin(
                 user_id=db_admin.id,
@@ -25,7 +26,7 @@ class PostgreSQLUserDB(UserDB):
                 first_name=db_admin.first_name,
                 last_name=db_admin.last_name,
                 company_id=db_admin.company_id,
-                role=db_admin.role,
+                role=role_enum,
                 date_created=db_admin.created_at,
                 date_updated=db_admin.updated_at
             )
@@ -49,7 +50,7 @@ class PostgreSQLUserDB(UserDB):
                 date_created=db_admin.created_at,
                 date_updated=db_admin.updated_at
             )
-        
+
     async def get_admins_by_company(self, company_id: str) -> List[Admin]:
         with self.Session() as session:
             stmt = select(DBAdmin).where(DBAdmin.company_id == company_id)
@@ -70,14 +71,15 @@ class PostgreSQLUserDB(UserDB):
                 for db_admin in db_admins
             ]
 
-    async def insert_admin(self, email: str, first_name: str, last_name: str, company_id: str) -> Admin:
+    async def insert_admin(self, user_id:str, email: str, first_name: str, last_name: str, company_id: str, role: str) -> Admin:
         with self.Session() as session:
             db_admin = DBAdmin(
-                id=str(uuid4()),
+                id=user_id,
                 email=email,
                 first_name=first_name,
                 last_name=last_name,
-                company_id=company_id
+                company_id=company_id,
+                role = role
             )
             session.add(db_admin)
             session.commit()

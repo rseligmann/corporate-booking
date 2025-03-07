@@ -18,8 +18,8 @@ class Address(Base):
     guest_profiles = relationship("GuestProfile", back_populates="address")
     hotels = relationship("Hotel", back_populates="address")
     meetings = relationship("Meeting", back_populates="address")
-    ground_transport_pickups = relationship("GroundTransportPickup", foreign_keys="GroundTransport.pickup_address_id", back_populates="pickup_address")
-    ground_transport_dropoffs = relationship("GroundTransportDropoff", foreign_keys="GroundTransport.dropoff_address_id", back_populates="dropoff_address")
+    ground_transport_pickups = relationship("GroundTransport", foreign_keys="GroundTransport.pickup_address_id", back_populates="pickup_address")
+    ground_transport_dropoffs = relationship("GroundTransport", foreign_keys="GroundTransport.dropoff_address_id", back_populates="dropoff_address")
     
     def __repr__(self):
         return f"<Address(id='{self.id}', city='{self.city}', country='{self.country}')>"

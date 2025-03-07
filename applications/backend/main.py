@@ -1,7 +1,7 @@
-from fastapi                                    import FastAPI
-from fastapi.middleware.cors                    import CORSMiddleware
+from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
 
-from api.api                                    import api
+from api.api import api
 
 app = FastAPI(title = "API", description = "API for Corporate Travel Booking System", version = "0.1")
 
@@ -16,8 +16,9 @@ app.include_router(api, prefix="/api/v1")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins       = origins,
-    allow_credentials   = True,
-    allow_methods       = ["*"],
-    allow_headers       = ["*"],
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
+

@@ -36,6 +36,7 @@ class Admin(User):
                 first_name: str,
                 last_name: str,
                 company_id: str,
+                role: Role,
                 date_created: datetime,
                 date_updated: datetime):
         super().__init__(
@@ -43,7 +44,7 @@ class Admin(User):
             email=email,
             first_name=first_name,
             last_name=last_name,
-            role=Role.ADMIN,
+            role=role,
             date_created=date_created,
             date_updated=date_updated
         )

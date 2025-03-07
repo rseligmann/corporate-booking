@@ -32,7 +32,7 @@ class FlightItineraryStatus(Base):
     display_order = Column(Integer, nullable=False)
 
     #Relationships
-    flight_itinerarues = relationship("FlightItinerary", back_populates="status")
+    flight_itineraries = relationship("FlightItinerary", back_populates="status")
 
     def __repr__(self):
         return f"<FlightItineraryStatus(id='{self.id}', code='{self.code}', description='{self.description}')>"
@@ -72,4 +72,4 @@ class FlightLegStatus(Base):
     display_order = Column(Integer, nullable=False)
 
     #Relationships
-    flight_legs = relationship("FlightLeg", back_populates="status")
+    legs = relationship("FlightLeg", back_populates="status")
