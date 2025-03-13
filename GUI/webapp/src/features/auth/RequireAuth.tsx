@@ -1,18 +1,18 @@
 import { Navigate, useLocation } from "react-router-dom"
+import { useAuth } from "@/contexts/AuthContext"
 
 interface RequireAuthProps {
     children: React.ReactNode
+    requireAuth?: boolean
 }
 
-export function RequireAuth({ children }: RequireAuthProps) {
+export const RequireAuth: React.FC<RequireAuthProps> = ({ children, requireAuth = false } ) => {
     const location = useLocation()
+    const { authState } = useAuth()
 
-    // TODO: add real auth logic
-    const isAuthenticated = true
-
-    if (!isAuthenticated) {
+    if (requireAuth && !authState.isAuthenticated) {
         return <Navigate to="/login" state={{ from: location }} replace />
     }
 
-    return <>{children}</>
+return <>{children}</>
 }

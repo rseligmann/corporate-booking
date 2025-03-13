@@ -1,0 +1,47 @@
+.login {
+    width: 100%;
+    
+    &__card {
+      background-color: var(--color-card);
+      border-radius: var(--radius);
+      border: 1px solid var(--color-border);
+      padding: var(--space-8);
+      box-shadow: var(--shadow-md);
+    }
+    
+    &__title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--color-foreground);
+      margin-bottom: var(--space-6);
+    }
+    
+    &__form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+    
+    &__field {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+    
+    &__footer {
+      margin-top: var(--space-6);
+      text-align: center;
+      font-size: 0.875rem;
+      color: var(--color-muted-foreground);
+    }
+    
+    &__link {
+      color: var(--color-primary);
+      text-decoration: none;
+      font-weight: 500;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }

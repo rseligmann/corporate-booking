@@ -3,30 +3,27 @@ import { Routes, Route } from "react-router-dom"
 import AuthLayout from "@/layouts/AuthLayout/AuthLayout"
 import { DefaultLayout } from "@/layouts/DefaultLayout"
 import GuestLayout from "@/layouts/GuestLayout/GuestLayout"
-import { Login } from "@/routes/login"
+import { ConfirmationPage, DashboardPage, GuestDashboardPage, GuestExpensesPage, 
+    GuestFlightsPage, GuestHotelPage, GuestInvitePage, GuestTransportPage, 
+    LoginPage, RegisterPage, ReportsPage, SettingsPage
+} from "@/routes"
 import { RequireAuth } from "@/features/auth/RequireAuth"
-import { DashboardPage } from "@/routes/dashboard"
-import { GuestInvitePage } from "@/routes/guestinvite"
-import{ GuestFlightsPage } from "@/routes/guestflightbooking"
-import{ GuestTransportPage } from "@/routes/guesttransport"
-import { GuestHotelPage } from "@/routes/guesthotel"
-import { GuestExpensesPage } from "@/routes/guestexpenses"
-import { ReportsPage } from "@/routes/reports"
-import { SettingsPage } from "@/routes/settings"
-import { GuestDashboardPage } from "@/routes/guestdashboard"
 
 const App: FC = () => {
     return (
+        <RequireAuth>
         <Routes>
             {/* Travel Manager Auth Routes */}
             <Route element={<AuthLayout />}>
-                <Route path="/login" element={<Login />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
+                <Route path="/confirm-signup" element={<ConfirmationPage />} />
                 {/* Add other auth routes like register, forgot-password here */}
             </Route>
 
             {/* Protected routes */}
             <Route element={
-                <RequireAuth>
+                <RequireAuth requireAuth={true}>
                     <DefaultLayout />
                 </RequireAuth>
             }>
@@ -50,6 +47,7 @@ const App: FC = () => {
 
             </Route>
         </Routes>
+        </RequireAuth>
     )
 }
 
