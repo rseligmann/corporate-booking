@@ -1,5 +1,5 @@
 export type FlightPreferences = {
-    cabinClass?: 'any' | 'economy' | 'premium-economy' | 'business' | 'first';
-    maxStops?: 'any' | 'nonstop' | '1-stop' | '2-stops';
+    cabinClass?: 'ECONOMY' | 'PREMIUM_ECONOMY' | 'BUSINESS' | 'FIRST';
+    maxStops?: 'ANY' | 'DIRECT' | 'ONE_STOP' | 'TWO_STOPS';
     refundableTicket?: boolean;
 };

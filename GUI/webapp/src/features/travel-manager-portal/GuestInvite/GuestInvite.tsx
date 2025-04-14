@@ -1,32 +1,32 @@
 import React, { useCallback, useEffect } from 'react'
 import { useNavigate}  from 'react-router-dom'
 import { ChevronRight, ArrowLeft } from 'lucide-react'
-import { ActionIcon, Button, Card, Space, Text } from '@mantine/core'
+import { ActionIcon, Button, Card, Grid, Space, Text } from '@mantine/core'
 import { useGuestInviteState, useFormData } from './hooks'
+import { useAllGuestTypes } from '@/api/hooks'
+import { useAuth } from '@/contexts/AuthContext'
 import { getStepValidation } from './utils/formValidation'
 import { TravelMgrPageLayout } from '@/layouts';
-import { GuestDetailsForm, ItineraryForm, PreferencesForm, ProgressStepper, ReviewForm } from './components'
-import { getSampleTravelPreferencesData } from '../utils/getSampleTravelPreferencesData'
+import { EstimatedBudget, GuestDetailsForm, ItineraryForm, PreferencesForm, ProgressStepper, ReviewForm } from './components'
 //import { createGuestInvite } from '@/api/api'
 import './GuestInvite.scss';
 
-const travelerPreferences = getSampleTravelPreferencesData();
-
 const GuestInvite: React.FC = () => {
+  
+  const {authState} = useAuth();
+  const companyId = authState.user?.company_id || '';
+  const {data: allGuestTypesData, isPending: allGuestTypesIsPending, error: allGuestTypesError} = useAllGuestTypes(companyId)
+
   const { formData, clearFormData, updateGuestDetails, updateGuestTypeAndPreferences, updateItineraryDetails, updateTravelPreferences } = useFormData();
-  const {  
-    currentStep,
-    nextStep,
-    prevStep,
-    step,
-    clearCurrentStep, 
-  } = useGuestInviteState([
+  const { currentStep, nextStep, prevStep, step, clearCurrentStep } = useGuestInviteState([
       <GuestDetailsForm 
-        guestTypes={travelerPreferences.map(t=>t.guestType)}
+        guestTypeData = {allGuestTypesData}
         guestData={formData.guest}
-        guestTypeData={formData.guestType}
         updateGuestDetails={updateGuestDetails} 
-        updateGuestTypeAndPreferences = {updateGuestTypeAndPreferences}/>, 
+        updateGuestTypeAndPreferences = {updateGuestTypeAndPreferences}
+        isGuestTypeDataPending = {allGuestTypesIsPending}
+        isGuestTypeDataError = {allGuestTypesError}
+        />, 
       <ItineraryForm
         itineraryData={formData.itinerary}
         updateItineraryDetails={updateItineraryDetails}
@@ -95,11 +95,23 @@ const GuestInvite: React.FC = () => {
           {/*<ProgressBar currentStep={state.currentStep} totalSteps={totalSteps} />*/}
           <ProgressStepper currentStep={currentStep} />
           <Space h="xl" />
-          
-          <Card shadow ="xs" padding="lg" radius="md" withBorder>
-              {step}
-          </Card>
-  
+          <Grid>
+            <Grid.Col span="auto">
+              <Card shadow ="xs" padding="lg" radius="md" withBorder>
+                  {step}
+              </Card>
+            </Grid.Col>
+
+            {currentStep > 0
+            ? 
+              <Grid.Col span={{base: 12, lg: 4}}>
+                <EstimatedBudget
+                  formData={formData}
+                />
+              </Grid.Col>
+            : <></>
+            }
+          </Grid>
           <div className="guest-invite__actions">
             {currentStep > 0 && (
               <Button

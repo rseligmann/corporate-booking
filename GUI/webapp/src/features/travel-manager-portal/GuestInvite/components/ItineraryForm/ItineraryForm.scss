@@ -3,7 +3,11 @@
     flex-direction: column;
     gap: 24px;
   
-    &__location-group,
+    &__location-group{
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
     &__schedule-group {
       display: grid;
       grid-template-columns: 1fr 1fr;

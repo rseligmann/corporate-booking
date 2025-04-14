@@ -54,12 +54,16 @@ export const useConfirmSignup = () => {
           });
           
           login(token);
-          
-          // Clear any sensitive data
-          sessionStorage.removeItem('tempPassword');
-          sessionStorage.removeItem('signupEmail');
-          
+
           navigate('/dashboard');
+          
+          // Clear any sensitive data after navigating to dashboard
+          setTimeout(() =>{
+            sessionStorage.removeItem('tempPassword');
+            sessionStorage.removeItem('signupEmail');
+          }, 500)
+          
+          
         } else {
           // If we don't have the password, redirect to login
           navigate('/login', { 

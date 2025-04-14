@@ -1,24 +1,28 @@
 import { Alert, Button, Card, CloseButton, Grid, Group, Space, Text, TextInput } from '@mantine/core'
-import { GuestTypePreferences  } from "@/types";
+import { GuestTypesResponse } from '@/types';
 
 interface ManageGuestTypesProps {
-    guestTypePreferences: GuestTypePreferences[];
+    guestTypes: GuestTypesResponse | undefined;
     newGuestType: string;
     setNewGuestType: (value: string) => void;
     error: string | null;
     setError: (error: string | null) => void;
     handleAddGuestType: () => void;
     handleRemoveGuestType: (id: string) => void;
+    isCreating?: boolean
+    isDeleting?: boolean
 }
 
 export const ManageGuestTypes: React.FC<ManageGuestTypesProps> = ({
-    guestTypePreferences, 
+    guestTypes, 
     newGuestType,
     setNewGuestType,
     error,
     setError,
     handleAddGuestType,
-    handleRemoveGuestType
+    handleRemoveGuestType,
+    isCreating = false,
+    isDeleting = false
 }) =>{
 
     return(
@@ -34,10 +38,13 @@ export const ManageGuestTypes: React.FC<ManageGuestTypesProps> = ({
                         setNewGuestType(event.target.value);
                         setError(null);
                     }}
+                    disabled={isCreating}
                 />
                 <Button
                     onClick={handleAddGuestType}
                     variant="outline"
+                    loading={isCreating}
+                    disabled= {isCreating}
                 >
                     Add Type
                 </Button>
@@ -50,13 +57,14 @@ export const ManageGuestTypes: React.FC<ManageGuestTypesProps> = ({
             </Group>
             <Space h="md" />
             <Grid>
-            {guestTypePreferences.map((type)=>(
+            {guestTypes?.map((type)=>(
                 <Grid.Col span={{ base: 6, md: 4, lg: 3 }}>
-                <Card padding="xs" radius="md" withBorder >
+                <Card padding="xs" radius="md" withBorder>
                     <Group justify='space-between'>
-                        {type.guestType}
+                        {type.name}
                         <CloseButton 
-                            onClick={()=> handleRemoveGuestType(type.id)}
+                            onClick={()=> handleRemoveGuestType(type.guest_type_id)}
+                            disabled= {isDeleting}
                         />
                     </Group>
                 </Card>

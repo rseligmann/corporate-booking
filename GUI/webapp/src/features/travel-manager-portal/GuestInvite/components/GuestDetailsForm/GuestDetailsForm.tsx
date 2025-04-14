@@ -1,28 +1,34 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
-import { NativeSelect, TextInput } from '@mantine/core'
-import { Trip } from '@/types';
+import React, { useState } from 'react';
+import { Loader, TextInput, Select } from '@mantine/core'
+import { Trip, GuestTypesResponse  } from '@/types';
 import { fieldValidators } from '../../utils/formValidation';
 import './GuestDetailsForm.scss';
 
 interface GuestDetailsFormProps{
-  guestTypes: string[];
+  guestTypeData: GuestTypesResponse | undefined;
   guestData: Trip['guest'];
-  guestTypeData: string;
   updateGuestDetails: (update: Partial<Trip['guest']>) => void;
   updateGuestTypeAndPreferences: (guestType: string) => void;
+  isGuestTypeDataPending: boolean;
+  isGuestTypeDataError: Error| null;
 }
 
-export const GuestDetailsForm: React.FC<GuestDetailsFormProps> = ({guestTypes, guestData, guestTypeData, updateGuestDetails, updateGuestTypeAndPreferences}) => {
+interface GuestTypeSelection {
+  guest_type_id: string;
+  name: string;
+}
+
+export const GuestDetailsForm: React.FC<GuestDetailsFormProps> = ({
+  guestTypeData, 
+  guestData, 
+  updateGuestDetails, 
+  updateGuestTypeAndPreferences, 
+  isGuestTypeDataPending, 
+  isGuestTypeDataError
+}) => {
 
   const [touched, setTouched] = useState<Record<string, boolean>>({});
-
-  // Initialize guest type on mount if it's not already set
-  useEffect(() => {
-    if (!guestTypeData && guestTypes.length > 0) {
-      const defaultGuestType = guestTypes[0];
-      updateGuestTypeAndPreferences(defaultGuestType);
-    }
-  }, []);
+  const [selectedGuestType, setSelectedGuestType] = useState<GuestTypeSelection | null>(null);
 
   const getErrorMessage = (field: string) => {
     if (!touched[field]) return undefined;
@@ -38,9 +44,14 @@ export const GuestDetailsForm: React.FC<GuestDetailsFormProps> = ({guestTypes, g
     }
   };
   
-  const handleGuestTypeChange=(event: ChangeEvent<HTMLSelectElement>) =>{
-    const newValue=event.target.value
-    updateGuestTypeAndPreferences(newValue)
+  const handleGuestTypeChange=(value: string | null) =>{
+    if (value) {
+      const selectedType = guestTypeData?.find(type => type.guest_type_id === value)
+      if (selectedType) {
+        updateGuestTypeAndPreferences(selectedType.guest_type_id)
+        setSelectedGuestType(selectedType)
+      }
+    }
   }
 
   const handleBlur = (field: string) => {
@@ -100,13 +111,16 @@ export const GuestDetailsForm: React.FC<GuestDetailsFormProps> = ({guestTypes, g
       </div>
       
       <div className="form-field">
-        <NativeSelect
+        <Select
           label="Guest Type"
+          placeholder="Select Guest Type"
           required
           withAsterisk
-          data={guestTypes}
-          value={guestTypeData}
+          data={guestTypeData?.map(t => ({value: t.guest_type_id, label: t.name}))}
+          leftSection={isGuestTypeDataPending ? <Loader size={16}/> : null}
+          value={selectedGuestType?.guest_type_id || null}
           onChange={handleGuestTypeChange}
+          error={isGuestTypeDataError?.message}
         />
       </div>
     </div>

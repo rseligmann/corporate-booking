@@ -17,7 +17,6 @@ export interface RefreshTokenRequest {
   
 export interface CompanyCreate {
     name?: string;
-    location?: string;
     street?: string;
     city?: string;
     state?: string;

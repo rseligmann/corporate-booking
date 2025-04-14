@@ -1,28 +1,31 @@
 from abc import ABC
 from enum import Enum
+from datetime import datetime
 from typing import Optional
 
-class GuestTypePreferences(ABC):
+class GuestTypes(ABC):
     def __init__(self,
-                preferences_id: str,
-                flight_preferences_id: str,
-                hotel_preferences_id: str,
-                ground_transport_preferences_id: str,
-                guest_type: str,
-                daily_per_diem: Optional[float]):
-        self.preferences_id                 = preferences_id
-        self.flight_preferences_id          = flight_preferences_id
-        self.hotel_preferences_id           = hotel_preferences_id
-        self.ground_transport_preferences_id = ground_transport_preferences_id
-        self.guest_type                     = guest_type
-        self.daily_per_diem                 = daily_per_diem
+                guest_type_id: str,
+                name: str,
+                company_id: str,
+                user_id: str,
+                date_created: datetime,
+                date_updated: datetime):
+        self.guest_type_id = guest_type_id
+        self.name = name
+        self.company_id = company_id
+        self.user_id = user_id
+        self.date_created = date_created
+        self.date_updated = date_updated
     
     def __str__(self) -> str:
-        return f"""Guest Type Preferences for {self.guest_type}:
-                   Flight Preferences: {self.flight_preferences_id}
-                   Hotel Preferences: {self.hotel_preferences_id}
-                   Ground Transport Preferences: {self.ground_transport_preferences_id}
-                   Daily Per Diem: ${self.daily_per_diem:.2f if self.daily_per_diem else 'N/A'}"""
+        return f"""Guest Type Details:
+                   ID: {self.guest_type_id}
+                   Name: {self.name}
+                   CompanyID: {self.company_id}
+                   UserID: {self.user_id}
+                   Created: {self.date_created}
+                   Updated: {self.date_updated}"""
 
 class CabinClass(Enum):
     ECONOMY = "ECONOMY"
@@ -38,38 +41,52 @@ class MaxStops(Enum):
 
 class FlightPreferences(ABC):
     def __init__(self,
-                preferences_id: str,
-                cabin_class_id: str,
-                max_stops_id: str,
-                refundable_ticket: bool):
-        self.preferences_id    = preferences_id
-        self.cabin_class_id    = cabin_class_id
-        self.max_stops_id      = max_stops_id
+                flight_preferences_id: str,
+                guest_type_id: str,
+                cabin_class: CabinClass,
+                max_stops: MaxStops,
+                refundable_ticket: bool,
+                date_created: datetime,
+                date_updated: datetime):
+        self.flight_preferences_id = flight_preferences_id
+        self.guest_type_id = guest_type_id
+        self.cabin_class = cabin_class
+        self.max_stops = max_stops
         self.refundable_ticket = refundable_ticket
+        self.date_created = date_created
+        self.date_updated = date_updated
     
     def __str__(self) -> str:
         return f"""Flight Preferences:
-                   Cabin Class: {self.cabin_class_id}
-                   Max Stops: {self.max_stops_id}
-                   Refundable Ticket: {'Yes' if self.refundable_ticket else 'No'}"""
-
-class HotelRating(Enum):
-    ONE_STAR = "ONE_STAR"
-    TWO_STAR = "TWO_STAR"
-    THREE_STAR = "THREE_STAR"
-    FOUR_STAR = "FOUR_STAR"
-    FIVE_STAR = "FIVE_STAR"
+                   ID: {self.flight_preferences_id}
+                   GuestTypeID: {self.guest_type_id}
+                   Cabin Class: {self.cabin_class}
+                   Max Stops: {self.max_stops}
+                   Refundable Ticket: {'Yes' if self.refundable_ticket else 'No'}
+                   Created: {self.date_created}
+                   Updated: {self.date_updated}"""
 
 class HotelPreferences(ABC):
     def __init__(self,
-                preferences_id: str,
-                minimum_rating_id: str):
-        self.preferences_id   = preferences_id
-        self.minimum_rating_id = minimum_rating_id
+                hotel_preferences_id: str,
+                guest_type_id: str,
+                minimum_rating: int,
+                date_created: datetime,
+                date_updated: datetime):
+        self.hotel_preferences_id = hotel_preferences_id
+        self.guest_type_id = guest_type_id
+        self.minimum_rating = minimum_rating
+        self.date_created = date_created
+        self.date_updated = date_updated
+        
     
     def __str__(self) -> str:
         return f"""Hotel Preferences:
-                   Minimum Rating: {self.minimum_rating_id}"""
+                   ID: {self.hotel_preferences_id}
+                   GuestTypeID: {self.guest_type_id}
+                   Minimum Rating: {self.minimum_rating}
+                   Created: {self.date_created}
+                   Updated: {self.date_updated}"""
 
 class TransportService(Enum):
     UBER = "UBER"
@@ -77,13 +94,42 @@ class TransportService(Enum):
 
 class GroundTransportPreferences(ABC):
     def __init__(self,
-                preferences_id: str,
-                preferred_services_id: str):
-        self.preferences_id       = preferences_id
-        self.preferred_services_id = preferred_services_id
+                ground_preferences_id: str,
+                guest_type_id: str,
+                preferred_services: TransportService,
+                date_created: datetime,
+                date_updated: datetime):
+        self.ground_preferences_id = ground_preferences_id
+        self.guest_type_id = guest_type_id
+        self.preferred_services = preferred_services
+        self.date_created = date_created
+        self.date_updated = date_updated
     
     def __str__(self) -> str:
         return f"""Ground Transport Preferences:
-                   Preferred Service: {self.preferred_services_id}"""
+                   ID: {self.ground_preferences_id}
+                   GuestTypeID: {self.guest_type_id}
+                   Preferred Service: {self.preferred_services}
+                   Created: {self.date_created}
+                   Updated: {self.date_updated}"""
+    
+class PerDiemPreferences(ABC):
+    def __init__(self,
+                per_diem_id: str,
+                guest_type_id: str,
+                daily_amount: int,
+                date_created: datetime,
+                date_updated: datetime):
+        self.per_diem_id = per_diem_id
+        self.guest_type_id = guest_type_id
+        self.daily_amount = daily_amount
+        self.date_created = date_created
+        self.date_updated = date_updated
 
-
+    def __str__(self) -> str:
+        return f""" Per Diem Preferences:
+                   ID: {self.per_diem_id}
+                   GuestTypeID: {self.guest_type_id}
+                   DailyAmount: {self.daily_amount}
+                   Created: {self.date_created}
+                   Updated: {self.date_updated}"""

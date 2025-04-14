@@ -32,7 +32,7 @@ export const ConfirmSignup: FC = () => {
     // Redirect to signup if we don't have an email
     useEffect(() => {
         if (!defaultEmail) {
-        navigate('/signup', { 
+        navigate('/register', { 
             state: { 
             message: 'Please sign up before confirming your account' 
             } 

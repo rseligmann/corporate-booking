@@ -7,6 +7,14 @@ class Role(Enum):
     USER = "USER"
     GUEST = "GUEST"
 
+class AccountStatus(Enum):
+    ACTIVE = "ACTIVE"
+    INACTIVE = "INACTIVE"
+
+class SubscriptionTier(Enum):
+    FREE = "FREE"
+    PAID = "PAID"
+
 class BookingStatus(Enum):
     PENDING = "PENDING"
     CONFIRMED = "CONFIRMED"

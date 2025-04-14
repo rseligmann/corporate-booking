@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
-from typing import Optional
+from typing import Optional, ContextManager
+from sqlalchemy.orm import Session
 
 class BaseConfigDB(ABC):
     
@@ -21,18 +22,25 @@ class BaseConfigDB(ABC):
         """Get the current database connection"""
         pass
 
+    @abstractmethod
     def set_tenant(self, tenant_id: str):
         """
         Set the tenant ID (company_id) for multi-tenancy
         
         This ID will be used for tenant isolation in database queries
         """
-        self._tenant_id = tenant_id
+        pass
     
-    def get_tenant(self) -> Optional[str]:
-        """Get the current tenant ID"""
-        return self._tenant_id
+    @abstractmethod
+    def tenantSession(self) -> ContextManager[Session]:
+        """Create new session with tenant (company) context applied"""
+        pass
+
+
+    # def get_tenant(self) -> Optional[str]:
+    #     """Get the current tenant ID"""
+    #     return self._tenant_id
     
-    def clear_tenant(self):
-        """Clear the tenant ID"""
-        self._tenant_id = None
+    # def clear_tenant(self):
+    #     """Clear the tenant ID"""
+    #     self._tenant_id = None

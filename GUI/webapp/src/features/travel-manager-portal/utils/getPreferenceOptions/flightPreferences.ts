@@ -4,13 +4,13 @@ export const getCabinClassOptions = () => {
 
     type CabinClass = NonNullable<FlightPreferences['cabinClass']>;
     
-    const cabinClasses: CabinClass[] = ['any', 'economy', 'premium-economy', 'business', 'first'];
+    const cabinClasses: CabinClass[] = ['ECONOMY', 'PREMIUM_ECONOMY', 'BUSINESS', 'FIRST'];
     
     return cabinClasses.map(cabinClass => ({
       value: cabinClass,
       label: cabinClass
-        .split('-')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .split('_')
+        .map(word => word.charAt(0) + word.slice(1).toLowerCase())
         .join(' ')
     }));
 };
@@ -19,13 +19,13 @@ export const getMaxStopsOptions = () => {
 
     type MaxStops = NonNullable<FlightPreferences['maxStops']>;
     
-    const maxStopOptions: MaxStops[] = ['any', 'nonstop', '1-stop', '2-stops'];
+    const maxStopOptions: MaxStops[] = ['ANY', 'DIRECT', 'ONE_STOP', 'TWO_STOPS'];
     
     return maxStopOptions.map(maxStopOption => ({
       value: maxStopOption,
       label: maxStopOption
-        .split('-')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .split('_')
+        .map(word => word.charAt(0)+ word.slice(1).toLowerCase())
         .join(' ')
     }));
   };

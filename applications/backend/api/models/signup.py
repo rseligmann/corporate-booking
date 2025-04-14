@@ -2,12 +2,13 @@ from pydantic import BaseModel, EmailStr, field_validator, ValidationInfo
 
 class CompanyCreate(BaseModel):
     name: str
-    location: str
     street: str
     city: str
     state: str
     country: str
     postal_code: str
+    # status: str = "ACTIVE"
+    # subscription_tier: str = "FREE"
 
 class UserCreate(BaseModel):
     email: EmailStr
@@ -16,7 +17,8 @@ class UserCreate(BaseModel):
     last_name: str
     company: CompanyCreate = None
     company_id: str = None
-    role: str = "ADMIN"
+    # role: str = "ADMIN"
+    # status: str = "ACTIVE"
     
     @field_validator('password')
     def password_strength(cls, v):

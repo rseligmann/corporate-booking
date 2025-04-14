@@ -1,6 +1,5 @@
 from fastapi import APIRouter, HTTPException, Depends, status
 from fastapi.security import OAuth2PasswordRequestForm
-from typing import Optional
 
 #from auth.service import CognitoService
 from api.dependencies import ConfigDBDependency, CognitoConfigDependency, CurrentUserDependency
@@ -22,7 +21,7 @@ async def login_for_access_token(
         auth_response = await cognito.initiate_auth(form_data.username, form_data.password)
         
         # Check if user exists in our database
-        user = await config_db.get_admin_by_email(form_data.username)
+        user = await config_db.get_user_by_email(form_data.username)
         if not user:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
@@ -55,6 +54,7 @@ async def read_users_me(current_user: CurrentUserDependency):
         "email": current_user.email,
         "first_name": current_user.first_name,
         "last_name": current_user.last_name,
+        "user_id": current_user.user_id,
         "company_id": current_user.company_id
     }
 

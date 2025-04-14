@@ -4,13 +4,13 @@ export const getGrondTransportOptions = () => {
 
     type GroundServices = NonNullable<GroundTransportPreferences['preferredServices']>;
     
-    const groundServices: GroundServices[] = ['uber', 'lyft'];
+    const groundServices: GroundServices[] = ['UBER', 'LYFT'];
     
     return groundServices.map(services => ({
       value: services,
       label: services
-        .split('-')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .split('_')
+        .map(word => word.charAt(0) + word.slice(1).toLowerCase())
         .join(' ')
     }));
 };

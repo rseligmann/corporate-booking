@@ -14,6 +14,7 @@ class AddressDB(ABC):
     @abstractmethod
     async def insert_address(
         self,
+        company_id: str,
         street: str,
         city: str,
         state: str,

@@ -4,7 +4,8 @@ from jose import JWTError
 from typing import Annotated
 
 from core.config.settings   import get_config
-from auth.cognito import CognitoConfig
+from core.auth.cognito import CognitoConfig
+from core.external.amadeus import AmadeusConfig
 
 from config_db import ConfigDB
 from database.connections import get_psql_reader_from_key_file
@@ -24,12 +25,14 @@ CognitoConfigDependency = Annotated[CognitoConfig, Depends(get_cognito_config)]
 # OAuth2 scheme for token validation
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/token")
 
-async def get_current_user(
+async def get_current_user_with_tenant(
     token: Annotated[str, Depends(oauth2_scheme)],
     cognito: CognitoConfigDependency,
     config_db: ConfigDBDependency
 ):
-    
+    """
+    Get current user and set tenant context on the database connection
+    """
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
@@ -44,12 +47,22 @@ async def get_current_user(
             raise credentials_exception
         
         # Get user from database
-        user = await config_db.get_admin(user_id)
+        user = await config_db.get_user(user_id)
         if user is None:
             raise credentials_exception
+        
+        # Set tenant context on the database connection
+        if user.company_id:
+            config_db.set_tenant(user.company_id)
         
         return user
     except JWTError:
         raise credentials_exception
 
-CurrentUserDependency = Annotated[dict, Depends(get_current_user)]
+CurrentUserDependency = Annotated[dict, Depends(get_current_user_with_tenant)]
+
+async def get_amadeus_config() -> AmadeusConfig:
+    config = get_config()
+    return AmadeusConfig(config_file_path=config.amadeus_key_file)
+
+AmadeusConfigDependency = Annotated[AmadeusConfig, Depends(get_amadeus_config)]

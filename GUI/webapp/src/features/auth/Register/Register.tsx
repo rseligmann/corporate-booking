@@ -17,9 +17,9 @@ export const Register: FC = () => {
         if (!data.company) {
             data.company = {};
         }
-        if (!data.company.location) {
-            data.company.location = "Not specified";
-        }
+        // if (!data.company.location) {
+        //     data.company.location = "Not specified";
+        // }
         // Store password temporarily for auto-login after confirmation
         sessionStorage.setItem('tempPassword', data.password);
         const signupData: SignupRequest = {
@@ -29,7 +29,6 @@ export const Register: FC = () => {
             last_name: data.last_name,
             company: {
                 name: data.company?.name,
-                location: data.company?.location,
                 street: data.company?.street,
                 city: data.company?.city,
                 state: data.company?.state,

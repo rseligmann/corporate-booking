@@ -1,120 +1,147 @@
 from typing import Optional, List
 from sqlalchemy import select
 
-from config_types.user_types import Admin
+from config_types.user_types import User
 from config_db.interfaces.user_db import UserDB
-from config_types.base import Role
-from database.postgresql.models import Admin as DBAdmin
+from config_types.base import Role, AccountStatus
+from database.postgresql.models import User as DBUser
 
 class PostgreSQLUserDB(UserDB):
     """PostgreSQL implementation of UserDB interface."""
 
-    async def get_admin(self, user_id: str) -> Optional[Admin]:
-        with self.Session() as session:
-            stmt = select(DBAdmin).where(DBAdmin.id == user_id)
+    async def get_user(self, user_id: str) -> Optional[User]:
+        with self.tenantSession() as session:
+            stmt = select(DBUser).where(DBUser.id == user_id)
             result = session.execute(stmt)
-            db_admin = result.scalar_one_or_none()
+            db_user = result.scalar_one_or_none()
             
-            if not db_admin:
+            if not db_user:
                 return None
-            
-            role_enum = Role(db_admin.role)
                 
-            return Admin(
-                user_id=db_admin.id,
-                email=db_admin.email,
-                first_name=db_admin.first_name,
-                last_name=db_admin.last_name,
-                company_id=db_admin.company_id,
-                role=role_enum,
-                date_created=db_admin.created_at,
-                date_updated=db_admin.updated_at
+            return User(
+                user_id=db_user.id,
+                company_id=db_user.company_id,
+                email=db_user.email,
+                first_name=db_user.first_name,
+                last_name=db_user.last_name,
+                role=Role(db_user.role),
+                status=AccountStatus(db_user.status),
+                date_created=db_user.created_at,
+                date_updated=db_user.updated_at
             )
     
-    async def get_admin_by_email(self, email: str) -> Optional[Admin]:
-        with self.Session() as session:
-            stmt = select(DBAdmin).where(DBAdmin.email == email)
+    async def get_user_by_email(self, email: str) -> Optional[User]:
+        with self.tenantSession() as session:
+            stmt = select(DBUser).where(DBUser.email == email)
             result = session.execute(stmt)
-            db_admin = result.scalar_one_or_none()
+            db_user = result.scalar_one_or_none()
 
-            if not db_admin:
+            if not db_user:
                 return None
 
-            return Admin(
-                user_id=db_admin.id,
-                email=db_admin.email,
-                first_name=db_admin.first_name,
-                last_name=db_admin.last_name,
-                company_id=db_admin.company_id,
-                role=db_admin.role,
-                date_created=db_admin.created_at,
-                date_updated=db_admin.updated_at
-            )
+            return User(
+                    user_id=db_user.id,
+                    company_id=db_user.company_id,
+                    email=db_user.email,
+                    first_name=db_user.first_name,
+                    last_name=db_user.last_name,
+                    role=Role(db_user.role),
+                    status=AccountStatus(db_user.status),
+                    date_created=db_user.created_at,
+                    date_updated=db_user.updated_at
+                )
 
-    async def get_admins_by_company(self, company_id: str) -> List[Admin]:
-        with self.Session() as session:
-            stmt = select(DBAdmin).where(DBAdmin.company_id == company_id)
+    async def get_users_by_company(self, company_id: str) -> List[User]:
+        with self.tenantSession() as session:
+            stmt = select(DBUser).where(DBUser.company_id == company_id)
             result = session.execute(stmt)
-            db_admins = result.scalars().all()
+            db_users = result.scalars().all()
             
             return [
-                Admin(
-                    user_id=db_admin.id,
-                    email=db_admin.email,
-                    first_name=db_admin.first_name,
-                    last_name=db_admin.last_name,
-                    company_id=db_admin.company_id,
-                    role=db_admin.role,
-                    date_created=db_admin.created_at,
-                    date_updated=db_admin.updated_at
+                User(
+                    user_id=db_user.id,
+                    company_id=db_user.company_id,
+                    email=db_user.email,
+                    first_name=db_user.first_name,
+                    last_name=db_user.last_name,
+                    role=Role(db_user.role),
+                    status=AccountStatus(db_user.status),
+                    date_created=db_user.created_at,
+                    date_updated=db_user.updated_at
                 )
-                for db_admin in db_admins
+                for db_user in db_users
             ]
 
-    async def insert_admin(self, user_id:str, email: str, first_name: str, last_name: str, company_id: str, role: str) -> Admin:
-        with self.Session() as session:
-            db_admin = DBAdmin(
+    async def insert_user(
+            self, 
+            user_id:str, 
+            company_id: str, 
+            email: str, 
+            first_name: str, 
+            last_name: str, 
+            role: Role = Role.ADMIN,
+            status: AccountStatus = AccountStatus.ACTIVE
+            ) -> User:
+        
+        with self.tenantSession() as session:
+            db_user = DBUser(
                 id=user_id,
+                company_id=company_id,
                 email=email,
                 first_name=first_name,
                 last_name=last_name,
-                company_id=company_id,
-                role = role
+                role = role.value,
+                status = status.value
             )
-            session.add(db_admin)
+            session.add(db_user)
             session.commit()
             
-            return Admin(
-                user_id=db_admin.id,
-                email=db_admin.email,
-                first_name=db_admin.first_name,
-                last_name=db_admin.last_name,
-                company_id=db_admin.company_id,
-                role=db_admin.role,
-                date_created=db_admin.created_at,
-                date_updated=db_admin.updated_at
+            return User(
+                user_id=db_user.id,
+                company_id=db_user.company_id,
+                email=db_user.email,
+                first_name=db_user.first_name,
+                last_name=db_user.last_name,
+                role=Role(db_user.role),
+                status=AccountStatus(db_user.status),
+                date_created=db_user.created_at,
+                date_updated=db_user.updated_at
             )
     
-    async def update_admin(self, admin: Admin) -> Admin:
-        with self.Session() as session:
-            stmt = select(DBAdmin).where(DBAdmin.id == admin.user_id)
+    async def update_user(self, user: User) -> User:
+        with self.tenantSession() as session:
+            stmt = select(DBUser).where(DBUser.id == user.user_id)
             result = session.execute(stmt)
-            db_admin = result.scalar_one_or_none()
+            db_user = result.scalar_one_or_none()
             
-            if not db_admin:
-                raise ValueError(f"Admin with ID {admin.user_id} not found")
+            if not db_user:
+                raise ValueError(f"User with ID {user.user_id} not found")
                 
-            db_admin.email = admin.email
-            db_admin.first_name = admin.first_name
-            db_admin.last_name = admin.last_name
-            db_admin.company_id = admin.company_id
-            session.commit()
+            db_user.company_id = user.company_id
+            db_user.email = user.email
+            db_user.first_name = user.first_name
+            db_user.last_name = user.last_name
+            db_user.role = user.role.value
+            db_user.status = user.status.value
             
-            return admin
+            session.commit()
+            session.refresh(db_user) #refresh timestamps
+            
+            return User(
+                user_id=db_user.id,
+                company_id=db_user.company_id,
+                email=db_user.email,
+                first_name=db_user.first_name,
+                last_name=db_user.last_name,
+                role=Role(db_user.role),
+                status=AccountStatus(db_user.status),
+                date_created=db_user.created_at,
+                date_updated=db_user.updated_at
+            )
    
-    async def delete_admin(self, user_id: str) -> bool:
-        with self.Session() as session:
-            stmt = select(DBAdmin).where(DBAdmin.id == user_id)
+    async def delete_user(self, user_id: str) -> bool:
+        with self.tenantSession() as session:
+            stmt = select(DBUser).where(DBUser.id == user_id)
             result = session.execute(stmt)
             db_admin = result.scalar_one_or_none()
             

@@ -1,7 +1,11 @@
 export interface Itinerary {
     id: string;
-    origin: string;
-    destination: string;
+    originCity: string;
+    destinationCity: string;
+    searchedAirports:{
+      originAirports?: string[];
+      destinationAirports?: string [];
+    };
     startDate: Date | null;
     endDate: Date | null;
   }

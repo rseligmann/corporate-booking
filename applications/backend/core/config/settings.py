@@ -15,13 +15,14 @@ class Config:
         with open(os.path.join(os.path.dirname(__file__), config_file)) as f:
             config_json = json.load(f)
             
-        self.app_host       = config_json["HOST"]
-        self.app_port       = config_json["PORT"]
-        self.workers        = config_json["WORKERS"]
-        self.psql_key_file  = config_json["PSQL_KEY_FILE"]
-        self.cognito_key_file   = config_json["COGNITO_KEY_FILE"]
-        self.module_name    = config_json["MODULE_NAME"]
-        self.app_name       = config_json["APP_NAME"]
+        self.app_host         = config_json["HOST"]
+        self.app_port         = config_json["PORT"]
+        self.workers          = config_json["WORKERS"]
+        self.psql_key_file    = config_json["PSQL_KEY_FILE"]
+        self.cognito_key_file = config_json["COGNITO_KEY_FILE"]
+        self.amadeus_key_file = config_json["AMADEUS_KEY_FILE"]
+        self.module_name      = config_json["MODULE_NAME"]
+        self.app_name         = config_json["APP_NAME"]
 
 class Settings(BaseSettings):
     ENVIRONMENT: str

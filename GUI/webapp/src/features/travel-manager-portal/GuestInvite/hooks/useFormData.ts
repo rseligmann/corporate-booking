@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { Trip } from '@/types'
-import { getSampleTravelPreferencesData } from '../../utils/getSampleTravelPreferencesData';
+import { useGuestTypePreferences } from '@/api/hooks';
 
 const initialFormData: Trip ={
   id: "",
@@ -14,19 +14,23 @@ const initialFormData: Trip ={
   guestType: "",
   status: "pending",
   travelPreferences: {
+    id: "",
     guestType: "",
     flight: {
-      cabinClass: "any"
+      cabinClass: "ECONOMY"
     },
     hotel: {},
     groundTransport: {},
     dailyPerDiem:0,
-    id: "",
   },
   itinerary: {
     id: "",
-    origin: "",
-    destination: "",
+    originCity: "",
+    destinationCity: "",
+    searchedAirports:{
+      originAirports:[""],
+      destinationAirports: [""],
+    },
     startDate: new Date(),
     endDate: null,
   } ,
@@ -35,7 +39,11 @@ const initialFormData: Trip ={
   createdBy: "Rorey",
 }
 export const useFormData = () => {
-    //Set form data from localStorage or use initial data
+   
+  const [selectedGuestTypeId, setSelectedGuestType] = useState<string | null>(null);
+  const {data: guestTypePreferences, isSuccess: guestTypePrefIsSuccess, isPending: guestTypePrefIsPending, error: apiErrorGuestPref } = useGuestTypePreferences(selectedGuestTypeId ?? '')
+  
+  //Set form data from localStorage or use initial data
     const [formData, setFormData] = useState<Trip>(()=>{
         const savedData=localStorage.getItem('guestInviteFormData');
         if (savedData) {
@@ -58,6 +66,22 @@ export const useFormData = () => {
         localStorage.setItem('guestInviteFormData', JSON.stringify(formData));
     }, [formData]);
 
+     // Effect to update form data when guestTypePreferences changes
+    useEffect(() => {
+      if (guestTypePreferences && guestTypePrefIsSuccess && selectedGuestTypeId) {
+        setFormData(prevData => ({
+          ...prevData,
+          guestType: guestTypePreferences.guestType,
+          travelPreferences: guestTypePreferences,
+        }));
+        console.log("Updated form data with preferences:", guestTypePreferences);
+      }
+    }, [guestTypePreferences, guestTypePrefIsSuccess, selectedGuestTypeId]);
+
+    useEffect(() => {
+      console.log("Form data after update:", formData);
+    }, [formData]);
+
     //Cleanup function to clear form data from localStorage
       const clearFormData= useCallback(()=>{
         localStorage.removeItem('guestInviteFormData');
@@ -72,18 +96,8 @@ export const useFormData = () => {
         }));
       };
     
-    const updateGuestTypeAndPreferences=(guestType: string) =>{
-        const allPreferences = getSampleTravelPreferencesData();
-        const matchingPreferences = allPreferences.find(p => p.guestType === guestType);
-        if (matchingPreferences) {
-          setFormData(prevData => ({
-            ...prevData,
-            guestType: guestType,
-            travelPreferences: matchingPreferences,
-          }));
-        }else{
-          console.log("No matching preferences found for guest type: ", guestType);
-        }
+    const updateGuestTypeAndPreferences=(guestTypeId: string) =>{
+        setSelectedGuestType(guestTypeId)
     }
     
     const updateItineraryDetails = (details: Partial<Trip['itinerary']>) => {

@@ -4,16 +4,16 @@ This repository contains the Corporate Travel project. Follow these instructions
 
 ## Prerequisites
 
-- Python 3.10.10
+- Python 3.11.12
 - Git
 - libpq (PostgreSQL client library)
 
 ## Python Installation
 
 ### Windows
-1. Download Python 3.10.10 from the [official Python website](https://www.python.org/downloads/release/python-31010/)
+1. Download Python 3.11.12 from the [official Python website](https://www.python.org/downloads/release/python-31112/)
 2. Run the installer
-3. Make sure to check "Add Python 3.10 to PATH" during installation
+3. Make sure to check "Add Python 3.11 to PATH" during installation
 4. Verify installation by opening Command Prompt and running:
    ```bash
    python --version
@@ -24,13 +24,13 @@ This repository contains the Corporate Travel project. Follow these instructions
    ```bash
    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
    ```
-2. Install Python 3.10.10:
+2. Install Python 3.11.12:
    ```bash
-   brew install python@3.10
+   brew install python@3.11
    ```
 3. Verify installation:
    ```bash
-   python3.10 --version
+   python3.11 --version
    ```
 
 ### Linux (Ubuntu/Debian)
@@ -43,13 +43,13 @@ This repository contains the Corporate Travel project. Follow these instructions
    ```bash
    sudo add-apt-repository ppa:deadsnakes/ppa
    ```
-3. Install Python 3.10.10:
+3. Install Python 3.11.12:
    ```bash
-   sudo apt install python3.10
+   sudo apt install python3.11
    ```
 4. Verify installation:
    ```bash
-   python3.10 --version
+   python3.11 --version
    ```
 
 ## PostgreSQL Client Library (libpq) Installation
@@ -136,7 +136,7 @@ After installation, verify your setup:
    ```bash
    python --version
    ```
-   Should output: `Python 3.10.10`
+   Should output: `Python 3.11.12`
 3. Verify PostgreSQL client:
    ```bash
    psql --version
@@ -145,7 +145,7 @@ After installation, verify your setup:
 ## Troubleshooting
 
 If you encounter any issues:
-1. Ensure Python 3.10.10 is correctly installed and in your PATH
+1. Ensure Python 3.11.12 is correctly installed and in your PATH
 2. Make sure the virtual environment is activated
 3. Try removing and recreating the virtual environment if dependencies fail to install
 4. For database connection issues:

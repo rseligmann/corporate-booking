@@ -10,7 +10,7 @@ class PostgreSQLAddressDB(AddressDB):
     """PostgreSQL implementation of AddressDB interface."""
 
     async def get_address(self, address_id: str) -> Optional[Address]:
-        with self.Session() as session:
+        with self.tenantSession() as session:
             stmt = select(DBAddress).where(DBAddress.id == address_id)
             result = session.execute(stmt)
             db_address = result.scalar_one_or_none()
@@ -20,6 +20,7 @@ class PostgreSQLAddressDB(AddressDB):
                 
             return Address(
                 address_id=db_address.id,
+                company_id=db_address.company_id,
                 street=db_address.street,
                 city=db_address.city,
                 state=db_address.state,
@@ -29,15 +30,17 @@ class PostgreSQLAddressDB(AddressDB):
     
     async def insert_address(
         self,
+        company_id: str,
         street: str,
         city: str,
         state: str,
         country: str,
         postal_code: str
     ) -> Address:
-        with self.Session() as session:
+        with self.tenantSession() as session:
             db_address = DBAddress(
                 id=str(uuid4()),
+                company_id=company_id,
                 street=street,
                 city=city,
                 state=state,
@@ -49,6 +52,7 @@ class PostgreSQLAddressDB(AddressDB):
             
             return Address(
                 address_id=db_address.id,
+                company_id=db_address.company_id,
                 street=db_address.street,
                 city=db_address.city,
                 state=db_address.state,
@@ -57,7 +61,7 @@ class PostgreSQLAddressDB(AddressDB):
             )
     
     async def update_address(self, address: Address) -> Address:
-        with self.Session() as session:
+        with self.tenantSession() as session:
             stmt = select(DBAddress).where(DBAddress.id == address.address_id)
             result = session.execute(stmt)
             db_address = result.scalar_one_or_none()

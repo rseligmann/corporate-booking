@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import asyncio
 import sys
 import os
@@ -29,7 +28,55 @@ async def recreate_database():
         print("Creating new tables...")
         Base.metadata.create_all(db.engine)
 
-        print("Database schema recreated successfully.")
+        # Enable RLS for the specified tables
+        print("Enabling Row-Level Security...")
+        with db.engine.begin() as conn:
+            # Enable RLS on tables
+            conn.execute(text("ALTER TABLE companies ENABLE ROW LEVEL SECURITY"))
+            conn.execute(text("ALTER TABLE users ENABLE ROW LEVEL SECURITY"))
+            conn.execute(text("ALTER TABLE addresses ENABLE ROW LEVEL SECURITY"))
+            conn.execute(text("ALTER TABLE guest_types ENABLE ROW LEVEL SECURITY"))
+
+            # Create policies for companies table
+            conn.execute(text("""
+                CREATE POLICY tenant_isolation_policy ON companies 
+                FOR ALL 
+                TO public 
+                USING (id = current_setting('app.current_tenant_id')::TEXT)
+            """))
+
+            conn.execute(text("""
+                CREATE POLICY tenant_isolation_insert ON companies 
+                FOR INSERT
+                TO public 
+                WITH CHECK (true);  -- Allow inserts without tenant check
+                """))
+
+            # Create policies for users table
+            conn.execute(text("""
+                CREATE POLICY tenant_isolation_policy ON users
+                FOR ALL 
+                TO public 
+                USING (company_id = current_setting('app.current_tenant_id')::TEXT)
+            """)) # "TO pulic" is there by default if no user specified. So what I have is redundant
+            
+            # Create policies for addresses table
+            conn.execute(text("""
+                CREATE POLICY tenant_isolation_policy ON addresses 
+                FOR ALL 
+                TO public 
+                USING (company_id = current_setting('app.current_tenant_id')::TEXT)
+            """))
+
+            # Create policies for guest_types table
+            conn.execute(text("""
+                CREATE POLICY tenant_isolation_policy ON guest_types
+                FOR ALL
+                TO public
+                USING (company_id = current_setting('app.current_tenant_id')::TEXT)
+            """))
+        
+        print("Database schema recreated successfully. with RLS enabled")
     
     except Exception as e:
         print(f"Error recreating database schema: {e}")

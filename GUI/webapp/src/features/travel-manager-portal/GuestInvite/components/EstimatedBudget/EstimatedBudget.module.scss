@@ -1,0 +1,13 @@
+    .budgetItem {
+    &__label {
+      font-size: var(--mantine-font-size-md);
+      color: var(--mantine-color-dimmed);
+    }
+  
+    &__value {
+      font-size: var(--mantine-font-size-lg);
+      font-weight: 500;
+      color: var(--mantine-color-text);
+      margin-top: 4px;
+    }
+  }

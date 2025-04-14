@@ -12,6 +12,7 @@ class UserResponse(BaseModel):
     email: str
     first_name: str
     last_name: str
+    user_id: str
     company_id: str
 
 class RefreshTokenRequest(BaseModel):
