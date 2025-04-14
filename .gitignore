@@ -4,6 +4,8 @@ env/
 **/.env
 .venv/
 .python-version
+.venv_py311
+venv_py311/
 
 # Python cache files
 __pycache__/
