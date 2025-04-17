@@ -28,16 +28,17 @@ export const AirportSelect: React.FC<AirportSelectProps> = ({
     updateItineraryDetails}) => {
     
     const[serviceableAirportsResponse, setServiceableAirportsResponse] = useState<SearchServiceableAirportsResponse[]>([])
+    const field = itineraryField as 'origin' | 'destination';
     
     useEffect (() =>{
         if (airportData&& !isPending) {
             setServiceableAirportsResponse(airportData);
-            updateItineraryDetails({
-                searchedAirports: {
-                    ...itineraryData.searchedAirports,
-                    [itineraryField]: airportData.map((airport)=> airport.iata)
-                }
-            })
+            const updatedItinerary = { ...itineraryData };
+            updatedItinerary[field] = {
+                ...updatedItinerary[field],
+                searchedAirports: airportData.map((airport) => airport.iata)
+            }
+            updateItineraryDetails(updatedItinerary)
         }
       }, [airportData, isPending])
 
@@ -50,18 +51,26 @@ export const AirportSelect: React.FC<AirportSelectProps> = ({
     }
 
     const handleRemove = (airportId: string) => {
-        setServiceableAirportsResponse((current) => current.filter((airport) => airport.airport_id !== airportId))
+        setServiceableAirportsResponse((current) => {
+            const updatedAirports = current.filter((airport) => airport.airport_id !== airportId)
+            const updatedItinerary = { ...itineraryData};
+            updatedItinerary[field] = {
+                ...updatedItinerary[field],
+                searchedAirports: updatedAirports.map((airport) => airport.iata)
+            };
+            updateItineraryDetails(updatedItinerary)
+
+            return updatedAirports
+        })
     }
 
     return(
         <Grid>
             <Grid.Col span={{base: 12, sm:9, lg: 10}}>
                 <Group>
-                    {serviceableAirportsResponse.map((airport) => 
-                    <>
-                        <AirportPill airportData={airport} onRemove={() => handleRemove(airport.airport_id)}/>
-                    </>
-                    )}
+                    {serviceableAirportsResponse.map((airport) => (
+                        <AirportPill key={airport.airport_id} airportData={airport} onRemove={() => handleRemove(airport.airport_id)}/>
+                    ))}
                 </Group>
             </Grid.Col>
             <Grid.Col span={{base: 12, sm:3, lg: 2}}>

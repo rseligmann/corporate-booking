@@ -41,7 +41,13 @@ const GuestInvite: React.FC = () => {
   ]);
 
   const canProceed = useCallback((step: number): boolean => {
-      return getStepValidation(step, formData);
+      try{
+        return getStepValidation(step, formData);
+      }
+      catch (error) {
+        console.error("Validation error:", error);
+        return false
+      }
     }, [formData]);
 
   const navigate = useNavigate();

@@ -129,7 +129,7 @@ export const PreferencesForm: React.FC <PreferencesFormProps>= ({preferencesData
           />
       </Card>
 
-      <EstimatedBudget />
+      {/* <EstimatedBudget /> */}
     </div>
   );
 };

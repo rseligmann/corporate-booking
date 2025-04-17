@@ -13,6 +13,31 @@ const api: AxiosInstance = axios.create({
   }
 });
 
+// paramsSerializer: (params) => {
+//   //indexes: null  // This will serialize arrays without brackets
+//   const result: string[] = []
+    
+//   // Iterate through each parameter
+//   Object.entries(params).forEach(([key, value]) => {
+//     if (key === 'ratings' && Array.isArray(value)) {
+//       // Special handling for ratings parameter
+//       result.push(`${key}=${value.join(',')}`)
+//     } 
+//     else if (Array.isArray(value)) {
+//       // Handle other arrays by repeating the parameter
+//       value.forEach(item => {
+//         result.push(`${encodeURIComponent(key)}=${encodeURIComponent(item)}`)
+//       })
+//     }
+//     // Handle normal parameters
+//     else {
+//       result.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+//     }
+//   });
+  
+//   return result.join('&')
+// }
+
 // Add a request interceptor to include the token
 api.interceptors.request.use(
   (config) => {

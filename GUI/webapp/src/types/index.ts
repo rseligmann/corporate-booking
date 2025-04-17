@@ -3,3 +3,4 @@ export * from './Trip/subtypes/GuestTypePreferences/GuestTypePreferences';
 export * from './Auth/auth';
 export * from './Search/cityAirport'
 export * from './Amadeus/flightSearch'
+export * from './Amadeus/hotelSearch'

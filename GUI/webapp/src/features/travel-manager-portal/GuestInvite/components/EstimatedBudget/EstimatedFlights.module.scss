@@ -1,0 +1,46 @@
+.budgetItem {
+    
+    &__label {
+      font-size: var(--mantine-font-size-sm);
+      color: var(--mantine-color-dimmed);
+    }
+  
+    &__value {
+      font-size: var(--mantine-font-size-xl);
+      font-weight: 700;
+      color: var(--mantine-color-blue-6);
+    }
+  
+    &__card{
+      background-color: var(--mantine-color-gray-0);
+      padding: var(--mantine-spacing-xs);
+      align-items: center;
+      margin-bottom: 10px;
+    }
+  
+  }
+  
+  .navLink{
+    &__label{
+      //padding: var(--mantine-spacing-xs);
+      font-size: var(--mantine-font-size-sm);
+      color: var(--mantine-color-blue-6);
+      
+    }
+    &__root{
+      //height: 30px;
+      padding: 5px;
+    }
+  
+    &__chevron{
+      color: var(--mantine-color-blue-6);
+    }
+  }
+  
+  .th{
+    font-size: var(--mantine-font-size-xs);
+    font-weight: 500;
+  }
+  .Tbody{
+    font-size: var(--mantine-font-size-xs);
+  }

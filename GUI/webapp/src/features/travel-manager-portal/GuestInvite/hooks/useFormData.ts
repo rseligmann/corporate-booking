@@ -25,11 +25,27 @@ const initialFormData: Trip ={
   },
   itinerary: {
     id: "",
-    originCity: "",
-    destinationCity: "",
-    searchedAirports:{
-      originAirports:[""],
-      destinationAirports: [""],
+    origin:{    
+      city:{
+        id: "",
+        name: "",
+        state_id: "",
+        lat: 0,
+        lng: 0,
+        ranking: 0
+      },
+      searchedAirports: []
+    },
+    destination:{
+      city:{
+        id: "",
+        name: "",
+        state_id: "",
+        lat: 0,
+        lng: 0,
+        ranking: 0
+      },
+      searchedAirports: []
     },
     startDate: new Date(),
     endDate: null,

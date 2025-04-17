@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DateTimePicker } from '@mantine/dates'
+import { DatePickerInput } from '@mantine/dates'
 import { fieldValidators } from '../../utils/formValidation';
 import { Trip, SearchCityResponse } from '@/types';
 import { Timeline } from '../Timeline/Timeline';
@@ -34,10 +34,10 @@ export const ItineraryForm: React.FC<ItineraryFormProps> = ({itineraryData, upda
   const getErrorMessage = (field: string) => {
     if (!touched[field]) return undefined;
     switch (field) {
-      case 'originCity':
-        return fieldValidators.origin(itineraryData.originCity);
-      case 'destinationCity':
-        return fieldValidators.destination(itineraryData.destinationCity);
+      case 'origin':
+        return fieldValidators.origin(itineraryData.origin.city.name);
+      case 'destination':
+        return fieldValidators.destination(itineraryData.destination.city.name);
       case 'startDate':
         return fieldValidators.startDate(itineraryData.startDate);
       case 'endDate':
@@ -58,7 +58,8 @@ export const ItineraryForm: React.FC<ItineraryFormProps> = ({itineraryData, upda
           <CitySelect 
             label='Origin Location'
             placeholder='Search origin city'
-            itineraryField='originCity'
+            itineraryField='origin'
+            itineraryData={itineraryData}
             updateItineraryDetails={updateItineraryDetails}
             setSelectedCity={setSelectedOriginCity}
             getErrorMessage={getErrorMessage}
@@ -69,7 +70,7 @@ export const ItineraryForm: React.FC<ItineraryFormProps> = ({itineraryData, upda
             <AirportSelect 
               airportData={originAirportData}
               distance={originAirportDistance}
-              itineraryField='originAirports'
+              itineraryField='origin'
               setDistance={setOriginAirportDistance}
               isPending={originAirportIsPending}
               hub={originHubs}
@@ -84,7 +85,8 @@ export const ItineraryForm: React.FC<ItineraryFormProps> = ({itineraryData, upda
           <CitySelect 
             label='Destination Location'
             placeholder='Search destination city'
-            itineraryField='destinationCity'
+            itineraryField='destination'
+            itineraryData={itineraryData}
             updateItineraryDetails={updateItineraryDetails}
             setSelectedCity={setSelectedDestinationCity}
             getErrorMessage={getErrorMessage}
@@ -95,7 +97,7 @@ export const ItineraryForm: React.FC<ItineraryFormProps> = ({itineraryData, upda
             <AirportSelect 
               airportData={destinationAirportData}
               distance={destinationAirportDistance}
-              itineraryField='destinationAirports'
+              itineraryField='destination'
               setDistance={setDestinationAirportDistance}
               isPending={destinationAirportIsPending}
               hub={destinationHubs}
@@ -110,15 +112,14 @@ export const ItineraryForm: React.FC<ItineraryFormProps> = ({itineraryData, upda
 
       <div className="itinerary-form__schedule-group">
         <div className="form-field">
-          <DateTimePicker
+          <DatePickerInput //add back in time and figure out how to make it 1. select, 2, change itinerary after all is complete
             label="First Meeting Start"
             //type="datetime-local"
             value={itineraryData.startDate}
             onChange={(date) => updateItineraryDetails({ startDate: date })}
             placeholder="Date and Time"
             clearable
-            withSeconds={false}
-            valueFormat="MMM D, YYYY h:mm A"
+            valueFormat="MMM D, YYYY"
             required
             withAsterisk
             highlightToday
@@ -128,15 +129,14 @@ export const ItineraryForm: React.FC<ItineraryFormProps> = ({itineraryData, upda
           />
         </div>
         <div className="form-field">
-          <DateTimePicker
+          <DatePickerInput
             label="Last Meeting End"
             //type="datetime-local"
             value={itineraryData.endDate}
             onChange={(date) => updateItineraryDetails({ endDate: date })}
             placeholder="Date and Time"
             clearable
-            withSeconds={false}
-            valueFormat="MMM D, YYYY h:mm A"
+            valueFormat="MMM D, YYYY"
             required
             withAsterisk
             highlightToday

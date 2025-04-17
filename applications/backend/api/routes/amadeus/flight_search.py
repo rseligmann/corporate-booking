@@ -2,7 +2,7 @@ from fastapi import APIRouter, Query, HTTPException, status
 from typing import Annotated
 import httpx
 import asyncio
-from api.models.amadeus import FlightOffersResponse, FlightOffersRequest, FlightAggregationResponse, AirportPairStatistics, FlightAggregationRequest
+from api.models.amadeus.flight_search import FlightOffersResponse, FlightOffersRequest, FlightAggregationResponse, AirportPairStatistics, FlightAggregationRequest
 from api.dependencies import CurrentUserDependency, AmadeusConfigDependency
 from core.external.amadeus import filter_flights_by_preference_criteria
 
@@ -149,7 +149,7 @@ async def get_avg_flight_price(
                 )
                 task = tg.create_task(multi_get_flight_offers(counter,amadeus=amadeus, request_query=flight_request ))
                 tasks.append(task)
-                counter += .10
+                counter += .15
 
     results = [task.result() for task in tasks]
 

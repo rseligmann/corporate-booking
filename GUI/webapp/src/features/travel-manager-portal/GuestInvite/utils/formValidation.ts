@@ -25,8 +25,8 @@ export const formValidators = {
   itinerary: (formData: Trip): boolean => {
     const { itinerary } = formData;
     return !!(
-      itinerary.origin &&
-      itinerary.destination &&
+      itinerary.origin.city.name &&
+      itinerary.destination.city.name &&
       itinerary.startDate &&
       itinerary.endDate &&
       validateDates(itinerary.startDate, itinerary.endDate)

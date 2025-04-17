@@ -50,7 +50,7 @@ async def get_serviceable_airports_by_city(
             max_distance = max_distance,
             hubs = hubs
         )
-        return airports
+        return airports[:2] # hard coded airport limit to reduce API calls to Amadeus
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,

@@ -83,11 +83,11 @@ export const ReviewForm: React.FC<ReviewItemProps> = ({formData}) => {
               >
                 <Group>
                   <Text c="dimmed">Origin:</Text>
-                  <Text>{formData.itinerary.origin}</Text>
+                  <Text>{formData.itinerary.origin.city.name}</Text>
                 </Group>
                 <Group>
                   <Text c="dimmed">Destination:</Text>
-                  <Text>{formData.itinerary.destination}</Text>
+                  <Text>{formData.itinerary.destination.city.name}</Text>
                 </Group>
             </SummaryItem>
 
@@ -137,7 +137,7 @@ export const ReviewForm: React.FC<ReviewItemProps> = ({formData}) => {
                 </Grid>
               </div>
 
-            <EstimatedBudget />
+            {/* <EstimatedBudget /> */}
           </div>
     </div>
   );

@@ -1,13 +1,61 @@
-    .budgetItem {
-    &__label {
-      font-size: var(--mantine-font-size-md);
-      color: var(--mantine-color-dimmed);
-    }
-  
-    &__value {
-      font-size: var(--mantine-font-size-lg);
-      font-weight: 500;
-      color: var(--mantine-color-text);
-      margin-top: 4px;
-    }
+.budgetItem {
+  &__title{
+    font-size: var(--mantine-font-size-md);
+    color: var(--mantine-color-text);
+    margin-bottom: 10px;
   }
+  
+  &__label {
+    font-size: var(--mantine-font-size-sm);
+    color: var(--mantine-color-dimmed);
+  }
+
+  &__value {
+    font-size: var(--mantine-font-size-xl);
+    font-weight: 700;
+    color: var(--mantine-color-blue-6);
+    //margin-top: 4px;
+  }
+
+  &__card{
+    background-color: var(--mantine-color-gray-0);
+    padding: var(--mantine-spacing-xs);
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  // &__minMaxLabel {
+  //   font-size: var(--mantine-font-size-xs);
+  //   color: var(--mantine-color-dimmed);
+  // }
+
+  // &__minMaxValue {
+  //   font-size: var(--mantine-font-size-xs);
+  //   color: var(--mantine-color-text);
+  // }
+}
+
+.navLink{
+  &__label{
+    //padding: var(--mantine-spacing-xs);
+    font-size: var(--mantine-font-size-sm);
+    color: var(--mantine-color-blue-6);
+    
+  }
+  &__root{
+    //height: 30px;
+    padding: 5px;
+  }
+
+  &__chevron{
+    color: var(--mantine-color-blue-6);
+  }
+}
+
+.th{
+  font-size: var(--mantine-font-size-xs);
+  font-weight: 500;
+}
+.Tbody{
+  font-size: var(--mantine-font-size-xs);
+}
