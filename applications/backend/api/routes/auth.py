@@ -59,21 +59,31 @@ async def read_users_me(current_user: CurrentUserDependency):
     }
 
 @router.post("/refresh")
-async def refresh_access_token(refresh_data: RefreshTokenRequest):
+async def refresh_access_token(cognito: CognitoConfigDependency,refresh_request: RefreshTokenRequest):
     """
     Get a new access token using a refresh token
     """
-    refresh_result = CognitoService.refresh_token(refresh_data.refresh_token)
+
+    try:
+        auth_response = await cognito.refresh_auth(
+            refresh_request.user_Id,
+            refresh_request.refresh_token
+        )
+        # Extract tokens
+        auth_result = auth_response.get('AuthenticationResult', {})
+        return {
+            "access_token": auth_result.get('AccessToken', ''),
+            "token_type": "bearer",
+            "refresh_token": refresh_request.refresh_token,
+            "id_token": auth_result.get('IdToken', ''),
+            "expires_in": auth_result.get('ExpiresIn', 3600)
+        }
     
-    if not refresh_result['success']:
+    except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid or expired refresh token"
+            detail=f"Token refresh failed: {str(e)}",
+            headers={"WWW-Authenticate": "Bearer"},
         )
     
-    return {
-        "access_token": refresh_result['access_token'],
-        "id_token": refresh_result['id_token'],
-        "token_type": "bearer",
-        "expires_in": refresh_result['expires_in']
-    }
+    

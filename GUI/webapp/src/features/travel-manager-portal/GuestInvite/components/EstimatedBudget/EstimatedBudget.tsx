@@ -63,7 +63,7 @@ export const EstimatedBudget: React.FC<EstimateBudgetProps> = ({formData}) => {
       setFlightSearch(newFlightSearch)
       setHotelSearch(newHotelSearch)
     }
-  }, [formData.itinerary])
+  }, [formData.itinerary, formData.travelPreferences])
   
   const { data: flightData, isPending: flightIsPending, error: flightError } = useAvgFlightPriceSearch(flightSearch)
   const { data: hotelData, isPending: hotelIsPending, error: hotelError } = useAvgHotelPriceSearch(hotelSearch)

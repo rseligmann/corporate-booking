@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Input } from '@/components/Input';
+import { Input } from '@mantine/core';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/Select';
 import { Clock, Filter, Plane, Search, ArrowRight } from 'lucide-react';
 import Button from '@/components/Button/button';

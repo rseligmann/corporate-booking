@@ -2,7 +2,7 @@ import { FC } from "react"
 import { Outlet, useLocation } from "react-router-dom"
 import "./AuthLayout.scss"
 
-const AuthLayout: FC = () => {
+export const AuthLayout: FC = () => {
     const locattion = useLocation();
     const isRegisterPage = locattion.pathname === "/register";
     return (

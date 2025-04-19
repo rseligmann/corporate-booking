@@ -2,36 +2,35 @@
     width: 100%;
     
     &__card {
-      background-color: var(--color-card);
-      border-radius: var(--radius);
-      border: 1px solid var(--color-border);
-      padding: var(--space-8);
-      box-shadow: var(--shadow-md);
+      background-color: var(--mantine-color-body);
+      border-radius: var(--mantine-radius-md);
+      border: 1px solid var(--mantine-color-default-border);
+      padding: var(--mantine-spacing-xl);
+      box-shadow: var(--mantine-shadow-md);
     }
     
     &__title {
       font-size: 1.5rem;
       font-weight: 600;
-      color: var(--color-foreground);
-      margin-bottom: var(--space-6);
+      margin-bottom: var(--mantine-spacing-lg);
     }
     
     &__form {
       display: flex;
       flex-direction: column;
-      gap: var(--space-4);
+      gap: var(--mantine-spacing-md);
     }
     
     &__field {
       display: flex;
       flex-direction: column;
-      gap: var(--space-2);
+      gap: var(--mantine-spacing-xs);
     }
 
     &__namegroup {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
+      gap: var(--mantine-font-size-md);
   
       @media (max-width: 640px) {
         grid-template-columns: 1fr;
@@ -39,14 +38,14 @@
     }
     
     &__footer {
-      margin-top: var(--space-6);
+      margin-top: var(--mantine-spacing-lg);
       text-align: center;
       font-size: 0.875rem;
-      color: var(--color-muted-foreground);
+      color: var(--mantine-color-dimmed);
     }
     
     &__link {
-      color: var(--color-primary);
+      color: var(--mantine-color-anchor);
       text-decoration: none;
       font-weight: 500;
       

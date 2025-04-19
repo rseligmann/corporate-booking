@@ -17,3 +17,5 @@ class UserResponse(BaseModel):
 
 class RefreshTokenRequest(BaseModel):
     refresh_token: str
+    user_Id: str
+    device_key: Optional[str] = None

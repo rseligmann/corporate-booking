@@ -1,9 +1,8 @@
-import { Card, Checkbox, NativeSelect, NumberInput, Space, Text } from '@mantine/core';
-import { useEffect } from 'react';
+import { Card, Checkbox, LoadingOverlay, NativeSelect, NumberInput, Space, Text } from '@mantine/core';
 import { getCabinClassOptions, getMaxStopsOptions, getGrondTransportOptions, getHotelRating } from '@/features/travel-manager-portal/utils'
 import { CreateGuestTypeResponse } from '@/types/Trip/subtypes';
 import { useUpdateGuestType } from '@/api/hooks/useGuestPreferences';
-
+import { Loader } from 'lucide-react';
 
 interface GuestTypeSelection {
   guest_type_id: string;
@@ -11,8 +10,8 @@ interface GuestTypeSelection {
 }
 
 interface GuestTypePreferencesFormProps {
-    selectedGuestType: GuestTypeSelection | null;
     guestTypePreferences: CreateGuestTypeResponse | undefined;
+    selectedGuestType: GuestTypeSelection | null;
     isSuccess: boolean
     isPending: boolean
     apiError: (Error | null)
@@ -20,7 +19,7 @@ interface GuestTypePreferencesFormProps {
 }
 
 export const GuestTypePreferencesForm: React.FC<GuestTypePreferencesFormProps> = ({
-    selectedGuestType, guestTypePreferences, /*updateGuestTypePreferences, updateGuestTypeState*/ isSuccess, isPending, apiError
+    guestTypePreferences, selectedGuestType,/*updateGuestTypePreferences, updateGuestTypeState*/ isSuccess, isPending, apiError
 }) => {
 
     const updateGuestTypePreferenceMutation = useUpdateGuestType();
@@ -31,10 +30,12 @@ export const GuestTypePreferencesForm: React.FC<GuestTypePreferencesFormProps> =
 
     return(
         <Card shadow ="xs" padding="lg" radius="md" withBorder>
+          <LoadingOverlay visible={isPending && Boolean(selectedGuestType?.guest_type_id)}/>
           <div>
-            {isPending ? (
-              <div>Loading guest type details...</div>
-            ): apiError ?(
+            {!selectedGuestType?.guest_type_id ? (
+              <div><Text>Select Guest Type to edit preferences</Text></div>
+            ) :
+             apiError ?(
               <div>Error loading guest type details: {apiError.message}</div>
             ): isSuccess && guestTypePreferences ? (
               <>
@@ -53,7 +54,9 @@ export const GuestTypePreferencesForm: React.FC<GuestTypePreferencesFormProps> =
                           updateData: {flight:{cabinClass: event.target.value as "ECONOMY" | "PREMIUM_ECONOMY" | "BUSINESS" | "FIRST"}}
                         })}
                         error={apiError}
-                        disabled={isPending}
+                        disabled={updateGuestTypePreferenceMutation.isPending}
+                        leftSection={updateGuestTypePreferenceMutation.isPending ? <Loader/> : null}
+                        
                     />
                     <Space h="sm" />
                     <NativeSelect 
@@ -65,6 +68,8 @@ export const GuestTypePreferencesForm: React.FC<GuestTypePreferencesFormProps> =
                           updateData: {flight:{maxStops: event.target.value as 'ANY' | 'DIRECT' | 'ONE_STOP' | 'TWO_STOPS'}}
                         })}
                         error={apiError}
+                        disabled={updateGuestTypePreferenceMutation.isPending}
+                        leftSection={updateGuestTypePreferenceMutation.isPending ? <Loader/> : null}
                     />
                     <Space h="sm" />
                     <Checkbox
@@ -124,7 +129,7 @@ export const GuestTypePreferencesForm: React.FC<GuestTypePreferencesFormProps> =
                 </Card>
             </>
             ): (
-              <div>No guest type selected</div>
+              <div></div>
             )}
             </div>
         </Card>

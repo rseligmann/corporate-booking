@@ -13,6 +13,8 @@ export interface Token {
   
 export interface RefreshTokenRequest {
     refresh_token: string;
+    user_Id: string;
+    device_key?: string;
 }
   
 export interface CompanyCreate {

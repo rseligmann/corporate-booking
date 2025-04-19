@@ -104,3 +104,13 @@ export const useCurrentUser = () => {
 
     return query;
 };
+
+export const useLogout = () => {
+  const { logout } = useAuth()
+  const navigate = useNavigate()
+
+  return () => {
+    logout()
+    navigate('/login')
+  }
+}

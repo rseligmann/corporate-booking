@@ -7,18 +7,18 @@ const DefaultLayout: FC = () => {
     
     return (
         <AppShell
-        header={{ height: 60 }}
-        padding="md"
-        bg="var(--mantine-color-gray-0)"
+            header={{ height: 60 }}
+            padding="md"
+            bg="var(--mantine-color-gray-0)"
         >
-        <AppShell.Header>
+        <AppShell.Header >
             <TravelMgrPortalHeader />
         </AppShell.Header>
 
         <AppShell.Main pt={60}>
-            <Container size="xl">
+            {/* <Container size="xl"> */}
             <Outlet />
-            </Container>
+            {/* </Container> */}
         </AppShell.Main>
         </AppShell>
     )

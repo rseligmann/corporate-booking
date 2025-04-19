@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { DollarSign, Upload, Clock, FileCheck } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/Card/card';
 import Button from '@/components/Button/button';
-import { Input } from '@/components/Input/input';
+import { Input } from '@mantine/core';
 import './GuestExpenses.scss';
 
 interface Expense {

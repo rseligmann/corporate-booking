@@ -4,7 +4,7 @@ import { LoginRequest } from "@/types"
 import { useLogin } from "@/api/hooks/useAuth"
 import { Alert, Button, PasswordInput, TextInput } from '@mantine/core';
 import { CircleAlert } from 'lucide-react'
-import "./Login.scss"
+import classes from "./Login.module.scss"
 
 export const Login = () => {
     const location = useLocation()
@@ -18,9 +18,9 @@ export const Login = () => {
     }
 
     return (
-        <div className="login">
-            <div className="login__card">
-                <h1 className="login__title">Sign in to your account</h1>
+        <div className={classes.login}>
+            <div className={classes.login__card}>
+                <h1 className={classes.login__title}>Sign in to your account</h1>
 
                 {message && (
                     <Alert color="green" mb="md">
@@ -39,12 +39,13 @@ export const Login = () => {
                     </Alert>
                 )}
 
-                <form onSubmit={handleSubmit(onSubmit)} className="login__form">
-                    <div className="login__field">
+                <form onSubmit={handleSubmit(onSubmit)} className={classes.login__form}>
+                    <div className={classes.login__field}>
                         <TextInput
                             label="Email"
                             placeholder="you@example.com"
                             required
+                            autoComplete="email"
                             error={errors.username?.message}
                             {...register('username', { 
                                 required: 'Email is required',
@@ -56,11 +57,12 @@ export const Login = () => {
                         />
                     </div>
                     
-                    <div className="login__field">
+                    <div className={classes.login__field}>
                         <PasswordInput
                             label="Password"
                             placeholder="your password"
                             required
+                            autoCapitalize="current-password"
                             error={errors.password?.message}
                             {...register('password', { 
                                 required: 'Password is required' 
@@ -77,9 +79,9 @@ export const Login = () => {
                     </Button>
                 </form>
                 
-                <div className="login__footer">
+                <div className={classes.login__footer}>
                     <span>Don't have an account? </span>
-                    <a href="/register" className="login__link">Sign up</a>
+                    <a href="/register" className={classes.login__link}>Sign up</a>
                 </div>
             </div>
         </div>

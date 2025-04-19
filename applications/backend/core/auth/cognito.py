@@ -182,6 +182,23 @@ class CognitoConfig:
                 detail=f"Invalid authentication token: {str(e)}"
             )
     
+    async def refresh_auth(self, user_Id: str, refresh_token: str) -> Dict:
+        """
+        Refresh authentication using a refresh token
+        """
+        try:
+            response = self.client.initiate_auth(
+                ClientId=self.app_client_id,
+                AuthFlow='REFRESH_TOKEN_AUTH',
+                AuthParameters={
+                    'REFRESH_TOKEN': refresh_token,
+                    'SECRET_HASH': self.get_secret_hash(user_Id)
+                }
+            )
+            return response
+        except Exception as e:
+            raise Exception(f"Error authenticating user: {str(e)}")
+    
     async def admin_create_user(self, email: str, password: str, first_name: str, last_name: str, company_id: str = None) -> Dict:
         """
         Admin creates a user (useful for testing without email verification)

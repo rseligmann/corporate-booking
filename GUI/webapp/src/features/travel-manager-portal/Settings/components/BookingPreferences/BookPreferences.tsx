@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { SelectGuestType, ManageGuestTypes, GuestTypePreferencesForm} from './components'
 import { useAuth } from '@/contexts/AuthContext'
 import { useAllGuestTypes, useCreateGuestType, useGuestTypePreferences, useDeleteGuestType } from '@/api/hooks/useGuestPreferences'
@@ -27,6 +27,30 @@ export const BookingPreferences =() => {
   const [newGuestType, setNewGuestType] = useState('');
   const [error, setError] = useState<string | null>(null);
 
+  // Set first guest type as selected when data is loaded initially
+  useEffect(() => {
+    if (isSuccess && allGuestTypes && allGuestTypes.length > 0 && !selectedGuestType) {
+      setSelectedGuestType({
+        guest_type_id: allGuestTypes[0].guest_type_id,
+        name: allGuestTypes[0].name
+      });
+    }
+  }, [isSuccess, allGuestTypes, selectedGuestType]);
+
+  // Reset selected guest type if the current one is deleted
+  useEffect(() => {
+    if (selectedGuestType && allGuestTypes && !allGuestTypes.some(type => type.guest_type_id === selectedGuestType.guest_type_id)) {
+      if (allGuestTypes.length > 0) {
+        setSelectedGuestType({
+          guest_type_id: allGuestTypes[0].guest_type_id,
+          name: allGuestTypes[0].name
+        });
+      } else {
+        setSelectedGuestType(null);
+      }
+    }
+  }, [allGuestTypes, selectedGuestType, deleteGuestTypeMutation.isSuccess]);
+
   const handleAddGuestType = () => {
     const trimmedName = newGuestType.trim();   
     if (!trimmedName) {
@@ -48,6 +72,8 @@ export const BookingPreferences =() => {
     setNewGuestType('');
     setError(null);
     };
+
+
   
     const handleRemoveGuestType = (id: string) => {
       if (allGuestTypes && allGuestTypes.length <= 1) {
@@ -93,8 +119,8 @@ export const BookingPreferences =() => {
               />
 
           <GuestTypePreferencesForm 
-            selectedGuestType={selectedGuestType}
             guestTypePreferences={guestTypePreferences}
+            selectedGuestType={selectedGuestType}
             isSuccess={guestTypePrefIsSuccess}
             isPending={guestTypePrefIsPending}
             apiError={apiErrorGuestPref}

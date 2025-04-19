@@ -1,13 +1,13 @@
 @use "variables" as *;
 
 :root {
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-    line-height: 1.5;
-    font-weight: 400;
+    // font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    // line-height: 1.5;
+    // font-weight: 400;
 
     //color-scheme: light dark;
-    color: var(--color-muted-foreground);
-    background-color: var(--color-background);
+    // color: var(--color-muted-foreground);
+    // background-color: var(--color-background);
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
@@ -19,9 +19,28 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    
 }
 
 body {
     min-width: 100vw;
     min-height: 100vh;
+    // scrollbar-gutter: stable;
+    // width: 100%;
+    //overflow-x: hidden;
+    
+}
+
+// html {
+//     //overflow-y: scroll;
+//     // scrollbar-gutter: stable;
+//     //overflow: hidden;
+//     min-width: 100vw;
+// }
+
+/* Fix header positioning */
+.mantine-AppShell-header {
+    width: 100vw !important;
+    margin-right: calc(-1 * (100vw - 100%));
+    padding-right: "md";
 }

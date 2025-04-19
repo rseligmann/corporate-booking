@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Card } from '@/components/Card/card';
-import { Input } from '@/components/Input';
+import { TextInput } from '@mantine/core';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/Select';
 import { Checkbox } from '@/components/Checkbox/checkbox';
 import Button from '@/components/Button/button';
@@ -128,18 +128,18 @@ export const PassengerInfo: React.FC<PassengerInfoProps> = ({ onComplete }) => {
           <div className="section-content">
             <h3>Basic Information</h3>
             <div className="form-row">
-              <Input
+              <TextInput
                 label="First Name"
                 value={formData.basicInfo.firstName}
                 onChange={e => updateFormData('basicInfo', 'firstName', e.target.value)}
                 required
               />
-              <Input
+              <TextInput
                 label="Middle Name"
                 value={formData.basicInfo.middleName}
                 onChange={e => updateFormData('basicInfo', 'middleName', e.target.value)}
               />
-              <Input
+              <TextInput
                 label="Last Name"
                 value={formData.basicInfo.lastName}
                 onChange={e => updateFormData('basicInfo', 'lastName', e.target.value)}
@@ -148,7 +148,7 @@ export const PassengerInfo: React.FC<PassengerInfoProps> = ({ onComplete }) => {
             </div>
 
             <div className="form-row">
-              <Input
+              <TextInput
                 type="date"
                 label="Date of Birth"
                 value={formData.basicInfo.dateOfBirth}
@@ -171,14 +171,14 @@ export const PassengerInfo: React.FC<PassengerInfoProps> = ({ onComplete }) => {
             </div>
 
             <div className="form-row">
-              <Input
+              <TextInput
                 type="email"
                 label="Email Address"
                 value={formData.basicInfo.email}
                 onChange={e => updateFormData('basicInfo', 'email', e.target.value)}
                 required
               />
-              <Input
+              <TextInput
                 type="tel"
                 label="Phone Number"
                 value={formData.basicInfo.phone}
@@ -193,13 +193,13 @@ export const PassengerInfo: React.FC<PassengerInfoProps> = ({ onComplete }) => {
           <div className="section-content">
             <h3>Travel Documents</h3>
             <div className="form-row">
-              <Input
+              <TextInput
                 label="Passport Number"
                 value={formData.travelDocuments.passportNumber}
                 onChange={e => updateFormData('travelDocuments', 'passportNumber', e.target.value)}
                 required
               />
-              <Input
+              <TextInput
                 type="date"
                 label="Passport Expiry Date"
                 value={formData.travelDocuments.passportExpiry}
@@ -226,12 +226,12 @@ export const PassengerInfo: React.FC<PassengerInfoProps> = ({ onComplete }) => {
             </div>
 
             <div className="form-row">
-              <Input
+              <TextInput
                 label="Known Traveler Number (Optional)"
                 value={formData.travelDocuments.knownTravelerNumber}
                 onChange={e => updateFormData('travelDocuments', 'knownTravelerNumber', e.target.value)}
               />
-              <Input
+              <TextInput
                 label="Redress Number (Optional)"
                 value={formData.travelDocuments.redressNumber}
                 onChange={e => updateFormData('travelDocuments', 'redressNumber', e.target.value)}
@@ -244,7 +244,7 @@ export const PassengerInfo: React.FC<PassengerInfoProps> = ({ onComplete }) => {
           <div className="section-content">
             <h3>Additional Information</h3>
             <div className="form-row">
-              <Input
+              <TextInput
                 label="Frequent Flyer Number (Optional)"
                 value={formData.additionalInfo.frequentFlyerNumber}
                 onChange={e => updateFormData('additionalInfo', 'frequentFlyerNumber', e.target.value)}
@@ -292,7 +292,7 @@ export const PassengerInfo: React.FC<PassengerInfoProps> = ({ onComplete }) => {
           <div className="section-content">
             <h3>Emergency Contact</h3>
             <div className="form-row">
-              <Input
+              <TextInput
                 label="Full Name"
                 value={formData.emergencyContact.name}
                 onChange={e => updateFormData('emergencyContact', 'name', e.target.value)}
@@ -313,7 +313,7 @@ export const PassengerInfo: React.FC<PassengerInfoProps> = ({ onComplete }) => {
                   <SelectItem value="other">Other</SelectItem>
                 </SelectContent>
               </Select>
-              <Input
+              <TextInput
                 type="tel"
                 label="Phone Number"
                 value={formData.emergencyContact.phone}

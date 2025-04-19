@@ -4,7 +4,6 @@ import { FlightPreferences } from '@/types/Trip/subtypes/GuestTypePreferences/su
 import { HotelPreferences } from '@/types/Trip/subtypes/GuestTypePreferences/subtypes/HotelPreferences';
 import { GroundTransportPreferences } from '@/types/Trip/subtypes/GuestTypePreferences/subtypes/GroundTransportPreferences';
 import { getCabinClassOptions, getMaxStopsOptions, getGrondTransportOptions, getHotelRating } from '@/features/travel-manager-portal/utils'
-import { EstimatedBudget } from '../EstimatedBudget/EstimatedBudget';
 import { Trip } from '@/types';
 
 interface PreferencesFormProps {

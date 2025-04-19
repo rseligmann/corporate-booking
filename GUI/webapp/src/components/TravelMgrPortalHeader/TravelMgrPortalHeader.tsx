@@ -2,6 +2,8 @@ import { FC } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ActionIcon, Avatar, Container, Flex, Group, Space, Text } from '@mantine/core';
 import { LayoutDashboard, UserPlus, FileText, Settings, Bell } from 'lucide-react';
+import { UserMenu } from './components/UserMenu';
+import { useAuth } from '@/contexts/AuthContext'
 import styles from './TravelMgrPortalHeader.module.scss';
 
 
@@ -12,9 +14,15 @@ const navigationItems = [
     { path: '/settings', label: 'Settings', icon: Settings },
   ];
 
-
-
 export const TravelMgrPortalHeader: FC = () => {
+  
+  // get auth details
+  const { authState } = useAuth();
+  const companyId = authState.user?.company_id || '';
+  const userFirstName = authState.user?.first_name || "";
+  const userLastName = authState.user?.last_name || "";
+  const email = authState.user?.email || "";
+  
   const location = useLocation();
 
   const items = navigationItems.map(({ path, label, icon: Icon }) => (
@@ -48,14 +56,19 @@ export const TravelMgrPortalHeader: FC = () => {
           </Group>
 
           <Group>
-            <ActionIcon 
+          <ActionIcon 
               variant="subtle" 
               size="lg"
               className={styles.iconButton}
             >
               <Bell size={20} />
             </ActionIcon>
-            <Avatar radius="xl" size="md">SA</Avatar>
+            <UserMenu 
+              firstName={userFirstName}
+              lastName={userLastName}
+              email = {email}
+            />
+            
           </Group>
 
         </Flex>
