@@ -1,0 +1,30 @@
+{
+    "name": "corporate-travel-frontend",
+    "private": true,
+    "version": "0.1.0",
+    "type": "module",
+    "workspaces":[
+        "apps/*",
+        "packages/*"
+    ],
+    "scripts": {
+        "dev:manager": "npm run dev -w apps/travel-manager",
+        "dev:guest": "npm run dev -w apps/guest-portal",
+        "dev": "npm-run-all --parallel dev:*",
+        "build:manager": "npm run build -w apps/travel-manager",
+        "build:guest": "npm run build -w apps/guest-portal",
+        "build": "npm-run-all build:*",
+        "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+        "preview:manager": "npm run preview -w apps/travel-manager",
+        "preview:guest": "npm run preview -w apps/guest-portal"
+    },
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^6.14.0",
+        "@typescript-eslint/parser": "^6.14.0",
+        "eslint": "^8.55.0",
+        "eslint-plugin-react-hooks": "^4.6.0",
+        "eslint-plugin-react-refresh": "^0.4.5",
+        "prettier": "^3.0.0",
+        "typescript": "^5.3.3"
+    }
+}

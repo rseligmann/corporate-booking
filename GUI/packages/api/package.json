@@ -1,0 +1,20 @@
+{
+    "name": "@corporate-travel-frontend/api",
+    "private": true,
+    "version": "0.1.0",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "scripts": {
+        "dev": "tsc",
+        "build": "tsc --watch"
+    },
+    "dependencies": {
+        "@corporate-travel-frontend/types": "*",
+        "@tanstack/react-query": "5.64.0",
+        "axios": "^1.8.2"
+    },
+    "devDependencies": {
+        "@types/react": "^18.2.43",
+        "typescript": "^5.3.3"
+    }
+}
