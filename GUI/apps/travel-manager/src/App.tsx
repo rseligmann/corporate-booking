@@ -2,9 +2,7 @@ import { FC } from "react"
 import { Routes, Route } from "react-router-dom"
 import AuthLayout from "@/layouts/AuthLayout/AuthLayout"
 import { DefaultLayout } from "@/layouts/DefaultLayout"
-import GuestLayout from "@/layouts/GuestLayout/GuestLayout"
-import { ConfirmationPage, DashboardPage, GuestDashboardPage, GuestExpensesPage, 
-    GuestFlightsPage, GuestHotelPage, GuestInvitePage, GuestTransportPage, 
+import { ConfirmationPage, DashboardPage, GuestInvitePage, 
     LoginPage, RegisterPage, ReportsPage, SettingsPage
 } from "@/routes"
 import { RequireAuth } from "@/features/auth/RequireAuth"
@@ -35,20 +33,6 @@ const App: FC = () => {
                     <Route path="/guest-invite" element={<GuestInvitePage />} />
                     <Route path="/reports" element={<ReportsPage />} />
                     <Route path="/settings" element={<SettingsPage />} />
-                </Route>
-
-                {/* Guest Routes */}
-                <Route path = "/guest" element={
-                    <GuestLayout />
-                }>
-                    <Route path="dashboard" element={<GuestDashboardPage />} />
-                    <Route path="flights" element={<GuestFlightsPage />} />
-                    <Route path="hotel" element={<GuestHotelPage />} />
-                    <Route path="transport" element={<GuestTransportPage />} />
-                    <Route path="expenses" element={<GuestExpensesPage />} />
-
-
-
                 </Route>
             </Routes>
         </RequireAuth>

@@ -1,8 +1,8 @@
 import React from 'react';
 import './GuestDashboard.scss';
 import { MapPin, Calendar, AlertCircle, ChevronRight, Plane, Building2, Car, Receipt, HelpCircle } from 'lucide-react';
-import { Card } from '@/components/Card/card';
-import Button from '@/components/Button/button';
+import { Card } from '@mantine/core';
+import { Button } from '@mantine/core';
 
 interface TripStatus {
   flight: {

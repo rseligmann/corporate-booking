@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { DollarSign, Upload, Clock, FileCheck } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/Card/card';
-import Button from '@/components/Button/button';
+import { Button, Card, Text } from '@mantine/core';
 import { Input } from '@mantine/core';
 import './GuestExpenses.scss';
 
@@ -84,11 +83,11 @@ const GuestExpenses: React.FC<GuestExpensesProps> = ({
     <div className="guest-expenses">
       <div className="guest-expenses__overview">
         <Card>
-          <CardHeader>
-            <CardTitle>Expense Overview</CardTitle>
-            <CardDescription>Track your travel expenses and per diem</CardDescription>
-          </CardHeader>
-          <CardContent>
+          <div>
+            <Text>Expense Overview</Text>
+            <Text>Track your travel expenses and per diem</Text>
+          </div>
+          <div>
             <div className="expense-stats">
               <div className="stat-item">
                 <DollarSign className="stat-icon" />
@@ -112,16 +111,16 @@ const GuestExpenses: React.FC<GuestExpensesProps> = ({
                 </div>
               </div>
             </div>
-          </CardContent>
+          </div>
         </Card>
       </div>
 
       <div className="guest-expenses__actions">
         <Card>
-          <CardHeader>
-            <CardTitle>Submit New Expense</CardTitle>
-          </CardHeader>
-          <CardContent>
+          <div>
+            <Text>Submit New Expense</Text>
+          </div>
+          <div>
             <form onSubmit={handleSubmitExpense} className="expense-form">
               <div className="expense-form__fields">
                 <div className="form-field">
@@ -178,7 +177,7 @@ const GuestExpenses: React.FC<GuestExpensesProps> = ({
                       type="button"
                       variant="default"
                       onClick={handleUpload}
-                      isLoading={isUploading}
+                      loading={isUploading}
                     >
                       Upload
                     </Button>
@@ -190,16 +189,16 @@ const GuestExpenses: React.FC<GuestExpensesProps> = ({
                 Submit Expense
               </Button>
             </form>
-          </CardContent>
+          </div>
         </Card>
       </div>
 
       <div className="guest-expenses__history">
         <Card>
-          <CardHeader>
-            <CardTitle>Expense History</CardTitle>
-          </CardHeader>
-          <CardContent>
+          <div>
+            <Text>Expense History</Text>
+          </div>
+          <div>
             <div className="expense-list">
               {expenses.map((expense) => (
                 <div key={expense.id} className={`expense-item status-${expense.status}`}>
@@ -214,7 +213,7 @@ const GuestExpenses: React.FC<GuestExpensesProps> = ({
                 </div>
               ))}
             </div>
-          </CardContent>
+          </div>
         </Card>
       </div>
     </div>

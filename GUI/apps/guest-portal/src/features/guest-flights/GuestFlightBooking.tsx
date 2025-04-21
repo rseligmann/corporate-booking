@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/Card/card';
-import Button from '@/components/Button/button';
+import { Button, Card, Text } from '@mantine/core';
 import { ArrowLeft, ChevronRight } from 'lucide-react';
 import { FlightSelection } from './FlightSelection/FlightSelection';
 import { PassengerInfo } from './PassengerInfo/PassengerInfo';
@@ -195,12 +194,12 @@ export const GuestFlightBooking: React.FC = () => {
       </div>
 
       <Card>
-        <CardHeader>
-          <CardTitle>{steps.find(step => step.id === currentStep)?.title}</CardTitle>
-        </CardHeader>
-        <CardContent>
+        <div>
+          <Text>{steps.find(step => step.id === currentStep)?.title}</Text>
+        </div>
+        <div>
           {renderStepContent()}
-        </CardContent>
+        </div>
       </Card>
 
       <div className="booking-actions">

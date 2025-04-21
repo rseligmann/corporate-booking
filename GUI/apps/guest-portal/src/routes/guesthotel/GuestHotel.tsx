@@ -1,7 +1,6 @@
 import React from 'react';
 import { Building2, Calendar, MapPin, Users, Check, Clock } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/Card/card";
-import Button from "@/components/Button/button";
+import { Card, Button, Text } from "@mantine/core";
 import './GuestHotel.scss';
 
 interface HotelDetails {
@@ -65,13 +64,13 @@ const GuestHotel: React.FC = () => {
 
       <div className="guest-hotel__content">
         <Card className="hotel-summary">
-          <CardHeader>
-            <CardTitle>
+          <div>
+            <div>
               <Building2 className="card-icon" />
               {hotelDetails.name}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
+            </div>
+          </div>
+          <div>
             <div className="hotel-summary__details">
               <div className="detail-item">
                 <MapPin className="detail-icon" />
@@ -104,15 +103,15 @@ const GuestHotel: React.FC = () => {
                 View on Map
               </Button>
             </div>
-          </CardContent>
+          </div>
         </Card>
 
         <div className="hotel-info-grid">
           <Card>
-            <CardHeader>
-              <CardTitle>Amenities</CardTitle>
-            </CardHeader>
-            <CardContent>
+            <div>
+              <Text>Amenities</Text>
+            </div>
+            <div>
               <ul className="amenities-list">
                 {hotelDetails.amenities.map((amenity, index) => (
                   <li key={index}>
@@ -121,20 +120,20 @@ const GuestHotel: React.FC = () => {
                   </li>
                 ))}
               </ul>
-            </CardContent>
+            </div>
           </Card>
 
           <Card>
-            <CardHeader>
-              <CardTitle>Important Information</CardTitle>
-            </CardHeader>
-            <CardContent>
+            <div>
+              <Text>Important Information</Text>
+            </div>
+            <div>
               <ul className="info-list">
                 {hotelDetails.importantInfo.map((info, index) => (
                   <li key={index}>{info}</li>
                 ))}
               </ul>
-            </CardContent>
+            </div>
           </Card>
         </div>
       </div>

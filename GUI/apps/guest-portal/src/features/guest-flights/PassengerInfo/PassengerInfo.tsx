@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-import { Card } from '@/components/Card/card';
+import { Button, Card, Checkbox, Select } from '@mantine/core';
 import { TextInput } from '@mantine/core';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/Select';
-import { Checkbox } from '@/components/Checkbox/checkbox';
-import Button from '@/components/Button/button';
 import './PassengerInfo.scss';
 
 interface PassengerData {
@@ -157,17 +154,14 @@ export const PassengerInfo: React.FC<PassengerInfoProps> = ({ onComplete }) => {
               />
               <Select
                 value={formData.basicInfo.gender}
-                onValueChange={value => updateFormData('basicInfo', 'gender', value)}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select Gender" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="M">Male</SelectItem>
-                  <SelectItem value="F">Female</SelectItem>
-                  <SelectItem value="X">Non-binary</SelectItem>
-                </SelectContent>
-              </Select>
+                onChange={value => updateFormData('basicInfo', 'gender', value)}
+                placeholder="Select Gender"
+                data={[
+                  {value: 'M', label: 'Male'},
+                  {value: 'F', label: 'Female'},
+                  {value: 'X', label: 'Non-binary'}
+                ]}
+              />
             </div>
 
             <div className="form-row">
@@ -211,18 +205,14 @@ export const PassengerInfo: React.FC<PassengerInfoProps> = ({ onComplete }) => {
             <div className="form-row">
               <Select
                 value={formData.travelDocuments.passportCountry}
-                onValueChange={value => updateFormData('travelDocuments', 'passportCountry', value)}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select Issuing Country" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="US">United States</SelectItem>
-                  <SelectItem value="GB">United Kingdom</SelectItem>
-                  <SelectItem value="CA">Canada</SelectItem>
-                  {/* Add more countries as needed */}
-                </SelectContent>
-              </Select>
+                onChange={value => updateFormData('travelDocuments', 'passportCountry', value)}
+                placeholder="Select Issuing Country"
+                data={[
+                  {value: 'US', label: 'United States'},
+                  {value: 'GB', label: 'United Kingdom'},
+                  {value: 'CA', label: 'Canada'}
+                ]}
+              />
             </div>
 
             <div className="form-row">
@@ -251,19 +241,14 @@ export const PassengerInfo: React.FC<PassengerInfoProps> = ({ onComplete }) => {
               />
               <Select
                 value={formData.additionalInfo.mealPreference}
-                onValueChange={value => updateFormData('additionalInfo', 'mealPreference', value)}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select Meal Preference" />
-                </SelectTrigger>
-                <SelectContent>
-                  {mealOptions.map(option => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {option.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+                onChange={value => updateFormData('additionalInfo', 'mealPreference', value)}
+                placeholder="Select Meal Preference"
+                data={mealOptions.map(option => ({
+                  key: option.value,
+                  value: option.value,
+                  label: option.label
+                }))}
+              />
             </div>
 
             <div className="special-assistance">
@@ -273,7 +258,7 @@ export const PassengerInfo: React.FC<PassengerInfoProps> = ({ onComplete }) => {
                   <label key={option.id} className="checkbox-label">
                     <Checkbox
                       checked={formData.additionalInfo.specialAssistance.includes(option.id)}
-                      onCheckedChange={(checked) => {
+                      onChange={(checked) => {
                         const newAssistance = checked
                           ? [...formData.additionalInfo.specialAssistance, option.id]
                           : formData.additionalInfo.specialAssistance.filter(id => id !== option.id);
@@ -300,19 +285,16 @@ export const PassengerInfo: React.FC<PassengerInfoProps> = ({ onComplete }) => {
               />
               <Select
                 value={formData.emergencyContact.relationship}
-                onValueChange={value => updateFormData('emergencyContact', 'relationship', value)}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select Relationship" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="spouse">Spouse</SelectItem>
-                  <SelectItem value="parent">Parent</SelectItem>
-                  <SelectItem value="sibling">Sibling</SelectItem>
-                  <SelectItem value="friend">Friend</SelectItem>
-                  <SelectItem value="other">Other</SelectItem>
-                </SelectContent>
-              </Select>
+                onChange={value => updateFormData('emergencyContact', 'relationship', value)}
+                placeholder="Select Relationship"
+                data={[
+                  {value: 'spouse', label: 'Spouse'},
+                  {value: 'parent', label: 'Parent'},
+                  {value: 'sibling', label: 'Sibling'},
+                  {value: 'friend', label: 'Friend'},
+                  {value: 'other', label: 'Other'}
+                ]}
+              />
               <TextInput
                 type="tel"
                 label="Phone Number"

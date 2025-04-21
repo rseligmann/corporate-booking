@@ -1,12 +1,7 @@
 export { DashboardPage } from './dashboard';
 export { GuestInvitePage } from './guestinvite';
-export { GuestFlightsPage } from './guestflightbooking';
-export { GuestTransportPage } from './guesttransport';
-export { GuestHotelPage } from './guesthotel';
-export { GuestExpensesPage } from './guestexpenses';
 export { ReportsPage } from './reports';
 export { SettingsPage } from './settings';
-export { GuestDashboardPage } from './guestdashboard';
 export { RegisterPage } from './register';
 export { LoginPage } from './login';
 export { ConfirmationPage } from './confirmation';

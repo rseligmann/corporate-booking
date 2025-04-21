@@ -1,7 +1,6 @@
 import React from 'react';
 import { MapPin, Car, Clock, AlertCircle } from 'lucide-react';
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/Card/card";
-import Button from "@/components/Button/button";
+import { Button, Card, Text } from "@mantine/core";
 import './GuestTransport.scss';
 
 interface TransportLocation {
@@ -64,10 +63,10 @@ const GuestTransport: React.FC<GuestTransportProps> = ({
 
       <div className="transport-overview">
         <Card>
-          <CardHeader>
-            <CardTitle>Transport Schedule</CardTitle>
-          </CardHeader>
-          <CardContent>
+          <div>
+            <Text>Transport Schedule</Text>
+          </div>
+          <div>
             <div className="location-timeline">
               {locations.map((location, index) => (
                 <div key={index} className="location-item">
@@ -91,16 +90,16 @@ const GuestTransport: React.FC<GuestTransportProps> = ({
                 </div>
               ))}
             </div>
-          </CardContent>
+          </div>
         </Card>
       </div>
 
       <div className="transport-vouchers">
         <Card>
-          <CardHeader>
-            <CardTitle>Transport Vouchers</CardTitle>
-          </CardHeader>
-          <CardContent>
+          <div>
+            <Text>Transport Vouchers</Text>
+          </div>
+          <div>
             {vouchers.map((voucher, index) => (
               <div key={index} className={`voucher-item ${getStatusClass(voucher.status)}`}>
                 <div className="voucher-info">
@@ -138,13 +137,13 @@ const GuestTransport: React.FC<GuestTransportProps> = ({
                 </div>
               </div>
             ))}
-          </CardContent>
+          </div>
         </Card>
       </div>
 
       <div className="transport-info">
         <Card>
-          <CardContent>
+          <div>
             <div className="info-header">
               <AlertCircle className="icon" />
               <h3>Important Information</h3>
@@ -155,7 +154,7 @@ const GuestTransport: React.FC<GuestTransportProps> = ({
               <li>Download the service provider's app before your trip</li>
               <li>Contact support if you have any issues with your vouchers</li>
             </ul>
-          </CardContent>
+          </div>
         </Card>
       </div>
     </div>

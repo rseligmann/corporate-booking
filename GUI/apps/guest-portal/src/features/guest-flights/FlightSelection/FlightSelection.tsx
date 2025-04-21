@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Input } from '@mantine/core';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/Select';
+import { Button, Select } from '@mantine/core';
 import { Clock, Filter, Plane, Search, ArrowRight } from 'lucide-react';
-import Button from '@/components/Button/button';
 import './FlightSelection.scss';
 
 interface Flight {
@@ -86,16 +85,16 @@ export const FlightSelection: React.FC<FlightSelectionProps> = ({
         </div>
 
         <div className="filters">
-          <Select value={sortBy} onValueChange={setSortBy}>
-            <SelectTrigger>
-              <SelectValue placeholder="Sort by..." />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="price">Price</SelectItem>
-              <SelectItem value="duration">Duration</SelectItem>
-              <SelectItem value="departure">Departure Time</SelectItem>
-            </SelectContent>
-          </Select>
+          <Select 
+            value={sortBy} 
+            onChange={value =>setSortBy(value as string)}
+            placeholder="Sort by..."
+            data={[
+              {value:'price', label:'Price'},
+              {value:'duration', label:'Duration'},
+              {value:'departure', label:'Departure'}
+            ]}
+            />
 
           <Button variant="outline" className="filter-button">
             <Filter className="icon" />

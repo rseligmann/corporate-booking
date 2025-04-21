@@ -15,7 +15,7 @@
       "@corporate-travel-frontend/api/*":["../../packages/api/src/*"],
     }
   },
-  "include": ["src", "vite.config.ts"],
+  "include": ["src", "vite.config.ts", "../guest-portal/src/features/guest-flights", "../guest-portal/src/routes/guesttransport", "../guest-portal/src/routes/guestdashboard", "../guest-portal/src/routes/guestexpenses", "../guest-portal/src/routes/guestflightbooking", "../guest-portal/src/routes/guesthotel", "../guest-portal/src/layouts/GuestLayout"],
   "references": [
     { "path": "./tsconfig.node.json" },
     { "path": "../../packages/types" },

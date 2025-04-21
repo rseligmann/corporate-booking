@@ -1,0 +1,5 @@
+export { GuestFlightsPage } from './guestflightbooking'
+export { GuestTransportPage } from  './guesttransport'
+export { GuestHotelPage } from './guesthotel'
+export { GuestExpensesPage } from './guestexpenses'
+export { GuestDashboardPage } from './guestdashboard'

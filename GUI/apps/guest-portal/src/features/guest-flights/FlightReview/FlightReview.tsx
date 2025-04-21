@@ -1,7 +1,5 @@
 import React from 'react';
-import { Card } from '@/components/Card/card';
-import Button from '@/components/Button/button';
-import { Alert } from '@/components/Alert/alert';
+import { Alert, Button, Card } from '@mantine/core';
 import { Plane, Calendar, User, MapPin, CreditCard, Clock, CheckCircle, AlertCircle } from 'lucide-react';
 import './FlightReview.scss';
 

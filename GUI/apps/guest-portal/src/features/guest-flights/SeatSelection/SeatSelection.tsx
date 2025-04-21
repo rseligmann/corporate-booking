@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/Card/card';
-import Button from '@/components/Button/button';
+import { Button, Card, Text } from '@mantine/core';
 import { Info } from 'lucide-react';
 import './SeatSelection.scss';
 
@@ -157,16 +156,16 @@ export const SeatSelection: React.FC<SeatSelectionProps> = ({
   return (
     <div className="seat-selection">
       <Card>
-        <CardHeader>
-          <CardTitle>
+        <div>
+          <Text>
             Select your seat - {currentFlight === 'outbound' ? 'Outbound' : 'Return'} Flight
-          </CardTitle>
+          </Text>
           <div className="flight-info">
             <span>{currentFlightData?.airline} {currentFlightData?.flightNumber}</span>
             <span>{currentFlightData?.departureAirport} → {currentFlightData?.arrivalAirport}</span>
           </div>
-        </CardHeader>
-        <CardContent>
+        </div>
+        <div>
           <div className="info-banner">
             <Info className="icon" />
             <p>
@@ -192,7 +191,7 @@ export const SeatSelection: React.FC<SeatSelectionProps> = ({
                 : 'Confirm Seat Selection'}
             </Button>
           </div>
-        </CardContent>
+        </div>
       </Card>
     </div>
   );
