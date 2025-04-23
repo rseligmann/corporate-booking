@@ -1,6 +1,5 @@
 import React from 'react';
 import { User, MapPin, Calendar, Plane, Hotel, Car, DollarSign } from 'lucide-react';
-import { EstimatedBudget } from '../EstimatedBudget/EstimatedBudget';
 import { Grid, Group, Space, Text } from '@mantine/core';
 import { Trip } from '@/types';
 import './ReviewForm.scss';
@@ -136,8 +135,6 @@ export const ReviewForm: React.FC<ReviewItemProps> = ({formData}) => {
                   </Grid.Col>
                 </Grid>
               </div>
-
-            {/* <EstimatedBudget /> */}
           </div>
     </div>
   );

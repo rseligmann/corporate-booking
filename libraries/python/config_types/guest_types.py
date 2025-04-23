@@ -1,46 +1,45 @@
-# from abc import ABC
-# from datetime import date
-# from typing import List, Optional
+from abc import ABC
+from datetime import date, datetime
+from typing import List, Optional
 
 
-# class GuestProfile(ABC):
-#     def __init__(self,
-#                 profile_id: str,
-#                 first_name: str,
-#                 last_name: str,
-#                 email: str,
-#                 phone: Optional[str],
-#                 date_of_birth: Optional[date],
-#                 gender: Optional[str],
-#                 nationality: Optional[str],
-#                 passport_number: Optional[str],
-#                 passport_expiry_date: Optional[date],
-#                 dietary_restrictions: Optional[List[str]],
-#                 accessibility_needs: Optional[List[str]],
-#                 admin_id: str,
-#                 address_id: Optional[str]):
-#         self.profile_id           = profile_id
-#         self.first_name           = first_name
-#         self.last_name            = last_name
-#         self.email                = email
-#         self.phone                = phone
-#         self.date_of_birth        = date_of_birth
-#         self.gender               = gender
-#         self.nationality          = nationality
-#         self.passport_number      = passport_number
-#         self.passport_expiry_date = passport_expiry_date
-#         self.dietary_restrictions = dietary_restrictions or []
-#         self.accessibility_needs  = accessibility_needs or []
-#         self.admin_id             = admin_id
-#         self.address_id           = address_id
+class GuestProfile(ABC):
+    def __init__(self,
+                guest_id: str,
+                company_id: str,
+                user_id: str,
+                first_name: str,
+                last_name: str,
+                email: str,
+                phone: Optional[str],
+                # date_of_birth: Optional[date],
+                # gender: Optional[str],
+                # nationality: Optional[str],
+                # passport_number: Optional[str],
+                # passport_expiry_date: Optional[date],
+                # dietary_restrictions: Optional[List[str]],
+                # accessibility_needs: Optional[List[str]],
+                # address_id: Optional[str],
+                date_created: datetime,
+                date_updated: datetime):
+        self.guest_id             = guest_id
+        self.user_id              = user_id
+        self.company_id           = company_id
+        self.first_name           = first_name
+        self.last_name            = last_name
+        self.email                = email
+        self.phone                = phone
+        self.date_created         = date_created
+        self.date_updated         = date_updated
     
-#     def __str__(self) -> str:
-#         return f"""Guest Profile:
-#                    ID: {self.profile_id}
-#                    Name: {self.first_name} {self.last_name}
-#                    Email: {self.email}
-#                    Phone: {self.phone or 'N/A'}
-#                    Admin: {self.admin_id}"""
+    def __str__(self) -> str:
+        return f"""Guest Profile:
+                   ID: {self.guest_id}
+                   User: {self.user_id}
+                   Company: {self.company_id}
+                   Name: {self.first_name} {self.last_name}
+                   Email: {self.email}
+                   Phone: {self.phone or 'N/A'}"""
 
 # class EmergencyContact(ABC):
 #     def __init__(self,

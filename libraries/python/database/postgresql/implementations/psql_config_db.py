@@ -8,7 +8,7 @@ from .company_db import PostgreSQLCompanyDB
 from .guest_preference_db import PostgreSQLGuestPreferenceDB
 # from .hotel_db import PostgreSQLHotelDB
 # from .perdiem_db import PostgreSQLPerDiemDB
-# from .trip_db import PostgreSQLTripDB
+from .trip_db import PostgreSQLTripDB
 from .user_db import PostgreSQLUserDB
 from .city_airport_db import PostgreSQLCityAirportDB
 
@@ -22,7 +22,7 @@ class PSQLConfigDB(BasePostgreSQLConfigDB,
                   PostgreSQLGuestPreferenceDB,
                 #   PostgreSQLHotelDB,
                 #   PostgreSQLPerDiemDB,
-                #   PostgreSQLTripDB,
+                  PostgreSQLTripDB,
                   PostgreSQLUserDB,
                   PostgreSQLCityAirportDB,
                   ConfigDB):

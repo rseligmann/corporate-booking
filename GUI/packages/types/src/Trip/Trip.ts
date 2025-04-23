@@ -16,8 +16,13 @@ export interface Trip {
     perDiem?: PerDiem;
     created: Date;
     modified: Date;
-    createdBy?: string; // Reference to admin user
-    totalBudget?: number;
+    userId?: string; // Reference to admin user
+    companyId?: string;
+    estimatedBudget?: number;
+    bookedBudget?: number;
     actualSpend?: number;
-    
+}
+
+export interface CreateTripResponse{
+    id: string
 }

@@ -1,4 +1,5 @@
 from sqlalchemy import Column,String, Float, Integer, ForeignKey
+from sqlalchemy.orm import relationship
 from ..base import Base
 
 class City(Base):

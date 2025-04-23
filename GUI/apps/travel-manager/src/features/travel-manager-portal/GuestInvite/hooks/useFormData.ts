@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
+import { useAuth } from '@/contexts/AuthContext'
 import { Trip } from '@/types'
 import { useGuestTypePreferences } from '@corporate-travel-frontend/api/hooks';
 
@@ -52,10 +53,14 @@ const initialFormData: Trip ={
   } ,
   created: new Date(),
   modified: new Date(),
-  createdBy: "Rorey",
+  userId: "",
 }
 export const useFormData = () => {
    
+  const { authState } = useAuth();
+  const companyId = authState.user?.company_id || '';
+  const userId = authState.user?.user_id || '';
+
   const [selectedGuestTypeId, setSelectedGuestType] = useState<string | null>(null);
   const {data: guestTypePreferences, isSuccess: guestTypePrefIsSuccess, isPending: guestTypePrefIsPending, error: apiErrorGuestPref } = useGuestTypePreferences(selectedGuestTypeId ?? '')
   
@@ -76,6 +81,15 @@ export const useFormData = () => {
         }
         return initialFormData;
     });
+
+    //Set user and company on initial render
+    useEffect(() => {
+      setFormData(prevData =>({
+        ...prevData,
+        userId: userId,
+        companyId: companyId
+      }))
+    },[formData.guest])
 
     //Save to localStorage whenever form data changes
     useEffect(()=>{
@@ -130,6 +144,13 @@ export const useFormData = () => {
         }));
     };
 
+    const updateEstimatedBudget = (budget: number) => {
+      setFormData(prevData => ({
+        ...prevData,
+        estimatedBudget: budget,
+      }));
+    };
+
     return {
         formData,
         clearFormData,
@@ -137,5 +158,6 @@ export const useFormData = () => {
         updateGuestTypeAndPreferences,
         updateItineraryDetails,
         updateTravelPreferences,
+        updateEstimatedBudget,
     }
 }

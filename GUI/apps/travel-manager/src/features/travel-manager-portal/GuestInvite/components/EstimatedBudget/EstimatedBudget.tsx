@@ -1,19 +1,22 @@
 import { useState, useEffect } from 'react';
-import { Card, Divider, Loader, Stack, Text } from '@mantine/core'
+import { Card, Divider, Group, Loader, Stack, Text } from '@mantine/core'
 import { useAvgFlightPriceSearch, useAvgHotelPriceSearch } from '@corporate-travel-frontend/api/hooks';
 import { EstimatedFlights } from './EstimatedFlights';
 import { EstimatedHotels } from './EstimatedHotel';
+import { getDaysDifference } from '@/lib/utils';
 import { FlightAggregationRequest, HotelCustomSearchRequest, HotelRating, Trip } from '@/types'
 import classes from './EstimatedBudget.module.scss';
 
 interface EstimateBudgetProps {
   formData: Trip;
+  onBudgetCalculated: (budget: number) => void;
 }
 
-export const EstimatedBudget: React.FC<EstimateBudgetProps> = ({formData}) => {
+export const EstimatedBudget: React.FC<EstimateBudgetProps> = ({formData, onBudgetCalculated}) => {
 
   const [ flightSearch, setFlightSearch ] = useState<FlightAggregationRequest>()
   const [ hotelSearch, setHotelSearch ] = useState <HotelCustomSearchRequest>()
+  const [ totalPerDiem, setTotalPerDiem ] = useState(0)
 
   // Format date to YYYY-MM-DD string
   const formatDateToString = (date: Date | null): string => {
@@ -68,6 +71,24 @@ export const EstimatedBudget: React.FC<EstimateBudgetProps> = ({formData}) => {
   const { data: flightData, isPending: flightIsPending, error: flightError } = useAvgFlightPriceSearch(flightSearch)
   const { data: hotelData, isPending: hotelIsPending, error: hotelError } = useAvgHotelPriceSearch(hotelSearch)
 
+  
+
+  useEffect(()=> {
+    if(flightData?.overall_average_price || hotelData?.overall_average_total_price || formData.travelPreferences.dailyPerDiem) {
+      const tripLength = getDaysDifference(formData.itinerary.startDate, formData.itinerary.endDate)
+      const calculatedPerDiem = (formData.travelPreferences.dailyPerDiem || 0) * tripLength
+      setTotalPerDiem((formData.travelPreferences.dailyPerDiem || 0) * tripLength)
+      const totalBudget = Math.round(
+        (flightData?.overall_average_price || 0) +
+        (hotelData?. overall_average_total_price || 0) +
+        (calculatedPerDiem)
+      );
+
+      onBudgetCalculated(totalBudget)
+    }
+  },[flightData, hotelData, formData.travelPreferences.dailyPerDiem])
+
+
   return (
     <Card  shadow='xs' padding='md' radius='md' withBorder>
         <Text size ="lg" fw={700}>Estimated Budget</Text>
@@ -116,8 +137,24 @@ export const EstimatedBudget: React.FC<EstimateBudgetProps> = ({formData}) => {
             </div>
             <Divider/>
             <div className={classes.budgetItem}>
+              <div className = {classes.budgetItem__title}>Per Diem</div>
+              <div>
+                <Group gap='xl'>
+                <Card className={classes.budgetItem__card}>
+                  <div className={classes.budgetItem__value}>{`$${totalPerDiem}`}</div>
+                  <div className={classes.budgetItem__label}>total per diem</div>
+                </Card>
+                <Card className={classes.budgetItem__card}>
+                  <div className={classes.budgetItem__value}>{`$${formData.travelPreferences.dailyPerDiem}`}</div>
+                  <div className={classes.budgetItem__label}>daily per diem</div>
+                </Card>
+                </Group>
+              </div>
+            </div>
+            <Divider/>
+            <div className={classes.budgetItem}>
               <div className={classes.budgetItem__title}>Total Estimate</div>
-              <div className={classes.budgetItem__value}>{`$${Math.round((flightData?.overall_average_price || 0)+(hotelData?.overall_average_total_price || 0))}`}</div>
+              <div className={classes.budgetItem__value}>{`$${Math.round((flightData?.overall_average_price || 0)+(hotelData?.overall_average_total_price || 0)+totalPerDiem)}`}</div>
             </div>
           </Stack>
         ) : 

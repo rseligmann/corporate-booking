@@ -26,6 +26,24 @@ class GuestTypes(ABC):
                    UserID: {self.user_id}
                    Created: {self.date_created}
                    Updated: {self.date_updated}"""
+    
+class GuestTypesOnTrip(ABC):
+    def __init__(self,
+                guest_type_on_trip_id: str,
+                name: str,
+                date_created: datetime,
+                date_updated: datetime):
+        self.guest_type_on_trip_id = guest_type_on_trip_id
+        self.name = name
+        self.date_created = date_created
+        self.date_updated = date_updated
+    
+    def __str__(self) -> str:
+        return f"""Guest Type Details:
+                   ID: {self.guest_type_on_trip_id}
+                   Name: {self.name}
+                   Created: {self.date_created}
+                   Updated: {self.date_updated}"""
 
 class CabinClass(Enum):
     ECONOMY = "ECONOMY"

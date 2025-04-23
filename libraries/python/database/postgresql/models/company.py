@@ -25,8 +25,8 @@ class Company(Base):
     users = relationship("User", back_populates="company")
     address = relationship("Address", back_populates="company")
     guest_types = relationship("GuestTypes", back_populates="company")
-    #guest_profiles = relationship("GuestProfile", back_populates="company")
-    #trips = relationship("Trip", back_populates="company")
+    guest_profiles = relationship("GuestProfile", back_populates="company")
+    trips = relationship("Trip", back_populates="company")
     #company_locations = relationship("CompanyLocation", back_populates="company")
 
     def __repr__(self):

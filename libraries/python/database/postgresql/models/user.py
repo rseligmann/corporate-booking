@@ -27,8 +27,8 @@ class User(Base):
     #Relationships
     company = relationship("Company", back_populates="users")
     guest_types = relationship("GuestTypes", back_populates="user")
-    #trips = relationship("Trip", back_populates="user")
-    #guest_profiles = relationship("GuestProfile", back_populates="user")
+    trips = relationship("Trip", back_populates="user")
+    guest_profiles = relationship("GuestProfile", back_populates="user")
 
     def __repr__(self):
         return f"<User id={self.id} email={self.email} first_name={self.first_name} last_name={self.last_name}>"

@@ -3,7 +3,7 @@ import { useNavigate}  from 'react-router-dom'
 import { ChevronRight, ArrowLeft } from 'lucide-react'
 import { ActionIcon, Button, Card, Grid, Space, Text } from '@mantine/core'
 import { useGuestInviteState, useFormData } from './hooks'
-import { useAllGuestTypes } from '@corporate-travel-frontend/api/hooks'
+import { useAllGuestTypes, useCreateTrip } from '@corporate-travel-frontend/api/hooks'
 import { useAuth } from '@/contexts/AuthContext'
 import { getStepValidation } from './utils/formValidation'
 import { TravelMgrPageLayout } from '@/layouts';
@@ -17,7 +17,9 @@ const GuestInvite: React.FC = () => {
   const companyId = authState.user?.company_id || '';
   const {data: allGuestTypesData, isPending: allGuestTypesIsPending, error: allGuestTypesError} = useAllGuestTypes(companyId)
 
-  const { formData, clearFormData, updateGuestDetails, updateGuestTypeAndPreferences, updateItineraryDetails, updateTravelPreferences } = useFormData();
+  const createTripMutation = useCreateTrip();
+
+  const { formData, clearFormData, updateGuestDetails, updateGuestTypeAndPreferences, updateItineraryDetails, updateTravelPreferences, updateEstimatedBudget } = useFormData();
   const { currentStep, nextStep, prevStep, step, clearCurrentStep } = useGuestInviteState([
       <GuestDetailsForm 
         guestTypeData = {allGuestTypesData}
@@ -63,17 +65,17 @@ const GuestInvite: React.FC = () => {
 
   //add logic to submit guest invite
   const handleSendInvite = async () => {
-    try {
-      //await createGuestInvite(state)
-      // Handle success (e.g., show a success message, redirect)
-      alert('Invite sent successfully!');
-      clearFormData(); // Clear form data after successful submission
-      navigate('/dashboard'); // Redirect to dashboard after successful submission
-    } catch (error) {
-      // Handle error (e.g., show an error message)
-      console.error("Error sending invite:", error);
-      alert('Error sending invite. Please try again later.'); //Example error handling
-    }
+    createTripMutation.mutate(formData, {
+      onSuccess: () => {
+        alert('Invite sent successfully!');
+        clearFormData();
+        navigate('/dashboard');
+      },
+      onError: (error) => {
+        console.error("Error sending invite:", error)
+        alert(`Error sending invite. Please try again later. ${error}`)
+      }
+    })
   }
 
   const handleBackToDashboard = () => {
@@ -113,6 +115,7 @@ const GuestInvite: React.FC = () => {
               <Grid.Col span={{base: 12, lg: 4}}>
                 <EstimatedBudget
                   formData={formData}
+                  onBudgetCalculated={updateEstimatedBudget}
                 />
               </Grid.Col>
             : <></>
@@ -128,7 +131,7 @@ const GuestInvite: React.FC = () => {
               </Button>
             )}
             <div className="guest-invite__primary-action">
-              {currentStep < totalSteps ? (
+              {currentStep <= totalSteps ? (
                 <Button
                   onClick={nextStep}
                   rightSection={<ChevronRight size={14}/>}
@@ -140,8 +143,10 @@ const GuestInvite: React.FC = () => {
               ) : (
                 <Button
                   onClick={handleSendInvite}
+                  loading={createTripMutation.isPending}
+                  disabled={createTripMutation.isPending}
                 >
-                  <span>Send Invite</span>
+                   <span>{createTripMutation.isPending ? 'Sending...' : 'Send Invite'}</span>
                 </Button>
               )}
             </div>

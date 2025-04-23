@@ -25,10 +25,29 @@ class GuestTypes(Base):
     hotel_preferences = relationship("HotelPreferences", back_populates="guest_type", uselist=False, cascade = "all, delete-orphan")
     ground_transport_preferences = relationship("GroundTransportPreferences", back_populates="guest_type", uselist=False, cascade = "all, delete-orphan")
     per_diem_preferences = relationship("PerDiemPreferences", back_populates="guest_type", uselist=False, cascade = "all, delete-orphan")
-    #trips = relationship("Trip", back_populates="guest_types")
 
     def __repr__(self):
         return f"<GuestTypes(id='{self.id}', name='{self.name}')>"
+    
+class GuestTypesOnTrip(Base):
+    __tablename__ = 'guest_types_on_trip'
+
+    id = Column(String, primary_key=True)
+    name = Column(String, nullable=False)
+
+    # timestamps
+    created_at = Column(DateTime, default=func.now(), nullable=False)
+    updated_at = Column(DateTime, default=func.now(), onupdate=func.now(), nullable=False)
+
+    #Relationships
+    flight_preferences = relationship("FlightPreferences", back_populates="guest_type_on_trip", uselist=False)
+    hotel_preferences = relationship("HotelPreferences", back_populates="guest_type_on_trip", uselist=False)
+    ground_transport_preferences = relationship("GroundTransportPreferences", back_populates="guest_type_on_trip", uselist=False)
+    per_diem_preferences = relationship("PerDiemPreferences", back_populates="guest_type_on_trip", uselist=False,)
+    trips = relationship("Trip", back_populates="guest_type_on_trip")
+
+    def __repr__(self):
+        return f"<guest_types_on_trip(id='{self.id}', name='{self.name}')>"
 
 class FlightPreferences(Base):
     __tablename__ = 'flight_preferences'
@@ -36,7 +55,8 @@ class FlightPreferences(Base):
     id = Column(String, primary_key=True)
 
     # link to guest_type
-    guest_type_id = Column(String, ForeignKey('guest_types.id'), nullable = False)
+    guest_type_id = Column(String, ForeignKey('guest_types.id'), nullable = True)
+    guest_type_on_trip_id = Column(String, ForeignKey('guest_types_on_trip.id'), nullable=True)
 
     cabin_class = Column(String, nullable=False, default='ECONOMY')
     max_stops = Column(String, nullable=False, default='ANY')
@@ -48,6 +68,7 @@ class FlightPreferences(Base):
 
     #Relationships
     guest_type = relationship("GuestTypes", back_populates="flight_preferences")
+    guest_type_on_trip = relationship("GuestTypesOnTrip", back_populates="flight_preferences")
 
     def __repr__(self):
         return f"<FlightPreferences(id='{self.id}', cabin_class='{self.cabin_class}', max_stops='{self.max_stops}', refundable_ticket='{self.refundable_ticket}')>"
@@ -58,7 +79,8 @@ class HotelPreferences(Base):
     id = Column(String, primary_key=True)
 
     # link to guest_type
-    guest_type_id = Column(String, ForeignKey('guest_types.id'), nullable = False)
+    guest_type_id = Column(String, ForeignKey('guest_types.id'), nullable = True)
+    guest_type_on_trip_id = Column(String, ForeignKey('guest_types_on_trip.id'), nullable=True)
 
     minimum_rating = Column(Integer, nullable=False, default=1)
 
@@ -68,6 +90,7 @@ class HotelPreferences(Base):
 
     #Relationships
     guest_type = relationship("GuestTypes", back_populates="hotel_preferences")
+    guest_type_on_trip = relationship("GuestTypesOnTrip", back_populates="hotel_preferences")
 
     def __repr__(self):
         return f"<HotelPreferences(id='{self.id}', minimum_rating='{self.minimum_rating}')>"
@@ -78,7 +101,8 @@ class GroundTransportPreferences(Base):
     id = Column(String, primary_key=True)
 
     # link to guest_type
-    guest_type_id = Column(String, ForeignKey('guest_types.id'), nullable = False)
+    guest_type_id = Column(String, ForeignKey('guest_types.id'), nullable = True)
+    guest_type_on_trip_id = Column(String, ForeignKey('guest_types_on_trip.id'), nullable=True)
 
     preferred_services = Column(String, nullable=False, default="UBER")
 
@@ -88,6 +112,7 @@ class GroundTransportPreferences(Base):
 
     #Relationships
     guest_type = relationship("GuestTypes", back_populates="ground_transport_preferences")
+    guest_type_on_trip = relationship("GuestTypesOnTrip", back_populates="ground_transport_preferences")
 
     def __repr__(self):
         return f"<GroundTransportPreferences(id='{self.id}', preferred_services='{self.preferred_services}')>"
@@ -98,7 +123,8 @@ class PerDiemPreferences(Base):
     id = Column(String, primary_key=True)
 
     # link to guest_type
-    guest_type_id = Column(String, ForeignKey('guest_types.id'), nullable = False)
+    guest_type_id = Column(String, ForeignKey('guest_types.id'), nullable = True)
+    guest_type_on_trip_id = Column(String, ForeignKey('guest_types_on_trip.id'), nullable=True)
 
     daily_amount = Column(Numeric(10, 2), nullable=False, default=0.00)
 
@@ -108,4 +134,5 @@ class PerDiemPreferences(Base):
 
     #Relationships
     guest_type = relationship("GuestTypes", back_populates="per_diem_preferences")
+    guest_type_on_trip = relationship("GuestTypesOnTrip", back_populates="per_diem_preferences")
 
