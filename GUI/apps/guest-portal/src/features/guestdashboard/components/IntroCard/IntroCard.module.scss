@@ -1,0 +1,39 @@
+.introCard {
+    box-shadow: var(--mantine-shadow-xs);
+    border-radius: var(--mantine-radius-md);
+    padding: var(--mantine-spacing-lg);
+}
+
+.welcomeInfo{
+
+    &__headerText {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--mantine-color-text);
+        margin-bottom: var(--mantine-spacing-sm);
+    }
+
+    &__text{
+        margin-bottom: var(--mantine-spacing-xm);
+    }
+}
+
+.featureIcon {
+    width: 1.5rem;
+    height: 1.5rem;
+    stroke-width:1.5;
+    color: var(--mantine-color-blue-6);
+}
+
+.feature{
+    display: flex;
+    align-items: center;
+    gap: var(--mantine-spacing-xs)
+}
+
+.helpIcon {
+    width: 1.25rem;
+    height: 1.25rem;
+    stroke-width:1.5;
+    color: var(--mantine-color-blue-6);
+}

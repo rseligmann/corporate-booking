@@ -4,3 +4,4 @@ export * from './Auth/auth';
 export * from './Search/cityAirport'
 export * from './Amadeus/flightSearch'
 export * from './Amadeus/hotelSearch'
+export * from './Weather/Weather'

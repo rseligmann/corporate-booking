@@ -1,0 +1,36 @@
+.weatherCard {
+    border-radius: var(--mantine-radius-md);
+    padding: var(--mantine-spacing-xs);
+    background-color: var(--mantine-color-gray-1);
+    outline-color: var(--mantine-primary-color-light) ;
+}
+
+.weatherContent{
+    display: flex;
+    flex-direction: column;
+    //justify-content: center;
+    align-items: center;
+    //gap: var(--mantine-spacing-xs)
+}
+
+.weatherLabel {
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+  }
+
+.temps{
+    display: flex;
+    //justify-content: space-between;
+    gap: .5rem;
+}
+
+.icon{
+    color: var(--mantine-color-blue-6);
+    width: 1.5rem;
+    height: 1.5rem;
+    stroke-width: 2;
+}

@@ -1,7 +1,10 @@
 import React from 'react';
 import './GuestDashboard.scss';
-import { MapPin, Calendar, AlertCircle, ChevronRight, Plane, Building2, Car, Receipt, HelpCircle } from 'lucide-react';
-import { Card } from '@mantine/core';
+import { IntroCard, WeatherForecast, TripOverview } from '@/features/guestdashboard/components';
+import { useAuthGuest } from '@/contexts/AuthContextGuest';
+import { useGetGuestTrips } from '@corporate-travel-frontend/api/hooks'
+import { MapPin, Calendar, AlertCircle, ChevronRight } from 'lucide-react';
+import { Card, Space } from '@mantine/core';
 import { Button } from '@mantine/core';
 
 interface TripStatus {
@@ -24,7 +27,6 @@ interface TripStatus {
 }
 
 interface GuestDashboardProps {
-  guestName: string;
   tripDates: {
     start: string;
     end: string;
@@ -33,23 +35,22 @@ interface GuestDashboardProps {
     origin: string;
     destination: string;
   };
-  weather?: {
-    temperature: string;
-    condition: string;
-    icon: string;
-  };
   tripStatus: TripStatus;
-  onActionClick: (action: string) => void;
 }
 
 const GuestDashboard: React.FC<GuestDashboardProps> = ({
-  guestName,
   tripDates,
   location,
-  weather,
   tripStatus,
-  onActionClick
 }) => {
+
+  const { authState } = useAuthGuest()
+  const userFirstName = authState.user?.first_name || '';
+  const userLastName = authState.user?.last_name || '';
+  const userId = authState.user?.user_id || '';
+
+  const { data: tripsData, isSuccess: isTripsSuccess, isPending: isTripsPending, error: tripsError } = useGetGuestTrips(userId)
+
   const getStatusClass = (status: string) => {
     switch (status) {
       case 'confirmed':
@@ -63,62 +64,21 @@ const GuestDashboard: React.FC<GuestDashboardProps> = ({
     }
   };
 
-  const calculateDaysUntilTrip = () => {
-    const start = new Date(tripDates.start);
-    const today = new Date();
-    const diffTime = start.getTime() - today.getTime();
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays;
-  };
-
   return (
     <div className="guest-dashboard">
-        <div className="introduction-section">
-        <Card>
-          <div className="intro-content">
-            <div className="intro-header">
-              <div className="welcome-info">
-                <h1>Welcome, {guestName}</h1>
-                <p className="trip-countdown">{calculateDaysUntilTrip()} days until your trip</p>
-                <p className="intro-description">
-                  This is your personal dashboard for managing all aspects of your upcoming visit. Here's what you can do:
-                </p>
-              </div>
-              {weather && (
-                <div className="weather-widget">
-                  <img src={weather.icon} alt={weather.condition} />
-                  <div className="weather-details">
-                    <span className="temperature">{weather.temperature}</span>
-                    <span className="condition">{weather.condition}</span>
-                  </div>
-                </div>
-              )}
-            </div>
-            <ul className="intro-features">
-              <li>
-                <Plane className="feature-icon" />
-                <span>Book flights</span>
-              </li>
-              <li>
-                <Building2 className="feature-icon" />
-                <span>View hotel details</span>
-              </li>
-              <li>
-                <Car className="feature-icon" />
-                <span>Set up ground transportation</span>
-              </li>
-              <li>
-                <Receipt className="feature-icon" />
-                <span>Submit travel expenses</span>
-              </li>
-            </ul>
-            <p className="intro-help">
-              <HelpCircle className="help-icon" />
-              Need help? Contact your travel coordinator or click the support button in the top right corner.
-            </p>
-          </div>
-        </Card>
-      </div>
+      <IntroCard
+        firstName = {userFirstName}
+        lastName = {userLastName}
+        tripsData = {tripsData}
+      />
+
+      <Space h='md'/>
+
+      <TripOverview
+        tripsData={tripsData}
+      />
+
+      <Space h='md'/>
 
       <div className="trip-overview">
         <Card>
@@ -210,6 +170,12 @@ const GuestDashboard: React.FC<GuestDashboardProps> = ({
           </div>
         </Card>
       </div>
+
+      <WeatherForecast
+        tripsData = {tripsData}
+      />
+
+      <Space h='md'/>
 
       <div className="notifications">
         <Card>

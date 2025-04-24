@@ -25,7 +25,7 @@ async def get_trips_by_company(
 @router.get("/guest/{guest_profile_id}", response_model=List[Trip])
 async def get_trips_by_guest(
     guest_profile_id: str,
-    current_user: CurrentUserDependency,
+    # current_user: CurrentUserDependency,
     config_db: ConfigDBDependency
 ):
     """ Get detailed preferences for a specific guest type """

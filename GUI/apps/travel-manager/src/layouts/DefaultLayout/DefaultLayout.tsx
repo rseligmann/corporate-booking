@@ -1,7 +1,7 @@
 import { FC } from "react"
 import { Outlet } from "react-router-dom"
 import { TravelMgrPortalHeader } from "@/components/TravelMgrPortalHeader/TravelMgrPortalHeader"
-import { AppShell, Container } from '@mantine/core'
+import { AppShell } from '@mantine/core'
 
 const DefaultLayout: FC = () => {
     

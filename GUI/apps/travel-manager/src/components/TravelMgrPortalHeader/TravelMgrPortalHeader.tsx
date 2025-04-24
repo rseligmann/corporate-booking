@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ActionIcon, Avatar, Container, Flex, Group, Space, Text } from '@mantine/core';
+import { ActionIcon, Container, Flex, Group, Space, Text } from '@mantine/core';
 import { LayoutDashboard, UserPlus, FileText, Settings, Bell } from 'lucide-react';
 import { UserMenu } from './components/UserMenu';
 import { useAuth } from '@/contexts/AuthContext'

@@ -5,7 +5,7 @@ import { getSampleTripData } from '../utils/getSampleTripData';
 import { TravelMgrPageLayout } from '@/layouts';
 import { calculateStats } from './utils/calculateStats';
 import { CurrentTripsTable } from './components/CurrentTripsTable/CurrentTripsTable';
-import './Dashboard.scss';
+import classes from './Dashboard.module.scss';
 
 const Dashboard = () => {
   const tripData = getSampleTripData();
@@ -28,7 +28,7 @@ const Dashboard = () => {
       action={actionButton}
     >
 
-        <div className="dashboard__stats">
+        <div className={classes.dashboard__stats}>
           <StatsCard 
             cardTitle="Upcoming Trips" 
             icon={Clock} 
