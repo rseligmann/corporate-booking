@@ -1,11 +1,11 @@
 import React from 'react';
-import './GuestDashboard.scss';
 import { IntroCard, WeatherForecast, TripOverview } from '@/features/guestdashboard/components';
 import { useAuthGuest } from '@/contexts/AuthContextGuest';
 import { useGetGuestTrips } from '@corporate-travel-frontend/api/hooks'
-import { MapPin, Calendar, AlertCircle, ChevronRight } from 'lucide-react';
+import { AlertCircle, ChevronRight } from 'lucide-react';
 import { Card, Space } from '@mantine/core';
 import { Button } from '@mantine/core';
+import classes from './GuestDashboard.module.scss';
 
 interface TripStatus {
   flight: {
@@ -27,20 +27,10 @@ interface TripStatus {
 }
 
 interface GuestDashboardProps {
-  tripDates: {
-    start: string;
-    end: string;
-  };
-  location: {
-    origin: string;
-    destination: string;
-  };
   tripStatus: TripStatus;
 }
 
 const GuestDashboard: React.FC<GuestDashboardProps> = ({
-  tripDates,
-  location,
   tripStatus,
 }) => {
 
@@ -54,18 +44,18 @@ const GuestDashboard: React.FC<GuestDashboardProps> = ({
   const getStatusClass = (status: string) => {
     switch (status) {
       case 'confirmed':
-        return 'status-confirmed';
+        return classes.statusConfirmed;
       case 'completed':
-        return 'status-completed';
+        return classes.statusCompleted;
       case 'in-progress':
-        return 'status-in-progress';
+        return classes.statusInProgress;
       default:
-        return 'status-pending';
+        return classes.statusPending;
     }
   };
 
   return (
-    <div className="guest-dashboard">
+    <div className={classes.guestDashboard}>
       <IntroCard
         firstName = {userFirstName}
         lastName = {userLastName}
@@ -80,96 +70,73 @@ const GuestDashboard: React.FC<GuestDashboardProps> = ({
 
       <Space h='md'/>
 
-      <div className="trip-overview">
-        <Card>
-          <div className="trip-details">
-            <div className="detail-item">
-              <Calendar className="icon" />
-              <div className="detail-content">
-                <span className="label">Trip Dates</span>
-                <span className="value">{tripDates.start} - {tripDates.end}</span>
-              </div>
-            </div>
-            <div className="detail-item">
-              <MapPin className="icon" />
-              <div className="detail-content">
-                <span className="label">Location</span>
-                <span className="value">{location.origin} → {location.destination}</span>
-              </div>
-            </div>
-          </div>
-        </Card>
-      </div>
-
-      <div className="action-cards">
-        <Card>
-          <div className={`action-item ${getStatusClass(tripStatus.flight.status)}`}>
-            <div className="action-content">
+      <div className={classes.actionCards}>
+        <Card className={classes.card}>
+          <div className={`${classes.actionItem} ${getStatusClass(tripStatus.flight.status)}`}>
+            <div className={classes.actionContent}>
               <h3>Flight Booking</h3>
               <p>{tripStatus.flight.details || 'Action required'}</p>
             </div>
             <Button 
               variant="outline"
               onClick={() => window.location.href = '/guest/flights'}
-              className="action-button"
+              rightSection={<ChevronRight className={classes.actionButtonIcon}/>}
             >
               <span>Manage Flight</span>
-              <ChevronRight className="button-icon" />
             </Button>
           </div>
         </Card>
 
-        <Card>
-          <div className={`action-item ${getStatusClass(tripStatus.hotel.status)}`}>
-            <div className="action-content">
-              <h3>Hotel Details</h3>
+        <Card className={classes.card}>
+          <div className={`${classes.actionItem}  ${getStatusClass(tripStatus.hotel.status)}`}>
+            <div className={classes.actionContent}>
+              <h3>Hotel Booking</h3>
               <p>{tripStatus.hotel.details || 'View accommodation details'}</p>
             </div>
             <Button 
               variant="outline"
               onClick={() => window.location.href = '/guest/hotel'}
-              className="action-button"
+              rightSection={<ChevronRight className={classes.actionButtonIcon}/>}
             >
-              <span>View Hotel</span>
-              <ChevronRight className="button-icon" />
+              <span>Manage Hotel</span>
             </Button>
           </div>
         </Card>
 
-        <Card>
-          <div className={`action-item ${getStatusClass(tripStatus.transport.status)}`}>
-            <div className="action-content">
+        <Card className={classes.card}>
+          <div className={`${classes.actionItem}  ${getStatusClass(tripStatus.transport.status)}`}>
+            <div className={classes.actionContent}>
               <h3>Ground Transport</h3>
               <p>{tripStatus.transport.details || 'Set up transportation'}</p>
             </div>
             <Button 
               variant="outline"
               onClick={() => window.location.href = '/guest/transport'}
-              className="action-button"
+              rightSection={<ChevronRight className={classes.actionButtonIcon}/>}
             >
               <span>Arrange Transport</span>
-              <ChevronRight className="button-icon" />
             </Button>
           </div>
         </Card>
 
-        <Card>
-          <div className={`action-item ${getStatusClass(tripStatus.expenses.status)}`}>
-            <div className="action-content">
+        <Card className={classes.card}>
+          <div className={`${classes.actionItem}  ${getStatusClass(tripStatus.expenses.status)}`}>
+            <div className={classes.actionContent}>
               <h3>Expenses</h3>
               <p>{tripStatus.expenses.details || 'Track your expenses'}</p>
             </div>
             <Button 
               variant="outline"
               onClick={() => window.location.href = '/guest/expenses'}
-              className="action-button"
+              rightSection={<ChevronRight className={classes.actionButtonIcon}/>}
             >
               <span>Manage Expenses</span>
-              <ChevronRight className="button-icon" />
             </Button>
           </div>
         </Card>
       </div>
+
+      <Space h='md'/>
 
       <WeatherForecast
         tripsData = {tripsData}
@@ -177,19 +144,17 @@ const GuestDashboard: React.FC<GuestDashboardProps> = ({
 
       <Space h='md'/>
 
-      <div className="notifications">
-        <Card>
-          <div className="notification-header">
-            <AlertCircle className="icon" />
+      <Card className={classes.card}>
+          <div className={classes.notificationHeader}>
+            <AlertCircle className={classes.notificationIcon} />
             <h3>Important Reminders</h3>
           </div>
-          <ul className="notification-list">
-            <li>Complete your flight booking at least 2 weeks before departure</li>
-            <li>Download required travel apps before your trip</li>
-            <li>Submit expenses within 30 days of trip completion</li>
+          <ul className={classes.notificationList}>
+            <li className={classes.notificationItem}>Complete your flight booking at least 2 weeks before departure</li>
+            <li className={classes.notificationItem}>Download required travel apps before your trip</li>
+            <li className={classes.notificationItem}>Submit expenses within 30 days of trip completion</li>
           </ul>
-        </Card>
-      </div>
+      </Card>
     </div>
   );
 };

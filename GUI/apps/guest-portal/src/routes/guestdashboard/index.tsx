@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Helmet } from 'react-helmet-async';
-import  GuestDashboard from './GuestDashboard';
+import  GuestDashboard from '../../features/guestdashboard/GuestDashboard';
 
 export const GuestDashboardPage: FC = () => {
 
@@ -11,14 +11,6 @@ export const GuestDashboardPage: FC = () => {
         <meta name="description" content="Manage your travel arrangements" />
       </Helmet>
       <GuestDashboard
-        tripDates={{
-          start: "2024-02-15",
-          end: "2024-02-20"
-        }}
-        location={{
-          origin: "San Francisco",
-          destination: "New York"
-        }}
         tripStatus={{
           flight: { status: "pending", details: "Booking required" },
           hotel: { status: "confirmed", details: "Hilton Downtown" },

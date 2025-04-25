@@ -1,0 +1,112 @@
+.guestDashboard {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card{
+  box-shadow: var(--mantine-shadow-xs);
+  border-radius: var(--mantine-radius-md);
+  padding: var(--mantine-spacing-lg);
+}
+
+.actionCards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--mantine-spacing-md);
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 1fr;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.actionContent {
+  h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--mantine-color-text);
+  }
+
+  p {
+    color: var(--mantine-color-dimmed);
+    font-size: 0.875rem;
+  }
+}
+
+.actionButtonIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.actionItem {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-left: 4px solid transparent;
+}
+
+.statusPending {
+    border-left-color: var(--mantine-color-yellow-7);
+  }
+
+.statusConfirmed {
+    border-left-color: var(--mantine-color-green-7);
+}
+
+.statusCompleted {
+    border-left-color: var(--mantine-color-violet-7);
+}
+
+.statusInProgress {
+    border-left-color:var(--mantine-color-blue-7);
+}
+
+.notificationHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  //padding: 1.5rem 1.5rem 0;
+}
+
+.notificationIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--mantine-color-blue-6);
+}
+
+  h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--mantine-color-text);
+  }
+
+
+.notificationList {
+  list-style: none;
+  padding: 0 1.5rem ;
+}
+
+.notificationItem{
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--mantine-color-dimmed);
+  font-size: 0.875rem;
+
+  &:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--mantine-primary-color-filled);
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}

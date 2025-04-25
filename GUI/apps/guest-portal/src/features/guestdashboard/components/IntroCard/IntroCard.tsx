@@ -53,7 +53,7 @@ export const IntroCard: React.FC<IntroCardProps> = ({firstName, lastName, tripsD
                     This is your personal dashboard for managing all aspects of your upcoming visit. Here's what you can do:
                 </Text>
             </div>
-            <Space h='xl'/>
+            <Space h='lg'/>
             <Grid>
                 <Grid.Col span={{base: 12, md: 6, lg: 3}} className={classes.feature}>
                     <Plane className={classes.featureIcon}/>

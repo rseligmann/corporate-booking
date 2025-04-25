@@ -1,5 +1,5 @@
 import { useWeather } from '@corporate-travel-frontend/api/hooks'
-import { Card, Grid, Text, Space } from '@mantine/core'
+import { Card, Grid, LoadingOverlay, Text, Space } from '@mantine/core'
 import { WeatherCard } from './WeatherCard';
 import { weatherIcons } from './WeatherCodeMapping'
 import { Trip } from '@corporate-travel-frontend/types';
@@ -8,7 +8,7 @@ import classes from './WeatherForecast.module.scss'
 
 // Format date to display day of week
 const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
+    const date = new Date(dateString + 'T00:00:00');
     return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
 };
 
@@ -29,7 +29,7 @@ export const WeatherForecast: React.FC<WeatherForecaseProps> = ({tripsData}) => 
 
     const forecastData = weatherData?.daily.time.slice(0,10).map((date, index) => ({
         date,
-        formattedDate: formatDate(date),
+        formattedDate: formatDate(weatherData.daily.time[index]),
         weatherCode: Number(weatherData.daily.weather_code[index]),
         maxTemp: Number(weatherData.daily.temperature_2m_max[index]),
         minTemp: Number(weatherData.daily.temperature_2m_min[index]),
@@ -39,6 +39,7 @@ export const WeatherForecast: React.FC<WeatherForecaseProps> = ({tripsData}) => 
     return(
         <Card className={classes.weatherCard}>
             <Text size='lg' fw={700}>{`Weather in ${city}, ${state}`}</Text>
+            <LoadingOverlay visible={!isWeatherSuccess}/>
             <Space h='md'/>
             <Grid columns={10}>
                 {forecastData?.map((day, index) => {
