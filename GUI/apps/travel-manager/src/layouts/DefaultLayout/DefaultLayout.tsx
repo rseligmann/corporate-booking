@@ -2,6 +2,7 @@ import { FC } from "react"
 import { Outlet } from "react-router-dom"
 import { TravelMgrPortalHeader } from "@/components/TravelMgrPortalHeader/TravelMgrPortalHeader"
 import { AppShell } from '@mantine/core'
+import classes from './DefaultLayout.module.scss'
 
 const DefaultLayout: FC = () => {
     
@@ -9,7 +10,7 @@ const DefaultLayout: FC = () => {
         <AppShell
             header={{ height: 60 }}
             padding="md"
-            bg="var(--mantine-color-gray-0)"
+            className={classes.background}
         >
         <AppShell.Header >
             <TravelMgrPortalHeader />

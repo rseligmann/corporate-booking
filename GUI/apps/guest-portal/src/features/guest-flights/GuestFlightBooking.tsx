@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
-import { Button, Card, Text } from '@mantine/core';
+import { useNavigate}  from 'react-router-dom'
+import { Button, Card, Space, Text } from '@mantine/core';
 import { ArrowLeft, ChevronRight } from 'lucide-react';
-import { FlightSelection } from './FlightSelection/FlightSelection';
-import { PassengerInfo } from './PassengerInfo/PassengerInfo';
-import { SeatSelection } from './SeatSelection/SeatSelection';
-import { FlightReview } from './FlightReview/FlightReview';
+import { FlightReview , FlightSelection, PassengerInfo, ProgressStepper, SeatSelection } from './Components';
+import { useAuthGuest } from '@/contexts/AuthContextGuest';
+import { useGuestFlightState } from './hooks';
+import { useGetGuestTrips } from '@corporate-travel-frontend/api/hooks';
 import './GuestFlightBooking.scss';
 
 export type BookingStep = 'outbound' | 'return' | 'passenger' | 'seats' | 'review';
+
+const formatDate = (date: Date | undefined | null) => {
+  if(!date) return ''
+  const options: Intl.DateTimeFormatOptions = { weekday: 'long', month: 'long', day: 'numeric' }
+  return date.toLocaleDateString('en-US', options)
+}
 
 export interface Flight {
   id: string;
@@ -65,7 +72,12 @@ export interface FlightBookingData {
 }
 
 export const GuestFlightBooking: React.FC = () => {
-  const [currentStep, setCurrentStep] = useState<BookingStep>('outbound');
+
+  const { authState } = useAuthGuest()
+  const userId = authState.user?.user_id || '';
+  const { data: tripsData, isSuccess: isTripsSuccess, isPending: isTripsPending, error: tripsError } = useGetGuestTrips(userId)
+
+  const [currentStepTemp, setCurrentStep] = useState<BookingStep>('outbound');
   const [flightData, setFlightData] = useState<FlightBookingData>({
     outbound: null,
     return: null,
@@ -84,8 +96,72 @@ export const GuestFlightBooking: React.FC = () => {
     { id: 'review', title: 'Review & Confirm' }
   ];
 
-  const getCurrentStepIndex = () => steps.findIndex(step => step.id === currentStep);
+  const getCurrentStepIndex = () => steps.findIndex(step => step.id === currentStepTemp);
 
+
+
+  const { currentStep, nextStep, prevStep, step, clearCurrentStep } = useGuestFlightState([
+    <FlightSelection
+      type="outbound"
+      tripsData={tripsData}
+    />,
+    <FlightSelection
+      type="return"
+      tripsData={tripsData}
+    />,
+    <PassengerInfo
+      onComplete={(data: PassengerData) => {
+        setFlightData(prev => ({ ...prev, passenger: data }));
+        handleNext();
+      }}
+    />,
+    <SeatSelection
+      outboundFlight={flightData.outbound}
+      returnFlight={flightData.return}
+      onComplete={(seatData: SeatSelection) => {
+        setFlightData(prev => ({ ...prev, seats: seatData }));
+        handleNext();
+      }}
+    />,
+    // <FlightReview
+    //   bookingData={{
+    //     outbound: flightData.outbound,
+    //     return: flightData.return,
+    //     passenger: flightData.passenger,
+    //     seats: {
+    //       outbound: flightData.seats.outbound,
+    //       return: flightData.seats.return
+    //     }
+    //   }}
+    //   onConfirm={() => {
+    //     console.log('Booking confirmed:', flightData);
+    //   }}
+    // />
+
+  ])
+
+  // const canProceed = useCallback((step: number): boolean => {
+  //   try{
+  //     return getStepValidation(step, formData);
+  //   }
+  //   catch (error) {
+  //     console.error("Validation error:", error);
+  //     return false
+  //   }
+  // }, [formData]);
+
+  const navigate = useNavigate();
+  const totalSteps = 5;
+  
+  const originCity = tripsData?.[0].itinerary.origin.city.name
+  const originState = tripsData?.[0].itinerary.origin.city.state_id
+  const destinationCity = tripsData?.[0].itinerary.destination.city.name
+  const destinationState = tripsData?.[0].itinerary.destination.city.state_id
+  const startDate = formatDate(new Date(tripsData?.[0].itinerary.startDate || ''))
+  const endDate = formatDate(new Date(tripsData?.[0].itinerary.startDate || ''))
+
+  
+  
   const handleNext = () => {
     const currentIndex = getCurrentStepIndex();
     if (currentIndex < steps.length - 1) {
@@ -100,126 +176,58 @@ export const GuestFlightBooking: React.FC = () => {
     }
   };
 
-  const renderStepContent = () => {
-    switch (currentStep) {
-      case 'outbound':
-        return (
-          <FlightSelection
-            type="outbound"
-            onSelect={(flight) => {
-              setFlightData(prev => ({ ...prev, outbound: flight }));
-              handleNext();
-            }}
-          />
-        );
-      case 'return':
-        return (
-          <FlightSelection
-            type="return"
-            outboundFlight={flightData.outbound}
-            onSelect={(flight) => {
-              setFlightData(prev => ({ ...prev, return: flight }));
-              handleNext();
-            }}
-          />
-        );
-      case 'passenger':
-        return (
-          <PassengerInfo
-            onComplete={(data: PassengerData) => {
-              setFlightData(prev => ({ ...prev, passenger: data }));
-              handleNext();
-            }}
-          />
-        );
-      case 'seats':
-        return (
-          <SeatSelection
-            outboundFlight={flightData.outbound}
-            returnFlight={flightData.return}
-            onComplete={(seatData: SeatSelection) => {
-              setFlightData(prev => ({ ...prev, seats: seatData }));
-              handleNext();
-            }}
-          />
-        );
-        case 'review':
-          return flightData.outbound && 
-                flightData.return && 
-                flightData.passenger && 
-                flightData.seats.outbound && 
-                flightData.seats.return ? (
-            <FlightReview
-              bookingData={{
-                outbound: flightData.outbound,
-                return: flightData.return,
-                passenger: flightData.passenger,
-                seats: {
-                  outbound: flightData.seats.outbound,
-                  return: flightData.seats.return
-                }
-              }}
-              onConfirm={() => {
-                console.log('Booking confirmed:', flightData);
-              }}
-            />
-          ) : null;
-    }
-  };
-
   return (
     <div className="guest-flight-booking">
       <div className="booking-header">
         <button
           onClick={handleBack}
           className="back-button"
-          disabled={currentStep === 'outbound'}
+          disabled={currentStepTemp === 'outbound'}
         >
           <ArrowLeft />
         </button>
         <h1>Flight Selection</h1>
       </div>
 
-      <div className="booking-progress">
-        {steps.map((step, index) => (
-          <div
-            key={step.id}
-            className={`progress-step ${currentStep === step.id ? 'active' : ''} 
-              ${getCurrentStepIndex() > index ? 'completed' : ''}`}
-          >
-            <div className="step-indicator">{index + 1}</div>
-            <span className="step-title">{step.title}</span>
-          </div>
-        ))}
+      <ProgressStepper currentStep={currentStep} />
+      <Space h="xl" />
+      <div className='booking-header'>
+        <Text fw={700} size='xl'>{`${originCity}, ${originState} to ${destinationCity}, ${destinationState}`}</Text>
+        <Text>{`${startDate} to ${endDate}`}</Text>
       </div>
-
-      <Card>
-        <div>
-          <Text>{steps.find(step => step.id === currentStep)?.title}</Text>
-        </div>
-        <div>
-          {renderStepContent()}
-        </div>
+      {/* <Space h="md" /> */}
+      <Card shadow ="xs" padding="lg" radius="md" withBorder>
+        {step}
       </Card>
 
       <div className="booking-actions">
-        {currentStep !== 'outbound' && (
+        {currentStep > 0 && (
           <Button
             variant="outline"
-            onClick={handleBack}
+            onClick={prevStep}
           >
-            Back
+            Previous
           </Button>
         )}
-        {currentStep !== 'review' && (
-          <Button
-            onClick={handleNext}
-            className="next-button"
-          >
-            Continue
-            <ChevronRight className="button-icon" />
-          </Button>
-        )}
+        <div className="guest-invite__primary-action">
+          {currentStep <= totalSteps ? (
+            <Button
+              onClick={nextStep}
+              rightSection={<ChevronRight size={14}/>}
+              //disabled={!canProceed(currentStep)}
+            >
+              <span>Continue</span>
+            </Button>
+          ) : (
+            <Button
+              // onClick={handleSendInvite}
+              // loading={createTripMutation.isPending}
+              // disabled={createTripMutation.isPending}
+            >
+                {/* <span>{createTripMutation.isPending ? 'Sending...' : 'Send Invite'}</span> */}
+            </Button>
+          )}
+        </div>
       </div>
     </div>
   );

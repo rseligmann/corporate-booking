@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Query, HTTPException, status
-from typing import Annotated
+from typing import Annotated, List
 import httpx
 import asyncio
 from api.models.amadeus.flight_search import FlightOffersResponse, FlightOffersRequest, FlightAggregationResponse, AirportPairStatistics, FlightAggregationRequest
@@ -194,3 +194,53 @@ async def get_avg_flight_price(
         overall_average_price=overall_avg_price,
         currency=currency or "Unknown"
     )
+
+@router.get("/flight-offers-multi-airport", response_model=List[FlightOffersResponse])
+async def get_flight_offers_multi_airport(
+    amadeus: AmadeusConfigDependency,
+    #current_user: CurrentUserDependency,
+    request_query: Annotated[FlightAggregationRequest, Query()]
+):
+    """
+    Get all flight offers across multiple origin and destination pairs.
+    
+    This endpoint searches for flights between each combination of origins and destinations,
+    then returns associated flight offers.
+    """
+
+    tasks = []
+    counter = 0
+    async with asyncio.TaskGroup() as tg:
+        for origin in request_query.originLocationCodes:
+            for destination in request_query.destinationLocationCodes:
+                if origin == destination:
+                    continue
+
+                flight_request = FlightOffersRequest(
+                    originLocationCode=origin,
+                    destinationLocationCode=destination,
+                    departureDate=request_query.departureDate,
+                    returnDate=request_query.returnDate,
+                    adults=request_query.adults,
+                    children=request_query.children,
+                    infants=request_query.infants,
+                    travelClass=request_query.travelClass,
+                    includedAirlineCodes=request_query.includedAirlineCodes,
+                    excludedAirlineCodes=request_query.excludedAirlineCodes,
+                    nonStop=request_query.nonStop,
+                    currencyCode=request_query.currencyCode,
+                    maxPrice=request_query.maxPrice,
+                    max=request_query.max,
+                    arrival_time_window_start = request_query.arrival_time_window_start,
+                    arrival_time_window_end = request_query.arrival_time_window_end,
+                    return_departure_time_window_start = request_query.return_departure_time_window_start,
+                    return_departure_time_window_end = request_query.return_departure_time_window_end,
+                    max_stops = request_query.max_stops
+                )
+                task = tg.create_task(multi_get_flight_offers(counter,amadeus=amadeus, request_query=flight_request ))
+                tasks.append(task)
+                counter += .15
+
+    results = [task.result() for task in tasks]
+
+    return results

@@ -1,7 +1,7 @@
 .guestDashboard {
-  padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
+  padding: var(--mantine-spacing-xl);
 }
 
 .card{

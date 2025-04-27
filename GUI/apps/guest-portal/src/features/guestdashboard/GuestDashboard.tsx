@@ -79,7 +79,7 @@ const GuestDashboard: React.FC<GuestDashboardProps> = ({
             </div>
             <Button 
               variant="outline"
-              onClick={() => window.location.href = '/guest/flights'}
+              onClick={() => window.location.href = '/flights'}
               rightSection={<ChevronRight className={classes.actionButtonIcon}/>}
             >
               <span>Manage Flight</span>
@@ -95,7 +95,7 @@ const GuestDashboard: React.FC<GuestDashboardProps> = ({
             </div>
             <Button 
               variant="outline"
-              onClick={() => window.location.href = '/guest/hotel'}
+              onClick={() => window.location.href = '/hotel'}
               rightSection={<ChevronRight className={classes.actionButtonIcon}/>}
             >
               <span>Manage Hotel</span>
@@ -111,7 +111,7 @@ const GuestDashboard: React.FC<GuestDashboardProps> = ({
             </div>
             <Button 
               variant="outline"
-              onClick={() => window.location.href = '/guest/transport'}
+              onClick={() => window.location.href = '/transport'}
               rightSection={<ChevronRight className={classes.actionButtonIcon}/>}
             >
               <span>Arrange Transport</span>
@@ -127,7 +127,7 @@ const GuestDashboard: React.FC<GuestDashboardProps> = ({
             </div>
             <Button 
               variant="outline"
-              onClick={() => window.location.href = '/guest/expenses'}
+              onClick={() => window.location.href = '/expenses'}
               rightSection={<ChevronRight className={classes.actionButtonIcon}/>}
             >
               <span>Manage Expenses</span>

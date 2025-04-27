@@ -1,7 +1,7 @@
 .weatherCard {
     border-radius: var(--mantine-radius-md);
     padding: var(--mantine-spacing-xs);
-    background-color: var(--mantine-color-gray-1);
+    background-color: light-dark(var(--mantine-color-gray-1), var(--mantine-color-gray-8));
     outline-color: var(--mantine-primary-color-light) ;
 }
 

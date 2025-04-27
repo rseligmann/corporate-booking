@@ -1,13 +1,13 @@
 .guest-flight-booking {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--mantine-spacing-xl);
   
     .booking-header {
       display: flex;
       align-items: center;
-      gap: 1rem;
-      margin-bottom: 2rem;
+      gap: 2rem;
+      margin-bottom: 1.5rem;
   
       h1 {
         font-size: 1.5rem;

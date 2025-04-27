@@ -100,6 +100,7 @@ class FlightOffersResponse(BaseModel):
     data: Optional[List[FlightOffer]] = []
     dictionaries: Optional[Dictionaries] = None
 
+
 class TravelClass(str):
     ECONOMY = "ECONOMY"
     PREMIUM_ECONOMY = "PREMIUM_ECONOMY"
@@ -107,65 +108,27 @@ class TravelClass(str):
     FIRST = "FIRST"
 
 class FlightOffersRequest(BaseModel):
-    originLocationCode: str = Field(
-        ..., description="City/airport IATA code from which the traveler will depart, e.g. BOS for Boston"
-    )
-    destinationLocationCode: str = Field(
-        ..., description="City/airport IATA code to which the traveler is going, e.g. PAR for Paris"
-    )
-    departureDate: date = Field(
-        ..., description="The date on which the traveler will depart from the origin in ISO 8601 YYYY-MM-DD format"
-    )
-    returnDate: Optional[date] = Field(
-        None, description="The date on which the traveler will depart from the destination to return to the origin in ISO 8601 format"
-    )
-    adults: int = Field(
-        default=1, ge=1, description="The number of adult travelers (age 12 or older on date of departure)"
-    )
-    children: Optional[int] = Field(
-        None, ge=0, description="The number of child travelers (older than age 2 and younger than age 12 on date of departure)"
-    )
-    infants: Optional[int] = Field(
-        None, ge=0, description="The number of infant travelers (whose age is less or equal to 2 on date of departure)"
-    )
-    travelClass: Optional[Literal["ECONOMY", "PREMIUM_ECONOMY", "BUSINESS", "FIRST"]] = Field(
-        None, description="The minimum travel class quality for the flight"
-    )
-    includedAirlineCodes: Optional[str] = Field(
-        None, description="Airlines to include, specified as comma-separated IATA airline codes, e.g. 6X,7X,8X"
-    )
-    excludedAirlineCodes: Optional[str] = Field(
-        None, description="Airlines to exclude, specified as comma-separated IATA airline codes, e.g. 6X,7X,8X"
-    )
-    nonStop: Optional[bool] = Field(
-        False, description="If true, search only for non-stop flights from origin to destination"
-    )
-    currencyCode: Optional[str] = Field(
-        None, description="The preferred currency for the flight offers, specified in ISO 4217 format, e.g. EUR"
-    )
-    maxPrice: Optional[int] = Field(
-        None, gt=0, description="Maximum price per traveler, should be a positive number with no decimals"
-    )
-    max: Optional[int] = Field(
-        250, ge=1, description="Maximum number of flight offers to return"
-    )
+    originLocationCode: str = Field(..., description="City/airport IATA code from which the traveler will depart, e.g. BOS for Boston")
+    destinationLocationCode: str = Field(..., description="City/airport IATA code to which the traveler is going, e.g. PAR for Paris")
+    departureDate: date = Field(..., description="The date on which the traveler will depart from the origin in ISO 8601 YYYY-MM-DD format")
+    returnDate: Optional[date] = Field(None, description="The date on which the traveler will depart from the destination to return to the origin in ISO 8601 format")
+    adults: int = Field(default=1, ge=1, description="The number of adult travelers (age 12 or older on date of departure)")
+    children: Optional[int] = Field(None, ge=0, description="The number of child travelers (older than age 2 and younger than age 12 on date of departure)")
+    infants: Optional[int] = Field(None, ge=0, description="The number of infant travelers (whose age is less or equal to 2 on date of departure)")
+    travelClass: Optional[Literal["ECONOMY", "PREMIUM_ECONOMY", "BUSINESS", "FIRST"]] = Field(None, description="The minimum travel class quality for the flight")
+    includedAirlineCodes: Optional[str] = Field(None, description="Airlines to include, specified as comma-separated IATA airline codes, e.g. 6X,7X,8X")
+    excludedAirlineCodes: Optional[str] = Field(None, description="Airlines to exclude, specified as comma-separated IATA airline codes, e.g. 6X,7X,8X")
+    nonStop: Optional[bool] = Field(False, description="If true, search only for non-stop flights from origin to destination")
+    currencyCode: Optional[str] = Field(None, description="The preferred currency for the flight offers, specified in ISO 4217 format, e.g. EUR")
+    maxPrice: Optional[int] = Field(None, gt=0, description="Maximum price per traveler, should be a positive number with no decimals")
+    max: Optional[int] = Field(250, ge=1, description="Maximum number of flight offers to return")
     
     # custom fields to filter Amadeus response
-    arrival_time_window_start: Optional[datetime] = Field(
-        None, description="Earliest acceptable arrival time at destination in ISO8601 format YYYY-MM-ddThh:mm:ss format, e.g. 2017-02-10T20:40:00"
-    )
-    arrival_time_window_end: Optional[datetime] = Field(
-        None, description="Latest acceptable arrival time at destination in ISO8601 format YYYY-MM-ddThh:mm:ss format, e.g. 2017-02-10T20:40:00"
-    )
-    return_departure_time_window_start: Optional[datetime] = Field(
-        None, description="Earliest acceptable departure time from destination on return in ISO8601 format YYYY-MM-ddThh:mm:ss format, e.g. 2017-02-10T20:40:00"
-    )
-    return_departure_time_window_end: Optional[datetime] = Field(
-        None, description="Latest acceptable departure time from destination on return in ISO8601 format YYYY-MM-ddThh:mm:ss format, e.g. 2017-02-10T20:40:00"
-    )
-    max_stops: Optional[Literal["ANY", "DIRECT", "ONE_STOP", "TWO_STOPS"]] = Field(
-        None, description="Maximum number of stops allowed"
-    )
+    arrival_time_window_start: Optional[datetime] = Field(None, description="Earliest acceptable arrival time at destination in ISO8601 format YYYY-MM-ddThh:mm:ss format, e.g. 2017-02-10T20:40:00")
+    arrival_time_window_end: Optional[datetime] = Field(None, description="Latest acceptable arrival time at destination in ISO8601 format YYYY-MM-ddThh:mm:ss format, e.g. 2017-02-10T20:40:00")
+    return_departure_time_window_start: Optional[datetime] = Field(None, description="Earliest acceptable departure time from destination on return in ISO8601 format YYYY-MM-ddThh:mm:ss format, e.g. 2017-02-10T20:40:00")
+    return_departure_time_window_end: Optional[datetime] = Field(None, description="Latest acceptable departure time from destination on return in ISO8601 format YYYY-MM-ddThh:mm:ss format, e.g. 2017-02-10T20:40:00")
+    max_stops: Optional[Literal["ANY", "DIRECT", "ONE_STOP", "TWO_STOPS"]] = Field(None, description="Maximum number of stops allowed")
 
 class FlightAggregationRequest(BaseModel):
     originLocationCodes: List[str] = Field(..., min_length=1, description="List of city/airport IATA code from which the traveler will depart, e.g. BOS for Boston")

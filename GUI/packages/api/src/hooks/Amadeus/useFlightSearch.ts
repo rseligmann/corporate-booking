@@ -15,3 +15,18 @@ export const useAvgFlightPriceSearch = (searchParams?: FlightAggregationRequest)
         enabled: !!searchParams
     })
 }
+
+// get list of flight offers for each airport pair
+
+export const useMultiAirportFlightOffers = (searchParams?: FlightAggregationRequest) => {
+    return useQuery({
+        queryKey: ['multiAirportFlightOffers', searchParams],
+        queryFn:() =>{
+            if(searchParams){
+                return AmadeusFlightServices.getMultiAirportFlightOffers(searchParams)
+            }
+        },
+        staleTime: 1000 * 60 * 5,
+        enabled: !!searchParams
+    })
+}

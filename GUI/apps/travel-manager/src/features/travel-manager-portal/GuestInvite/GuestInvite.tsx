@@ -100,7 +100,6 @@ const GuestInvite: React.FC = () => {
             <Text fw={500}>Back to Dashboard</Text>
           </div>
   
-          {/*<ProgressBar currentStep={state.currentStep} totalSteps={totalSteps} />*/}
           <ProgressStepper currentStep={currentStep} />
           <Space h="xl" />
           <Grid>

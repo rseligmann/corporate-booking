@@ -46,7 +46,7 @@ export const WeatherForecast: React.FC<WeatherForecaseProps> = ({tripsData}) => 
                     const WeatherIcon = weatherIcons[day.weatherCode as keyof typeof weatherIcons].icon
                     const weatherLabel = weatherIcons[day.weatherCode as keyof typeof weatherIcons].label
                     return(
-                        <Grid.Col span={{ base: 5,sm: 3, md: 2, lg: 1}}>
+                        <Grid.Col span={{ base: 5,sm: 3, md: 2, lg: 1}}  key={`${index}-${day.date}`}>
                             <WeatherCard
                                 day={index === 0 ? 'Today' : day.formattedDate.split(' ')[0]}
                                 date={day.formattedDate.split(' ').slice(1).join(' ')}

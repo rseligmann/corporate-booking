@@ -12,18 +12,17 @@ const App: FC = () => {
             <Routes>
                 Guest Routes
                 <Route 
-                    path = "/guest" 
                     element={
                         <RequireAuth requireAuth={true}>
                             <GuestLayout />
                         </RequireAuth>
                     }
                 >
-                    <Route path="dashboard" element={<GuestDashboardPage />} />
-                    <Route path="flights" element={<GuestFlightsPage />} />
-                    <Route path="hotel" element={<GuestHotelPage />} />
-                    <Route path="transport" element={<GuestTransportPage />} />
-                    <Route path="expenses" element={<GuestExpensesPage />} />
+                    <Route path="/dashboard" element={<GuestDashboardPage />} />
+                    <Route path="/flights" element={<GuestFlightsPage />} />
+                    <Route path="/hotel" element={<GuestHotelPage />} />
+                    <Route path="/transport" element={<GuestTransportPage />} />
+                    <Route path="/expenses" element={<GuestExpensesPage />} />
                 </Route>
             </Routes>
         </>

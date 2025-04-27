@@ -79,7 +79,7 @@ interface TravelerPricing {
     fareDetailsBySegment: FareDetailsBySegment[];
 }
 
-interface FlightOffer {
+export interface FlightOffer {
     type: string;
     id: string;
     source: string;
@@ -100,7 +100,7 @@ interface LocationInfo {
     countryCode: string;
 }
 
-interface Dictionaries {
+export interface FlightOfferDictionaries {
     locations: Record<string, LocationInfo>;
     aircraft?: Record<string, string>;
     currencies?: Record<string, string>;
@@ -110,7 +110,7 @@ interface Dictionaries {
 export interface FlightOffersResponse {
     meta: Meta;
     data?: FlightOffer[];
-    dictionaries?: Dictionaries;
+    dictionaries?: FlightOfferDictionaries;
 }
 
 export interface FlightAggregationRequest {

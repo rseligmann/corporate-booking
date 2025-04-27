@@ -1,0 +1,2145 @@
+{
+    "meta": {
+      "count": 10,
+      "links": {
+        "self": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=ORD&destinationLocationCode=LAX&departureDate=2025-05-02&returnDate=2025-05-05&adults=1&travelClass=ECONOMY&nonStop=false&currencyCode=USD&max=10"
+      }
+    },
+    "data": [
+      {
+        "type": "flight-offer",
+        "id": "1",
+        "source": "GDS",
+        "instantTicketingRequired": false,
+        "nonHomogeneous": false,
+        "oneWay": false,
+        "isUpsellOffer": false,
+        "lastTicketingDate": "2025-04-25",
+        "lastTicketingDateTime": "2025-04-25",
+        "numberOfBookableSeats": 3,
+        "itineraries": [
+          {
+            "duration": "PT8H34M",
+            "segments": [
+              {
+                "departure": {
+                  "iataCode": "ORD",
+                  "terminal": "5",
+                  "at": "2025-05-02T17:25:00"
+                },
+                "arrival": {
+                  "iataCode": "DEN",
+                  "at": "2025-05-02T19:22:00"
+                },
+                "carrierCode": "F9",
+                "number": "1483",
+                "aircraft": {
+                  "code": "32N"
+                },
+                "operating": {
+                  "carrierCode": "F9"
+                },
+                "duration": "PT2H57M",
+                "id": "1",
+                "numberOfStops": 0,
+                "blacklistedInEU": false
+              },
+              {
+                "departure": {
+                  "iataCode": "DEN",
+                  "at": "2025-05-02T22:38:00"
+                },
+                "arrival": {
+                  "iataCode": "ONT",
+                  "at": "2025-05-02T23:59:00"
+                },
+                "carrierCode": "F9",
+                "number": "1499",
+                "aircraft": {
+                  "code": "32N"
+                },
+                "operating": {
+                  "carrierCode": "F9"
+                },
+                "duration": "PT2H21M",
+                "id": "2",
+                "numberOfStops": 0,
+                "blacklistedInEU": false
+              }
+            ]
+          },
+          {
+            "duration": "PT9H29M",
+            "segments": [
+              {
+                "departure": {
+                  "iataCode": "ONT",
+                  "at": "2025-05-05T12:16:00"
+                },
+                "arrival": {
+                  "iataCode": "DEN",
+                  "at": "2025-05-05T15:35:00"
+                },
+                "carrierCode": "F9",
+                "number": "1262",
+                "aircraft": {
+                  "code": "32N"
+                },
+                "operating": {
+                  "carrierCode": "F9"
+                },
+                "duration": "PT2H19M",
+                "id": "11",
+                "numberOfStops": 0,
+                "blacklistedInEU": false
+              },
+              {
+                "departure": {
+                  "iataCode": "DEN",
+                  "at": "2025-05-05T20:15:00"
+                },
+                "arrival": {
+                  "iataCode": "ORD",
+                  "terminal": "5",
+                  "at": "2025-05-05T23:45:00"
+                },
+                "carrierCode": "F9",
+                "number": "3174",
+                "aircraft": {
+                  "code": "32N"
+                },
+                "operating": {
+                  "carrierCode": "F9"
+                },
+                "duration": "PT2H30M",
+                "id": "12",
+                "numberOfStops": 0,
+                "blacklistedInEU": false
+              }
+            ]
+          }
+        ],
+        "price": {
+          "currency": "USD",
+          "total": "210.02",
+          "base": "148.82",
+          "fees": [
+            {
+              "amount": "0.00",
+              "type": "SUPPLIER"
+            },
+            {
+              "amount": "0.00",
+              "type": "TICKETING"
+            }
+          ],
+          "grandTotal": "210.02"
+        },
+        "pricingOptions": {
+          "fareType": [
+            "PUBLISHED"
+          ],
+          "includedCheckedBagsOnly": false
+        },
+        "validatingAirlineCodes": [
+          "F9"
+        ],
+        "travelerPricings": [
+          {
+            "travelerId": "1",
+            "fareOption": "STANDARD",
+            "travelerType": "ADULT",
+            "price": {
+              "currency": "USD",
+              "total": "210.02",
+              "base": "148.82"
+            },
+            "fareDetailsBySegment": [
+              {
+                "segmentId": "1",
+                "cabin": "ECONOMY",
+                "fareBasis": "T00PXP4",
+                "brandedFare": "ECO",
+                "brandedFareLabel": "STANDARD",
+                "class": "T",
+                "amenities": [
+                  {
+                    "description": "UPTO100LB 45KG BAGGAGE",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "FIRST CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "SECOND CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "CARRY16KG 35LB UPTO46LI 118LCM",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRE RESERVED SEAT ASSIGNMENT",
+                    "isChargeable": true,
+                    "amenityType": "PRE_RESERVED_SEAT",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRIORITY BOARDING",
+                    "isChargeable": true,
+                    "amenityType": "TRAVEL_SERVICES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "BASIC SEAT",
+                    "isChargeable": true,
+                    "amenityType": "BRANDED_FARES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  }
+                ]
+              },
+              {
+                "segmentId": "2",
+                "cabin": "ECONOMY",
+                "fareBasis": "T00PXP4",
+                "brandedFare": "ECO",
+                "brandedFareLabel": "STANDARD",
+                "class": "T",
+                "amenities": [
+                  {
+                    "description": "UPTO100LB 45KG BAGGAGE",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "FIRST CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "SECOND CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "CARRY16KG 35LB UPTO46LI 118LCM",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRE RESERVED SEAT ASSIGNMENT",
+                    "isChargeable": true,
+                    "amenityType": "PRE_RESERVED_SEAT",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRIORITY BOARDING",
+                    "isChargeable": true,
+                    "amenityType": "TRAVEL_SERVICES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "BASIC SEAT",
+                    "isChargeable": true,
+                    "amenityType": "BRANDED_FARES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  }
+                ]
+              },
+              {
+                "segmentId": "11",
+                "cabin": "ECONOMY",
+                "fareBasis": "T00PXP4",
+                "brandedFare": "ECO",
+                "brandedFareLabel": "STANDARD",
+                "class": "T",
+                "amenities": [
+                  {
+                    "description": "UPTO100LB 45KG BAGGAGE",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "FIRST CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "SECOND CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "CARRY16KG 35LB UPTO46LI 118LCM",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRE RESERVED SEAT ASSIGNMENT",
+                    "isChargeable": true,
+                    "amenityType": "PRE_RESERVED_SEAT",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRIORITY BOARDING",
+                    "isChargeable": true,
+                    "amenityType": "TRAVEL_SERVICES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "BASIC SEAT",
+                    "isChargeable": true,
+                    "amenityType": "BRANDED_FARES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  }
+                ]
+              },
+              {
+                "segmentId": "12",
+                "cabin": "ECONOMY",
+                "fareBasis": "T00PXP4",
+                "brandedFare": "ECO",
+                "brandedFareLabel": "STANDARD",
+                "class": "T",
+                "amenities": [
+                  {
+                    "description": "UPTO100LB 45KG BAGGAGE",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "FIRST CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "SECOND CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "CARRY16KG 35LB UPTO46LI 118LCM",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRE RESERVED SEAT ASSIGNMENT",
+                    "isChargeable": true,
+                    "amenityType": "PRE_RESERVED_SEAT",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRIORITY BOARDING",
+                    "isChargeable": true,
+                    "amenityType": "TRAVEL_SERVICES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "BASIC SEAT",
+                    "isChargeable": true,
+                    "amenityType": "BRANDED_FARES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "flight-offer",
+        "id": "2",
+        "source": "GDS",
+        "instantTicketingRequired": false,
+        "nonHomogeneous": false,
+        "oneWay": false,
+        "isUpsellOffer": false,
+        "lastTicketingDate": "2025-04-25",
+        "lastTicketingDateTime": "2025-04-25",
+        "numberOfBookableSeats": 3,
+        "itineraries": [
+          {
+            "duration": "PT8H52M",
+            "segments": [
+              {
+                "departure": {
+                  "iataCode": "ORD",
+                  "terminal": "5",
+                  "at": "2025-05-02T10:55:00"
+                },
+                "arrival": {
+                  "iataCode": "DFW",
+                  "terminal": "E",
+                  "at": "2025-05-02T13:46:00"
+                },
+                "carrierCode": "F9",
+                "number": "3243",
+                "aircraft": {
+                  "code": "32Q"
+                },
+                "operating": {
+                  "carrierCode": "F9"
+                },
+                "duration": "PT2H51M",
+                "id": "5",
+                "numberOfStops": 0,
+                "blacklistedInEU": false
+              },
+              {
+                "departure": {
+                  "iataCode": "DFW",
+                  "terminal": "E",
+                  "at": "2025-05-02T16:27:00"
+                },
+                "arrival": {
+                  "iataCode": "ONT",
+                  "at": "2025-05-02T17:47:00"
+                },
+                "carrierCode": "F9",
+                "number": "1405",
+                "aircraft": {
+                  "code": "32N"
+                },
+                "operating": {
+                  "carrierCode": "F9"
+                },
+                "duration": "PT3H20M",
+                "id": "6",
+                "numberOfStops": 0,
+                "blacklistedInEU": false
+              }
+            ]
+          },
+          {
+            "duration": "PT9H29M",
+            "segments": [
+              {
+                "departure": {
+                  "iataCode": "ONT",
+                  "at": "2025-05-05T12:16:00"
+                },
+                "arrival": {
+                  "iataCode": "DEN",
+                  "at": "2025-05-05T15:35:00"
+                },
+                "carrierCode": "F9",
+                "number": "1262",
+                "aircraft": {
+                  "code": "32N"
+                },
+                "operating": {
+                  "carrierCode": "F9"
+                },
+                "duration": "PT2H19M",
+                "id": "11",
+                "numberOfStops": 0,
+                "blacklistedInEU": false
+              },
+              {
+                "departure": {
+                  "iataCode": "DEN",
+                  "at": "2025-05-05T20:15:00"
+                },
+                "arrival": {
+                  "iataCode": "ORD",
+                  "terminal": "5",
+                  "at": "2025-05-05T23:45:00"
+                },
+                "carrierCode": "F9",
+                "number": "3174",
+                "aircraft": {
+                  "code": "32N"
+                },
+                "operating": {
+                  "carrierCode": "F9"
+                },
+                "duration": "PT2H30M",
+                "id": "12",
+                "numberOfStops": 0,
+                "blacklistedInEU": false
+              }
+            ]
+          }
+        ],
+        "price": {
+          "currency": "USD",
+          "total": "210.02",
+          "base": "148.82",
+          "fees": [
+            {
+              "amount": "0.00",
+              "type": "SUPPLIER"
+            },
+            {
+              "amount": "0.00",
+              "type": "TICKETING"
+            }
+          ],
+          "grandTotal": "210.02"
+        },
+        "pricingOptions": {
+          "fareType": [
+            "PUBLISHED"
+          ],
+          "includedCheckedBagsOnly": false
+        },
+        "validatingAirlineCodes": [
+          "F9"
+        ],
+        "travelerPricings": [
+          {
+            "travelerId": "1",
+            "fareOption": "STANDARD",
+            "travelerType": "ADULT",
+            "price": {
+              "currency": "USD",
+              "total": "210.02",
+              "base": "148.82"
+            },
+            "fareDetailsBySegment": [
+              {
+                "segmentId": "5",
+                "cabin": "ECONOMY",
+                "fareBasis": "T00PXP4",
+                "brandedFare": "ECO",
+                "brandedFareLabel": "STANDARD",
+                "class": "T",
+                "amenities": [
+                  {
+                    "description": "UPTO100LB 45KG BAGGAGE",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "FIRST CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "SECOND CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "CARRY16KG 35LB UPTO46LI 118LCM",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRE RESERVED SEAT ASSIGNMENT",
+                    "isChargeable": true,
+                    "amenityType": "PRE_RESERVED_SEAT",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRIORITY BOARDING",
+                    "isChargeable": true,
+                    "amenityType": "TRAVEL_SERVICES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "BASIC SEAT",
+                    "isChargeable": true,
+                    "amenityType": "BRANDED_FARES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  }
+                ]
+              },
+              {
+                "segmentId": "6",
+                "cabin": "ECONOMY",
+                "fareBasis": "T00PXP4",
+                "brandedFare": "ECO",
+                "brandedFareLabel": "STANDARD",
+                "class": "T",
+                "amenities": [
+                  {
+                    "description": "UPTO100LB 45KG BAGGAGE",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "FIRST CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "SECOND CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "CARRY16KG 35LB UPTO46LI 118LCM",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRE RESERVED SEAT ASSIGNMENT",
+                    "isChargeable": true,
+                    "amenityType": "PRE_RESERVED_SEAT",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRIORITY BOARDING",
+                    "isChargeable": true,
+                    "amenityType": "TRAVEL_SERVICES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "BASIC SEAT",
+                    "isChargeable": true,
+                    "amenityType": "BRANDED_FARES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  }
+                ]
+              },
+              {
+                "segmentId": "11",
+                "cabin": "ECONOMY",
+                "fareBasis": "T00PXP4",
+                "brandedFare": "ECO",
+                "brandedFareLabel": "STANDARD",
+                "class": "T",
+                "amenities": [
+                  {
+                    "description": "UPTO100LB 45KG BAGGAGE",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "FIRST CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "SECOND CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "CARRY16KG 35LB UPTO46LI 118LCM",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRE RESERVED SEAT ASSIGNMENT",
+                    "isChargeable": true,
+                    "amenityType": "PRE_RESERVED_SEAT",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRIORITY BOARDING",
+                    "isChargeable": true,
+                    "amenityType": "TRAVEL_SERVICES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "BASIC SEAT",
+                    "isChargeable": true,
+                    "amenityType": "BRANDED_FARES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  }
+                ]
+              },
+              {
+                "segmentId": "12",
+                "cabin": "ECONOMY",
+                "fareBasis": "T00PXP4",
+                "brandedFare": "ECO",
+                "brandedFareLabel": "STANDARD",
+                "class": "T",
+                "amenities": [
+                  {
+                    "description": "UPTO100LB 45KG BAGGAGE",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "FIRST CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "SECOND CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "CARRY16KG 35LB UPTO46LI 118LCM",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRE RESERVED SEAT ASSIGNMENT",
+                    "isChargeable": true,
+                    "amenityType": "PRE_RESERVED_SEAT",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRIORITY BOARDING",
+                    "isChargeable": true,
+                    "amenityType": "TRAVEL_SERVICES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "BASIC SEAT",
+                    "isChargeable": true,
+                    "amenityType": "BRANDED_FARES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "flight-offer",
+        "id": "3",
+        "source": "GDS",
+        "instantTicketingRequired": false,
+        "nonHomogeneous": false,
+        "oneWay": false,
+        "isUpsellOffer": false,
+        "lastTicketingDate": "2025-04-25",
+        "lastTicketingDateTime": "2025-04-25",
+        "numberOfBookableSeats": 3,
+        "itineraries": [
+          {
+            "duration": "PT9H45M",
+            "segments": [
+              {
+                "departure": {
+                  "iataCode": "ORD",
+                  "terminal": "5",
+                  "at": "2025-05-02T06:00:00"
+                },
+                "arrival": {
+                  "iataCode": "IAH",
+                  "terminal": "A",
+                  "at": "2025-05-02T08:57:00"
+                },
+                "carrierCode": "F9",
+                "number": "3135",
+                "aircraft": {
+                  "code": "32N"
+                },
+                "operating": {
+                  "carrierCode": "F9"
+                },
+                "duration": "PT2H57M",
+                "id": "3",
+                "numberOfStops": 0,
+                "blacklistedInEU": false
+              },
+              {
+                "departure": {
+                  "iataCode": "IAH",
+                  "terminal": "A",
+                  "at": "2025-05-02T12:18:00"
+                },
+                "arrival": {
+                  "iataCode": "ONT",
+                  "at": "2025-05-02T13:45:00"
+                },
+                "carrierCode": "F9",
+                "number": "3131",
+                "aircraft": {
+                  "code": "32N"
+                },
+                "operating": {
+                  "carrierCode": "F9"
+                },
+                "duration": "PT3H27M",
+                "id": "4",
+                "numberOfStops": 0,
+                "blacklistedInEU": false
+              }
+            ]
+          },
+          {
+            "duration": "PT9H29M",
+            "segments": [
+              {
+                "departure": {
+                  "iataCode": "ONT",
+                  "at": "2025-05-05T12:16:00"
+                },
+                "arrival": {
+                  "iataCode": "DEN",
+                  "at": "2025-05-05T15:35:00"
+                },
+                "carrierCode": "F9",
+                "number": "1262",
+                "aircraft": {
+                  "code": "32N"
+                },
+                "operating": {
+                  "carrierCode": "F9"
+                },
+                "duration": "PT2H19M",
+                "id": "11",
+                "numberOfStops": 0,
+                "blacklistedInEU": false
+              },
+              {
+                "departure": {
+                  "iataCode": "DEN",
+                  "at": "2025-05-05T20:15:00"
+                },
+                "arrival": {
+                  "iataCode": "ORD",
+                  "terminal": "5",
+                  "at": "2025-05-05T23:45:00"
+                },
+                "carrierCode": "F9",
+                "number": "3174",
+                "aircraft": {
+                  "code": "32N"
+                },
+                "operating": {
+                  "carrierCode": "F9"
+                },
+                "duration": "PT2H30M",
+                "id": "12",
+                "numberOfStops": 0,
+                "blacklistedInEU": false
+              }
+            ]
+          }
+        ],
+        "price": {
+          "currency": "USD",
+          "total": "210.02",
+          "base": "148.82",
+          "fees": [
+            {
+              "amount": "0.00",
+              "type": "SUPPLIER"
+            },
+            {
+              "amount": "0.00",
+              "type": "TICKETING"
+            }
+          ],
+          "grandTotal": "210.02"
+        },
+        "pricingOptions": {
+          "fareType": [
+            "PUBLISHED"
+          ],
+          "includedCheckedBagsOnly": false
+        },
+        "validatingAirlineCodes": [
+          "F9"
+        ],
+        "travelerPricings": [
+          {
+            "travelerId": "1",
+            "fareOption": "STANDARD",
+            "travelerType": "ADULT",
+            "price": {
+              "currency": "USD",
+              "total": "210.02",
+              "base": "148.82"
+            },
+            "fareDetailsBySegment": [
+              {
+                "segmentId": "3",
+                "cabin": "ECONOMY",
+                "fareBasis": "T00PXP4",
+                "brandedFare": "ECO",
+                "brandedFareLabel": "STANDARD",
+                "class": "T",
+                "amenities": [
+                  {
+                    "description": "UPTO100LB 45KG BAGGAGE",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "FIRST CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "SECOND CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "CARRY16KG 35LB UPTO46LI 118LCM",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRE RESERVED SEAT ASSIGNMENT",
+                    "isChargeable": true,
+                    "amenityType": "PRE_RESERVED_SEAT",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRIORITY BOARDING",
+                    "isChargeable": true,
+                    "amenityType": "TRAVEL_SERVICES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "BASIC SEAT",
+                    "isChargeable": true,
+                    "amenityType": "BRANDED_FARES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  }
+                ]
+              },
+              {
+                "segmentId": "4",
+                "cabin": "ECONOMY",
+                "fareBasis": "T00PXP4",
+                "brandedFare": "ECO",
+                "brandedFareLabel": "STANDARD",
+                "class": "T",
+                "amenities": [
+                  {
+                    "description": "UPTO100LB 45KG BAGGAGE",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "FIRST CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "SECOND CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "CARRY16KG 35LB UPTO46LI 118LCM",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRE RESERVED SEAT ASSIGNMENT",
+                    "isChargeable": true,
+                    "amenityType": "PRE_RESERVED_SEAT",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRIORITY BOARDING",
+                    "isChargeable": true,
+                    "amenityType": "TRAVEL_SERVICES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "BASIC SEAT",
+                    "isChargeable": true,
+                    "amenityType": "BRANDED_FARES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  }
+                ]
+              },
+              {
+                "segmentId": "11",
+                "cabin": "ECONOMY",
+                "fareBasis": "T00PXP4",
+                "brandedFare": "ECO",
+                "brandedFareLabel": "STANDARD",
+                "class": "T",
+                "amenities": [
+                  {
+                    "description": "UPTO100LB 45KG BAGGAGE",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "FIRST CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "SECOND CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "CARRY16KG 35LB UPTO46LI 118LCM",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRE RESERVED SEAT ASSIGNMENT",
+                    "isChargeable": true,
+                    "amenityType": "PRE_RESERVED_SEAT",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRIORITY BOARDING",
+                    "isChargeable": true,
+                    "amenityType": "TRAVEL_SERVICES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "BASIC SEAT",
+                    "isChargeable": true,
+                    "amenityType": "BRANDED_FARES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  }
+                ]
+              },
+              {
+                "segmentId": "12",
+                "cabin": "ECONOMY",
+                "fareBasis": "T00PXP4",
+                "brandedFare": "ECO",
+                "brandedFareLabel": "STANDARD",
+                "class": "T",
+                "amenities": [
+                  {
+                    "description": "UPTO100LB 45KG BAGGAGE",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "FIRST CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "SECOND CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "CARRY16KG 35LB UPTO46LI 118LCM",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRE RESERVED SEAT ASSIGNMENT",
+                    "isChargeable": true,
+                    "amenityType": "PRE_RESERVED_SEAT",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRIORITY BOARDING",
+                    "isChargeable": true,
+                    "amenityType": "TRAVEL_SERVICES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "BASIC SEAT",
+                    "isChargeable": true,
+                    "amenityType": "BRANDED_FARES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "flight-offer",
+        "id": "4",
+        "source": "GDS",
+        "instantTicketingRequired": false,
+        "nonHomogeneous": false,
+        "oneWay": false,
+        "isUpsellOffer": false,
+        "lastTicketingDate": "2025-04-25",
+        "lastTicketingDateTime": "2025-04-25",
+        "numberOfBookableSeats": 3,
+        "itineraries": [
+          {
+            "duration": "PT8H34M",
+            "segments": [
+              {
+                "departure": {
+                  "iataCode": "ORD",
+                  "terminal": "5",
+                  "at": "2025-05-02T17:25:00"
+                },
+                "arrival": {
+                  "iataCode": "DEN",
+                  "at": "2025-05-02T19:22:00"
+                },
+                "carrierCode": "F9",
+                "number": "1483",
+                "aircraft": {
+                  "code": "32N"
+                },
+                "operating": {
+                  "carrierCode": "F9"
+                },
+                "duration": "PT2H57M",
+                "id": "1",
+                "numberOfStops": 0,
+                "blacklistedInEU": false
+              },
+              {
+                "departure": {
+                  "iataCode": "DEN",
+                  "at": "2025-05-02T22:38:00"
+                },
+                "arrival": {
+                  "iataCode": "ONT",
+                  "at": "2025-05-02T23:59:00"
+                },
+                "carrierCode": "F9",
+                "number": "1499",
+                "aircraft": {
+                  "code": "32N"
+                },
+                "operating": {
+                  "carrierCode": "F9"
+                },
+                "duration": "PT2H21M",
+                "id": "2",
+                "numberOfStops": 0,
+                "blacklistedInEU": false
+              }
+            ]
+          },
+          {
+            "duration": "PT12H28M",
+            "segments": [
+              {
+                "departure": {
+                  "iataCode": "ONT",
+                  "at": "2025-05-05T14:42:00"
+                },
+                "arrival": {
+                  "iataCode": "LAS",
+                  "terminal": "3",
+                  "at": "2025-05-05T15:53:00"
+                },
+                "carrierCode": "F9",
+                "number": "1358",
+                "aircraft": {
+                  "code": "32N"
+                },
+                "operating": {
+                  "carrierCode": "F9"
+                },
+                "duration": "PT1H11M",
+                "id": "9",
+                "numberOfStops": 0,
+                "blacklistedInEU": false
+              },
+              {
+                "departure": {
+                  "iataCode": "LAS",
+                  "terminal": "3",
+                  "at": "2025-05-05T23:25:00"
+                },
+                "arrival": {
+                  "iataCode": "ORD",
+                  "terminal": "5",
+                  "at": "2025-05-06T05:10:00"
+                },
+                "carrierCode": "F9",
+                "number": "2146",
+                "aircraft": {
+                  "code": "32N"
+                },
+                "operating": {
+                  "carrierCode": "F9"
+                },
+                "duration": "PT3H45M",
+                "id": "10",
+                "numberOfStops": 0,
+                "blacklistedInEU": false
+              }
+            ]
+          }
+        ],
+        "price": {
+          "currency": "USD",
+          "total": "210.02",
+          "base": "148.82",
+          "fees": [
+            {
+              "amount": "0.00",
+              "type": "SUPPLIER"
+            },
+            {
+              "amount": "0.00",
+              "type": "TICKETING"
+            }
+          ],
+          "grandTotal": "210.02"
+        },
+        "pricingOptions": {
+          "fareType": [
+            "PUBLISHED"
+          ],
+          "includedCheckedBagsOnly": false
+        },
+        "validatingAirlineCodes": [
+          "F9"
+        ],
+        "travelerPricings": [
+          {
+            "travelerId": "1",
+            "fareOption": "STANDARD",
+            "travelerType": "ADULT",
+            "price": {
+              "currency": "USD",
+              "total": "210.02",
+              "base": "148.82"
+            },
+            "fareDetailsBySegment": [
+              {
+                "segmentId": "1",
+                "cabin": "ECONOMY",
+                "fareBasis": "T00PXP4",
+                "brandedFare": "ECO",
+                "brandedFareLabel": "STANDARD",
+                "class": "T",
+                "amenities": [
+                  {
+                    "description": "UPTO100LB 45KG BAGGAGE",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "FIRST CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "SECOND CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "CARRY16KG 35LB UPTO46LI 118LCM",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRE RESERVED SEAT ASSIGNMENT",
+                    "isChargeable": true,
+                    "amenityType": "PRE_RESERVED_SEAT",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRIORITY BOARDING",
+                    "isChargeable": true,
+                    "amenityType": "TRAVEL_SERVICES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "BASIC SEAT",
+                    "isChargeable": true,
+                    "amenityType": "BRANDED_FARES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  }
+                ]
+              },
+              {
+                "segmentId": "2",
+                "cabin": "ECONOMY",
+                "fareBasis": "T00PXP4",
+                "brandedFare": "ECO",
+                "brandedFareLabel": "STANDARD",
+                "class": "T",
+                "amenities": [
+                  {
+                    "description": "UPTO100LB 45KG BAGGAGE",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "FIRST CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "SECOND CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "CARRY16KG 35LB UPTO46LI 118LCM",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRE RESERVED SEAT ASSIGNMENT",
+                    "isChargeable": true,
+                    "amenityType": "PRE_RESERVED_SEAT",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRIORITY BOARDING",
+                    "isChargeable": true,
+                    "amenityType": "TRAVEL_SERVICES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "BASIC SEAT",
+                    "isChargeable": true,
+                    "amenityType": "BRANDED_FARES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  }
+                ]
+              },
+              {
+                "segmentId": "9",
+                "cabin": "ECONOMY",
+                "fareBasis": "T00PXP4",
+                "brandedFare": "ECO",
+                "brandedFareLabel": "STANDARD",
+                "class": "T",
+                "amenities": [
+                  {
+                    "description": "UPTO100LB 45KG BAGGAGE",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "FIRST CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "SECOND CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "CARRY16KG 35LB UPTO46LI 118LCM",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRE RESERVED SEAT ASSIGNMENT",
+                    "isChargeable": true,
+                    "amenityType": "PRE_RESERVED_SEAT",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRIORITY BOARDING",
+                    "isChargeable": true,
+                    "amenityType": "TRAVEL_SERVICES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "BASIC SEAT",
+                    "isChargeable": true,
+                    "amenityType": "BRANDED_FARES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  }
+                ]
+              },
+              {
+                "segmentId": "10",
+                "cabin": "ECONOMY",
+                "fareBasis": "T00PXP4",
+                "brandedFare": "ECO",
+                "brandedFareLabel": "STANDARD",
+                "class": "T",
+                "amenities": [
+                  {
+                    "description": "UPTO100LB 45KG BAGGAGE",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "FIRST CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "SECOND CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "CARRY16KG 35LB UPTO46LI 118LCM",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRE RESERVED SEAT ASSIGNMENT",
+                    "isChargeable": true,
+                    "amenityType": "PRE_RESERVED_SEAT",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRIORITY BOARDING",
+                    "isChargeable": true,
+                    "amenityType": "TRAVEL_SERVICES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "BASIC SEAT",
+                    "isChargeable": true,
+                    "amenityType": "BRANDED_FARES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "flight-offer",
+        "id": "5",
+        "source": "GDS",
+        "instantTicketingRequired": false,
+        "nonHomogeneous": false,
+        "oneWay": false,
+        "isUpsellOffer": false,
+        "lastTicketingDate": "2025-04-25",
+        "lastTicketingDateTime": "2025-04-25",
+        "numberOfBookableSeats": 3,
+        "itineraries": [
+          {
+            "duration": "PT8H52M",
+            "segments": [
+              {
+                "departure": {
+                  "iataCode": "ORD",
+                  "terminal": "5",
+                  "at": "2025-05-02T10:55:00"
+                },
+                "arrival": {
+                  "iataCode": "DFW",
+                  "terminal": "E",
+                  "at": "2025-05-02T13:46:00"
+                },
+                "carrierCode": "F9",
+                "number": "3243",
+                "aircraft": {
+                  "code": "32Q"
+                },
+                "operating": {
+                  "carrierCode": "F9"
+                },
+                "duration": "PT2H51M",
+                "id": "5",
+                "numberOfStops": 0,
+                "blacklistedInEU": false
+              },
+              {
+                "departure": {
+                  "iataCode": "DFW",
+                  "terminal": "E",
+                  "at": "2025-05-02T16:27:00"
+                },
+                "arrival": {
+                  "iataCode": "ONT",
+                  "at": "2025-05-02T17:47:00"
+                },
+                "carrierCode": "F9",
+                "number": "1405",
+                "aircraft": {
+                  "code": "32N"
+                },
+                "operating": {
+                  "carrierCode": "F9"
+                },
+                "duration": "PT3H20M",
+                "id": "6",
+                "numberOfStops": 0,
+                "blacklistedInEU": false
+              }
+            ]
+          },
+          {
+            "duration": "PT12H28M",
+            "segments": [
+              {
+                "departure": {
+                  "iataCode": "ONT",
+                  "at": "2025-05-05T14:42:00"
+                },
+                "arrival": {
+                  "iataCode": "LAS",
+                  "terminal": "3",
+                  "at": "2025-05-05T15:53:00"
+                },
+                "carrierCode": "F9",
+                "number": "1358",
+                "aircraft": {
+                  "code": "32N"
+                },
+                "operating": {
+                  "carrierCode": "F9"
+                },
+                "duration": "PT1H11M",
+                "id": "9",
+                "numberOfStops": 0,
+                "blacklistedInEU": false
+              },
+              {
+                "departure": {
+                  "iataCode": "LAS",
+                  "terminal": "3",
+                  "at": "2025-05-05T23:25:00"
+                },
+                "arrival": {
+                  "iataCode": "ORD",
+                  "terminal": "5",
+                  "at": "2025-05-06T05:10:00"
+                },
+                "carrierCode": "F9",
+                "number": "2146",
+                "aircraft": {
+                  "code": "32N"
+                },
+                "operating": {
+                  "carrierCode": "F9"
+                },
+                "duration": "PT3H45M",
+                "id": "10",
+                "numberOfStops": 0,
+                "blacklistedInEU": false
+              }
+            ]
+          }
+        ],
+        "price": {
+          "currency": "USD",
+          "total": "210.02",
+          "base": "148.82",
+          "fees": [
+            {
+              "amount": "0.00",
+              "type": "SUPPLIER"
+            },
+            {
+              "amount": "0.00",
+              "type": "TICKETING"
+            }
+          ],
+          "grandTotal": "210.02"
+        },
+        "pricingOptions": {
+          "fareType": [
+            "PUBLISHED"
+          ],
+          "includedCheckedBagsOnly": false
+        },
+        "validatingAirlineCodes": [
+          "F9"
+        ],
+        "travelerPricings": [
+          {
+            "travelerId": "1",
+            "fareOption": "STANDARD",
+            "travelerType": "ADULT",
+            "price": {
+              "currency": "USD",
+              "total": "210.02",
+              "base": "148.82"
+            },
+            "fareDetailsBySegment": [
+              {
+                "segmentId": "5",
+                "cabin": "ECONOMY",
+                "fareBasis": "T00PXP4",
+                "brandedFare": "ECO",
+                "brandedFareLabel": "STANDARD",
+                "class": "T",
+                "amenities": [
+                  {
+                    "description": "UPTO100LB 45KG BAGGAGE",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "FIRST CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "SECOND CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "CARRY16KG 35LB UPTO46LI 118LCM",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRE RESERVED SEAT ASSIGNMENT",
+                    "isChargeable": true,
+                    "amenityType": "PRE_RESERVED_SEAT",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRIORITY BOARDING",
+                    "isChargeable": true,
+                    "amenityType": "TRAVEL_SERVICES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "BASIC SEAT",
+                    "isChargeable": true,
+                    "amenityType": "BRANDED_FARES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  }
+                ]
+              },
+              {
+                "segmentId": "6",
+                "cabin": "ECONOMY",
+                "fareBasis": "T00PXP4",
+                "brandedFare": "ECO",
+                "brandedFareLabel": "STANDARD",
+                "class": "T",
+                "amenities": [
+                  {
+                    "description": "UPTO100LB 45KG BAGGAGE",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "FIRST CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "SECOND CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "CARRY16KG 35LB UPTO46LI 118LCM",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRE RESERVED SEAT ASSIGNMENT",
+                    "isChargeable": true,
+                    "amenityType": "PRE_RESERVED_SEAT",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRIORITY BOARDING",
+                    "isChargeable": true,
+                    "amenityType": "TRAVEL_SERVICES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "BASIC SEAT",
+                    "isChargeable": true,
+                    "amenityType": "BRANDED_FARES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  }
+                ]
+              },
+              {
+                "segmentId": "9",
+                "cabin": "ECONOMY",
+                "fareBasis": "T00PXP4",
+                "brandedFare": "ECO",
+                "brandedFareLabel": "STANDARD",
+                "class": "T",
+                "amenities": [
+                  {
+                    "description": "UPTO100LB 45KG BAGGAGE",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "FIRST CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "SECOND CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "CARRY16KG 35LB UPTO46LI 118LCM",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRE RESERVED SEAT ASSIGNMENT",
+                    "isChargeable": true,
+                    "amenityType": "PRE_RESERVED_SEAT",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRIORITY BOARDING",
+                    "isChargeable": true,
+                    "amenityType": "TRAVEL_SERVICES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "BASIC SEAT",
+                    "isChargeable": true,
+                    "amenityType": "BRANDED_FARES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  }
+                ]
+              },
+              {
+                "segmentId": "10",
+                "cabin": "ECONOMY",
+                "fareBasis": "T00PXP4",
+                "brandedFare": "ECO",
+                "brandedFareLabel": "STANDARD",
+                "class": "T",
+                "amenities": [
+                  {
+                    "description": "UPTO100LB 45KG BAGGAGE",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "FIRST CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "SECOND CHECKED BAG",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "CARRY16KG 35LB UPTO46LI 118LCM",
+                    "isChargeable": true,
+                    "amenityType": "BAGGAGE",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRE RESERVED SEAT ASSIGNMENT",
+                    "isChargeable": true,
+                    "amenityType": "PRE_RESERVED_SEAT",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "PRIORITY BOARDING",
+                    "isChargeable": true,
+                    "amenityType": "TRAVEL_SERVICES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  },
+                  {
+                    "description": "BASIC SEAT",
+                    "isChargeable": true,
+                    "amenityType": "BRANDED_FARES",
+                    "amenityProvider": {
+                      "name": "BrandedFare"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+     
+    ],
+    "dictionaries": {
+      "locations": {
+        "ORD": {
+          "cityCode": "CHI",
+          "countryCode": "US"
+        },
+        "IAH": {
+          "cityCode": "HOU",
+          "countryCode": "US"
+        },
+        "ONT": {
+          "cityCode": "LAX",
+          "countryCode": "US"
+        },
+        "DFW": {
+          "cityCode": "DFW",
+          "countryCode": "US"
+        },
+        "DEN": {
+          "cityCode": "DEN",
+          "countryCode": "US"
+        },
+        "LAS": {
+          "cityCode": "LAS",
+          "countryCode": "US"
+        }
+      },
+      "aircraft": {
+        "320": "AIRBUS A320",
+        "32Q": "AIRBUS A321NEO",
+        "32N": "AIRBUS A320NEO"
+      },
+      "currencies": {
+        "USD": "US DOLLAR"
+      },
+      "carriers": {
+        "F9": "FRONTIER AIRLINES"
+      }
+    }
+  }

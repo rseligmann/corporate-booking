@@ -8,7 +8,7 @@ const GuestLayout: FC = () => {
         <AppShell
             header={{ height: 60 }}
             padding="md"
-            bg="var(--mantine-color-gray-0)"
+            className={classes.background}
         >
         <AppShell.Header >
             <div className={classes.guestLayout}>
