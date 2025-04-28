@@ -1,0 +1,23 @@
+.input{
+    width: 6rem;
+    border-radius: var(--mantine-radius-sm);
+}
+
+.inputRange{
+    width: 11.5rem;
+    border-radius: var(--mantine-radius-sm);
+}
+
+.dropDown{
+    //width: 300px !important; /* Make this wider than your InputBase */
+    overflow: visible !important;
+    z-index: 100;
+}
+
+.dropDownRange{
+    //width: 300px !important; /* Make this wider than your InputBase */
+    overflow: visible !important;
+    z-index: 100;
+    padding-left: 1em;
+    padding-right: 1rem;
+}

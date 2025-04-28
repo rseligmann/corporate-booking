@@ -196,9 +196,11 @@ export const GuestFlightBooking: React.FC = () => {
         <Text>{`${startDate} to ${endDate}`}</Text>
       </div>
       {/* <Space h="md" /> */}
-      <Card shadow ="xs" padding="lg" radius="md" withBorder>
+      {/* <Card shadow ="xs" padding="lg" radius="md" withBorder> */}
+      <div>
         {step}
-      </Card>
+      </div>
+      {/* </Card> */}
 
       <div className="booking-actions">
         {currentStep > 0 && (

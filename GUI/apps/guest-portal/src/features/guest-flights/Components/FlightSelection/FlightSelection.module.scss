@@ -1,0 +1,70 @@
+.flightsList {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  margin-bottom: 2rem;
+}
+
+.titleContainer {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--mantine-spacing-md);
+}
+
+.sortText {
+  color: var(--mantine-color-text);
+  font-size: var(--mantine-font-size-sm);
+  align-items: center;
+}
+.input{
+  font-size: var(--mantine-font-size-sm);
+  height: auto;
+  width: 11.75rem;
+}
+
+.filterContainer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card{
+  overflow: visible;
+  border-radius: var(--mantine-radius-md);
+  box-shadow: var(--mantine-shadow-xs);
+  margin-bottom: var(--mantine-spacing-md);
+}
+
+.filter{
+  height: auto;
+
+  &__stops{
+    width: 6.5rem;
+    font-size: var(--mantine-font-size-sm);
+    height: auto;
+  }
+
+  &__origin{
+    width: 8.25rem;
+    font-size: var(--mantine-font-size-sm);
+    height: auto;
+  }
+
+  &__destination{
+    width: 10.5rem;
+    font-size: var(--mantine-font-size-sm);
+    height: auto;
+  }
+
+  &__airline{
+    width: 6rem;
+    font-size: var(--mantine-font-size-sm);
+    height: auto;
+  }
+}
+
+.RangeSlider{
+  width: 10rem;
+}
