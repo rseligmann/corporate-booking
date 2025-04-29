@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Loader, Select, Text } from '@mantine/core';
 import { FlightOffer } from './Components/FlightOffer';
-import { formatDateToString, formatDuration, getMinutes, getUniqueOutboundFlights, sortFlightOffers } from './Components/flightSelectionUtil';
-import { FlightAggregationRequest, Trip } from '@corporate-travel-frontend/types';
+import { formatDateToString, formatDuration, getMinutes, getUniqueOutboundFlights, sortFlightOffers, getMatchingInboundFlightsBySignature } from './Components/flightSelectionUtil';
+import { FlightAggregationRequest, Trip, FlightBooking } from '@corporate-travel-frontend/types';
 import { useMultiAirportFlightOffers } from '@corporate-travel-frontend/api/hooks';
 import { DropdownSlider } from './Components/DropDownSlider/DropDownSlider';
 import { DropdownRangeSlider } from './Components/DropDownRangeSlider/DropDownRangeSlider';
@@ -11,11 +11,15 @@ import classes from './FlightSelection.module.scss';
 interface FlightSelectionProps {
   type: 'outbound' | 'return';
   tripsData: [Trip] | undefined;
+  updateOutboundFlightData: (update: Partial<FlightBooking['outBound']>) => void;
+  updateReturnFlightData:(update: Partial<FlightBooking['inBound']>) => void;
+  selectedFlightData: FlightBooking
 }
 
-export const FlightSelection: React.FC<FlightSelectionProps> = ({type,tripsData}) => {
+export const FlightSelection: React.FC<FlightSelectionProps> = ({type, tripsData, updateOutboundFlightData, updateReturnFlightData, selectedFlightData}) => {
   
   const [ flightSearch, setFlightSearch ] = useState<FlightAggregationRequest>()
+  const flightDirection = type === 'outbound' ? 'Departing Flights' : 'Returning Flights'
 
   useEffect(() => {
     if(
@@ -45,7 +49,8 @@ export const FlightSelection: React.FC<FlightSelectionProps> = ({type,tripsData}
 
   const { data: flightData, isPending: flightIsPending, isSuccess: flightIsSuccess, error: flightError } = useMultiAirportFlightOffers(flightSearch)
   // Get unique outbound flights so we don't display duplicate outbound flights
-  const outboundFlights = getUniqueOutboundFlights(flightData)
+  //const outboundFlights = getUniqueOutboundFlights(flightData)
+  const oneDirectionFlights = type === 'outbound' ? getUniqueOutboundFlights(flightData): getMatchingInboundFlightsBySignature(flightData, selectedFlightData.outBound)
   
   // Fliter state variables
   const [sortBy, setSortBy] = useState('value');
@@ -69,25 +74,23 @@ export const FlightSelection: React.FC<FlightSelectionProps> = ({type,tripsData}
   const [maxDuration, setMaxDuration] = useState<number>(24 * 60); // 24 hours in minutes
 
   // Get unique options for select filters
-  const uniqueOriginAirports = [...new Set(outboundFlights.map(flight => flight.departureAirport))];
-  const uniqueDestAirports = [...new Set(outboundFlights.map(flight => flight.arrivalAirport))];
-  const uniqueAirlines = [...new Set(outboundFlights.map(flight => flight.airline))];
-
-  
+  const uniqueOriginAirports = [...new Set(oneDirectionFlights.map(flight => flight.originAirportIata))];
+  const uniqueDestAirports = [...new Set(oneDirectionFlights.map(flight => flight.destinationAirportIata))];
+  const uniqueAirlines = [...new Set(oneDirectionFlights.map(flight => flight.airline))];
 
   // Update price range when flights data changes
   useEffect(() => {
-    if (outboundFlights.length > 0) {
-      const minPrice = Math.min(...outboundFlights.map(flight => flight.price));
-      const maxPrice = Math.max(...outboundFlights.map(flight => flight.price));
+    if (oneDirectionFlights.length > 0) {
+      const minPrice = Math.min(...oneDirectionFlights.map(flight => flight.price.total));
+      const maxPrice = Math.max(...oneDirectionFlights.map(flight => flight.price.total));
       
-      const departureHours = outboundFlights.map(flight => 
+      const departureHours = oneDirectionFlights.map(flight => 
         new Date(flight.departureTime).getHours()
       );
       const minDepartureTime = Math.min(...departureHours)
       const maxDepartureTime =Math.max(...departureHours)
 
-      const arrivalHours = outboundFlights.map(flight => 
+      const arrivalHours = oneDirectionFlights.map(flight => 
         new Date(flight.arrivalTime).getHours()
       );
       const minArrivalTime = Math.min(...arrivalHours);
@@ -100,21 +103,21 @@ export const FlightSelection: React.FC<FlightSelectionProps> = ({type,tripsData}
       setMinArrivalTime(minArrivalTime);
       setMaxArrivalTime(maxArrivalTime)
     }
-  }, [outboundFlights]);
+  }, [oneDirectionFlights]);
 
   const applyFilters = () => {
-    if (!outboundFlights.length) return [];
+    if (!oneDirectionFlights.length) return [];
 
-    return outboundFlights.filter(flight => {
+    return oneDirectionFlights.filter(flight => {
       if (stopsFilter && stopsFilter !== '') {
         const numStops = parseInt(stopsFilter);
         if (flight.stops !== numStops + 1) return false; // +1 because stops is actually segments
       }
 
-      if (originAirportFilter && flight.departureAirport !== originAirportFilter) return false;
-      if (destAirportFilter && flight.arrivalAirport !== destAirportFilter) return false;
+      if (originAirportFilter && flight.originAirportIata !== originAirportFilter) return false;
+      if (destAirportFilter && flight.destinationAirportIata !== destAirportFilter) return false;
       if (airlineFilter && flight.airline !== airlineFilter) return false;
-      if (maxPriceFilter && flight.price > maxPriceFilter) return false;
+      if (maxPriceFilter && flight.price.total > maxPriceFilter) return false;
 
       const departureHour = new Date(flight.departureTime).getHours();
       if ((departureTimeRange && departureHour < departureTimeRange[0]) || (departureTimeRange && departureHour > departureTimeRange[1])) return false;
@@ -135,18 +138,21 @@ export const FlightSelection: React.FC<FlightSelectionProps> = ({type,tripsData}
     const sortedFlights = sortFlightOffers(filteredFlights, sortBy as 'price' | 'duration' | 'departure' | 'arrival' | 'value')
 
     return sortedFlights.map((flight, index) => {
+      
       return (
             <FlightOffer
               key={`${index}-${flight.id}`} 
               stops={flight.stops}
               airlineCode={flight.airline}
-              originAirportCode={flight.departureAirport}
-              destinationAirportCode={flight.arrivalAirport}
-              departureTime={new Date(flight.departureTime)}
-              arrivalTime={new Date(flight.arrivalTime)}
+              originAirportCode={flight.originAirportIata}
+              destinationAirportCode={flight.destinationAirportIata}
+              departureTime={flight.departureTime}
+              arrivalTime={flight.arrivalTime}
               tripDuration={formatDuration(flight.duration)}
               price={flight?.price}
-              roundtrip={flight?.roundTrip}
+              oneWay={flight.oneWay}
+              segments={flight.segments}
+              updateFlightData={type === 'outbound' ? updateOutboundFlightData : updateReturnFlightData}
             />
         );
     })
@@ -254,7 +260,7 @@ export const FlightSelection: React.FC<FlightSelectionProps> = ({type,tripsData}
       </Card>
       <Card shadow ="xs" padding="lg" radius="md" withBorder>
         <div className={classes.titleContainer}>
-          <Text size='lg' fw={700}> Departing Flights</Text>
+          <Text size='lg' fw={700}>{flightDirection}</Text>
           <Select 
           leftSection={<Text className={classes.sortText}>Sort by </Text>}
           leftSectionWidth={55}

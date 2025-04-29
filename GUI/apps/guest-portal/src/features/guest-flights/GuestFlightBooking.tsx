@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useNavigate}  from 'react-router-dom'
 import { Button, Card, Space, Text } from '@mantine/core';
 import { ArrowLeft, ChevronRight } from 'lucide-react';
 import { FlightReview , FlightSelection, PassengerInfo, ProgressStepper, SeatSelection } from './Components';
 import { useAuthGuest } from '@/contexts/AuthContextGuest';
-import { useGuestFlightState } from './hooks';
+import { useGuestFlightState, useFlightData } from './hooks';
+import { getStepValidation } from './utils/flightFormValidation';
 import { useGetGuestTrips } from '@corporate-travel-frontend/api/hooks';
-import './GuestFlightBooking.scss';
+import classes from './GuestFlightBooking.module.scss';
 
 export type BookingStep = 'outbound' | 'return' | 'passenger' | 'seats' | 'review';
 
@@ -78,7 +79,7 @@ export const GuestFlightBooking: React.FC = () => {
   const { data: tripsData, isSuccess: isTripsSuccess, isPending: isTripsPending, error: tripsError } = useGetGuestTrips(userId)
 
   const [currentStepTemp, setCurrentStep] = useState<BookingStep>('outbound');
-  const [flightData, setFlightData] = useState<FlightBookingData>({
+  const [flightDataTemp, setFlightData] = useState<FlightBookingData>({
     outbound: null,
     return: null,
     passenger: null,
@@ -96,6 +97,7 @@ export const GuestFlightBooking: React.FC = () => {
     { id: 'review', title: 'Review & Confirm' }
   ];
 
+  const { flightData, clearFlightData, updateOutboundFlight, updateInboundFlight, updatePrice, updateBookingReference } = useFlightData();
   const getCurrentStepIndex = () => steps.findIndex(step => step.id === currentStepTemp);
 
 
@@ -103,21 +105,28 @@ export const GuestFlightBooking: React.FC = () => {
   const { currentStep, nextStep, prevStep, step, clearCurrentStep } = useGuestFlightState([
     <FlightSelection
       type="outbound"
+      updateOutboundFlightData={updateOutboundFlight}
+      updateReturnFlightData={updateInboundFlight}
       tripsData={tripsData}
+      selectedFlightData={flightData}
     />,
     <FlightSelection
       type="return"
+      updateOutboundFlightData={updateOutboundFlight}
+      updateReturnFlightData={updateInboundFlight}
       tripsData={tripsData}
+      selectedFlightData={flightData}
     />,
     <PassengerInfo
       onComplete={(data: PassengerData) => {
         setFlightData(prev => ({ ...prev, passenger: data }));
         handleNext();
       }}
+      flightData={flightData}
     />,
     <SeatSelection
-      outboundFlight={flightData.outbound}
-      returnFlight={flightData.return}
+      outboundFlight={flightDataTemp.outbound}
+      returnFlight={flightDataTemp.return}
       onComplete={(seatData: SeatSelection) => {
         setFlightData(prev => ({ ...prev, seats: seatData }));
         handleNext();
@@ -140,15 +149,15 @@ export const GuestFlightBooking: React.FC = () => {
 
   ])
 
-  // const canProceed = useCallback((step: number): boolean => {
-  //   try{
-  //     return getStepValidation(step, formData);
-  //   }
-  //   catch (error) {
-  //     console.error("Validation error:", error);
-  //     return false
-  //   }
-  // }, [formData]);
+  const canProceed = useCallback((step: number): boolean => {
+    try{
+      return getStepValidation(step, flightData);
+    }
+    catch (error) {
+      console.error("Validation error:", error);
+      return false
+    }
+  }, [flightData]);
 
   const navigate = useNavigate();
   const totalSteps = 5;
@@ -159,8 +168,6 @@ export const GuestFlightBooking: React.FC = () => {
   const destinationState = tripsData?.[0].itinerary.destination.city.state_id
   const startDate = formatDate(new Date(tripsData?.[0].itinerary.startDate || ''))
   const endDate = formatDate(new Date(tripsData?.[0].itinerary.startDate || ''))
-
-  
   
   const handleNext = () => {
     const currentIndex = getCurrentStepIndex();
@@ -170,39 +177,25 @@ export const GuestFlightBooking: React.FC = () => {
   };
 
   const handleBack = () => {
-    const currentIndex = getCurrentStepIndex();
-    if (currentIndex > 0) {
-      setCurrentStep(steps[currentIndex - 1].id as BookingStep);
-    }
+    clearFlightData()
+    navigate('/dashboard')
   };
 
   return (
-    <div className="guest-flight-booking">
-      <div className="booking-header">
+    <div className={classes.guestFlightBooking}>
+      <div className={classes.bookingHeader}>
         <button
           onClick={handleBack}
-          className="back-button"
-          disabled={currentStepTemp === 'outbound'}
+          className={classes.backButton}
         >
           <ArrowLeft />
         </button>
-        <h1>Flight Selection</h1>
+        <h1 className={classes.bookingHeader__h1}>Flight Selection</h1>
       </div>
 
       <ProgressStepper currentStep={currentStep} />
       <Space h="xl" />
-      <div className='booking-header'>
-        <Text fw={700} size='xl'>{`${originCity}, ${originState} to ${destinationCity}, ${destinationState}`}</Text>
-        <Text>{`${startDate} to ${endDate}`}</Text>
-      </div>
-      {/* <Space h="md" /> */}
-      {/* <Card shadow ="xs" padding="lg" radius="md" withBorder> */}
-      <div>
-        {step}
-      </div>
-      {/* </Card> */}
-
-      <div className="booking-actions">
+      <div className={classes.guestFlightBooking__bookingActions}>
         {currentStep > 0 && (
           <Button
             variant="outline"
@@ -211,12 +204,12 @@ export const GuestFlightBooking: React.FC = () => {
             Previous
           </Button>
         )}
-        <div className="guest-invite__primary-action">
+        <div className={classes.guestFlightBooking__primaryAction}>
           {currentStep <= totalSteps ? (
             <Button
               onClick={nextStep}
               rightSection={<ChevronRight size={14}/>}
-              //disabled={!canProceed(currentStep)}
+              disabled={!canProceed(currentStep)}
             >
               <span>Continue</span>
             </Button>
@@ -231,6 +224,16 @@ export const GuestFlightBooking: React.FC = () => {
           )}
         </div>
       </div>
+      <div className={classes.bookingHeader}>
+        <Text fw={700} size='xl'>{`${originCity}, ${originState} to ${destinationCity}, ${destinationState}`}</Text>
+        <Text>{`${startDate} to ${endDate}`}</Text>
+      </div>
+      {/* <Space h="md" /> */}
+      {/* <Card shadow ="xs" padding="lg" radius="md" withBorder> */}
+      <div>
+        {step}
+      </div>
+      {/* </Card> */}
     </div>
   );
 };

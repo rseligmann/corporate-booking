@@ -1,0 +1,64 @@
+.guestFlightBooking {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--mantine-spacing-xl);
+
+  &__bookingActions {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+  }
+  
+  &__primaryAction{
+    margin-left: auto;
+  }
+}
+  
+.bookingHeader {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+
+  &__h1{
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--mantine-color-text);
+  }
+}
+  
+.backButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--color-muted-foreground);
+
+  &:hover {
+    background-color: var(--color-muted);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+  
+
+
+  // .next-button {
+  //   margin-left: auto;
+  //   display: flex;
+  //   align-items: center;
+  //   gap: 0.5rem;
+
+  //   .button-icon {
+  //     width: 1.25rem;
+  //     height: 1.25rem;
+  //   }
+  // }

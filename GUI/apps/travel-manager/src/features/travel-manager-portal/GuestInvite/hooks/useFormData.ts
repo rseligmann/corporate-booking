@@ -108,9 +108,9 @@ export const useFormData = () => {
       }
     }, [guestTypePreferences, guestTypePrefIsSuccess, selectedGuestTypeId]);
 
-    useEffect(() => {
-      console.log("Form data after update:", formData);
-    }, [formData]);
+    // useEffect(() => {
+    //   console.log("Form data after update:", formData);
+    // }, [formData]);
 
     //Cleanup function to clear form data from localStorage
       const clearFormData= useCallback(()=>{

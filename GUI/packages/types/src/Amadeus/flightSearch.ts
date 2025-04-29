@@ -36,7 +36,7 @@ interface Operating {
 interface Location {
     iataCode: string;
     terminal?: string;
-    at: Date;
+    at: string;
 }
 
 interface Segment {
@@ -63,12 +63,24 @@ interface IncludedCheckedBags {
     weightUnit?: string;
 }
 
+interface Amenity {
+    description: string;
+    isChargeable: boolean;
+    amenityType: string;
+    amenityProvider: {
+        name: string;
+    }
+}
+
 interface FareDetailsBySegment {
     segmentId: string;
     cabin: string;
     fareBasis: string;
+    brandedFare: string;
+    brandedFareLabel: string;
     class: string; // In TypeScript, 'class' is not a reserved keyword in interfaces
     includedCheckedBags?: IncludedCheckedBags;
+    amenities: Amenity[];
 }
 
 interface TravelerPricing {

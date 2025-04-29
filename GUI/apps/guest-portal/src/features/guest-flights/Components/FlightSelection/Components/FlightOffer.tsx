@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { ActionIcon, Avatar, Badge, Collapse, Text, UnstyledButton } from '@mantine/core'
 import { airlineMapping } from '@/lib/utils/AirlinesMapping'
+import { FlightBooking, FlightPrice, FlightSegment } from '@corporate-travel-frontend/types';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import { formatDateToString } from './flightSelectionUtil';
 import classes from './FlightOffer.module.scss'
 
 type AirlineCode = keyof typeof airlineMapping;
@@ -11,11 +13,13 @@ interface FlightOfferProps{
     airlineCode: string
     originAirportCode: string
     destinationAirportCode: string
-    departureTime: Date
-    arrivalTime: Date
+    departureTime: string;
+    arrivalTime: string;
     tripDuration: string
-    price: number
-    roundtrip: boolean
+    price: FlightPrice
+    oneWay: boolean
+    segments: FlightSegment[]
+    updateFlightData: ((update: Partial<FlightBooking['outBound']>) => void) | ((update: Partial<FlightBooking['inBound']>) => void);
 }
 
 export const FlightOffer: React.FC<FlightOfferProps> = ({
@@ -27,18 +31,69 @@ export const FlightOffer: React.FC<FlightOfferProps> = ({
     arrivalTime,
     tripDuration,
     price,
-    roundtrip
+    oneWay,
+    segments,
+    updateFlightData
 }) => {
 
     const airlineInfo = airlineMapping[airlineCode as AirlineCode];
 
-    const sameDayCheck = (arrivalTime.getDate() - departureTime.getDate());
+    const sameDayCheck = (new Date(arrivalTime).getDate() - new Date(departureTime).getDate());
     const numberOfStops = stops === 1 ? 'Nonstop' : stops === 2 ? '1 Stop': stops === 3 ? '2 Stops' : `${stops}`
 
     const [detailsOpen, setDetailsOpen] = useState(false);
 
+    const isoTo12HourTime = (isoString: string) =>{
+        const date = new Date(isoString);
+        return date.toLocaleTimeString('en-US', {
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true
+        })
+    }
+
+    const handleFlightSelect = () => {
+        const flightDetails = {
+            airline: airlineCode,
+            oneWay: oneWay,
+            departureTime: departureTime,
+            arrivalTime: arrivalTime,
+            duration: tripDuration,
+            stops: stops,
+            price:{
+                currency: price.currency,
+                total: price.total,
+                base: price.base,
+                grandTotal: price.grandTotal ?? undefined,
+                fees: price.fees?? undefined,
+            },
+            originAirportIata: originAirportCode,
+            destinationAirportIata: destinationAirportCode,
+            segments: segments?.map(segment => ({
+                id: segment.id,
+                departureAirportIata: segment.departureAirportIata,
+                departureTime: segment.departureTime,
+                arrivalAirportIata: segment.arrivalAirportIata,
+                arrivalTime: segment.arrivalTime,
+                carrierCode: segment.carrierCode,
+                aircraftCode: segment.aircraftCode,
+                duration: segment.duration,
+                cabin: segment.cabin,
+                fareBasis: segment.fareBasis,
+                brandedFare: segment.brandedFare,
+                class: segment.class,
+                amenities: segment.amenities
+            })) ?? []
+        }
+        updateFlightData(flightDetails);
+    }
+
     return(
-        <UnstyledButton variant='outline' className={classes.button}>
+        <UnstyledButton 
+            variant='outline' 
+            className={classes.button}
+            onClick={handleFlightSelect}
+        >
             <div className={classes.buttonContent}>
                 <div className={classes.topGroup}>
                     <div className={classes.airlineInfo}>
@@ -47,7 +102,7 @@ export const FlightOffer: React.FC<FlightOfferProps> = ({
                     </div>
                     <div className={classes.timelineContainer}>
                         <div className={classes.textBox}>
-                            <Text fw={500} size='lg'>{departureTime.toLocaleTimeString(undefined, {timeStyle:'short'})}</Text>
+                            <Text fw={500} size='lg'>{isoTo12HourTime(departureTime)}</Text>
                             <Text c='dimmed' size='sm'>{originAirportCode}</Text>
                         </div>
                         <div className={classes.line} />
@@ -58,7 +113,7 @@ export const FlightOffer: React.FC<FlightOfferProps> = ({
                         <div className={classes.line} />
                         <div className={classes.textBox}>
                             <Text fw={500} size='lg'>
-                                {arrivalTime.toLocaleTimeString(undefined, {timeStyle:'short'})}
+                                {isoTo12HourTime(arrivalTime)}
                                 {sameDayCheck !== 0 && (
                                     <span style={{ fontSize: 'smaller', verticalAlign: 'super' }}>
                                         +{sameDayCheck}
@@ -69,8 +124,8 @@ export const FlightOffer: React.FC<FlightOfferProps> = ({
                         </div>
                     </div>
                     <div className={classes.duration}>
-                        <Text className={classes.price}>{`$${price}`}</Text>
-                        <Text c='dimmed' size='sm'>{roundtrip ? 'roundtrip' : 'oneway'}</Text>
+                        <Text className={classes.price}>{`$${price.total}`}</Text>
+                        <Text c='dimmed' size='sm'>{!oneWay ? 'roundtrip' : 'oneway'}</Text>
                     </div>
                     <ActionIcon 
                         variant="transparent" 

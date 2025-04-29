@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Card, Checkbox, Select } from '@mantine/core';
 import { TextInput } from '@mantine/core';
+import { FlightBooking } from '@corporate-travel-frontend/types';
 import './PassengerInfo.scss';
 
 interface PassengerData {
@@ -34,6 +35,7 @@ interface PassengerData {
 
 interface PassengerInfoProps {
   onComplete: (data: PassengerData) => void;
+  flightData: FlightBooking
 }
 
 export const PassengerInfo: React.FC<PassengerInfoProps> = ({ onComplete }) => {

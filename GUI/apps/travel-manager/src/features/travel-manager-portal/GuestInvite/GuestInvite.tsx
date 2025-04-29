@@ -9,7 +9,7 @@ import { getStepValidation } from './utils/formValidation'
 import { TravelMgrPageLayout } from '@/layouts';
 import { EstimatedBudget, GuestDetailsForm, ItineraryForm, PreferencesForm, ProgressStepper, ReviewForm } from './components'
 //import { createGuestInvite } from '@/api/api'
-import './GuestInvite.scss';
+import classes from './GuestInvite.module.scss';
 
 const GuestInvite: React.FC = () => {
   
@@ -88,7 +88,7 @@ const GuestInvite: React.FC = () => {
         title="New Guest Invite"
         subtitle="Create and send travel invites to your guests"
       >
-          <div className="guest-invite__header">
+          <div className={classes.guestInvite__header}>
             <ActionIcon
               onClick={handleBackToDashboard}
               variant="subtle" 
@@ -120,7 +120,7 @@ const GuestInvite: React.FC = () => {
             : <></>
             }
           </Grid>
-          <div className="guest-invite__actions">
+          <div className={classes.guestInvite__actions}>
             {currentStep > 0 && (
               <Button
                 variant="outline"
@@ -129,7 +129,7 @@ const GuestInvite: React.FC = () => {
                 Previous
               </Button>
             )}
-            <div className="guest-invite__primary-action">
+            <div className={classes.guestInvite__primaryAction}>
               {currentStep <= totalSteps ? (
                 <Button
                   onClick={nextStep}
