@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { useNavigate}  from 'react-router-dom'
-import { Button, Card, Space, Text } from '@mantine/core';
+import { Button, Card, Grid, Space, Text } from '@mantine/core';
 import { ArrowLeft, ChevronRight } from 'lucide-react';
-import { FlightReview , FlightSelection, PassengerInfo, ProgressStepper, SeatSelection } from './Components';
+import { FlightReview , FlightSelection, FlightTotal, PassengerInfo, ProgressStepper, SeatSelection } from './Components';
 import { useAuthGuest } from '@/contexts/AuthContextGuest';
 import { useGuestFlightState, useFlightData } from './hooks';
 import { getStepValidation } from './utils/flightFormValidation';
@@ -97,7 +97,7 @@ export const GuestFlightBooking: React.FC = () => {
     { id: 'review', title: 'Review & Confirm' }
   ];
 
-  const { flightData, clearFlightData, updateOutboundFlight, updateInboundFlight, updatePrice, updateBookingReference } = useFlightData();
+  const { flightData, clearFlightData, updateOutboundFlight, updateInboundFlight, updatePrice, updateBookingReference, updatePassengerBasicInfo } = useFlightData();
   const getCurrentStepIndex = () => steps.findIndex(step => step.id === currentStepTemp);
 
 
@@ -107,6 +107,7 @@ export const GuestFlightBooking: React.FC = () => {
       type="outbound"
       updateOutboundFlightData={updateOutboundFlight}
       updateReturnFlightData={updateInboundFlight}
+      updatePriceData={updatePrice}
       tripsData={tripsData}
       selectedFlightData={flightData}
     />,
@@ -114,14 +115,12 @@ export const GuestFlightBooking: React.FC = () => {
       type="return"
       updateOutboundFlightData={updateOutboundFlight}
       updateReturnFlightData={updateInboundFlight}
+      updatePriceData={updatePrice}
       tripsData={tripsData}
       selectedFlightData={flightData}
     />,
     <PassengerInfo
-      onComplete={(data: PassengerData) => {
-        setFlightData(prev => ({ ...prev, passenger: data }));
-        handleNext();
-      }}
+      updatePassengerFlightData={updatePassengerBasicInfo}
       flightData={flightData}
     />,
     <SeatSelection
@@ -228,12 +227,21 @@ export const GuestFlightBooking: React.FC = () => {
         <Text fw={700} size='xl'>{`${originCity}, ${originState} to ${destinationCity}, ${destinationState}`}</Text>
         <Text>{`${startDate} to ${endDate}`}</Text>
       </div>
-      {/* <Space h="md" /> */}
-      {/* <Card shadow ="xs" padding="lg" radius="md" withBorder> */}
-      <div>
-        {step}
-      </div>
-      {/* </Card> */}
+      <Grid columns={10}>
+        <Grid.Col span="auto">
+          {step}
+        </Grid.Col>
+        {currentStep > 1
+        ?
+        <Grid.Col span={{base: 10, md: 3}}>
+        <FlightTotal
+          flightData={flightData}
+          tripsData={tripsData}
+        />
+        </Grid.Col>
+        : <></>
+        }
+      </Grid>
     </div>
   );
 };

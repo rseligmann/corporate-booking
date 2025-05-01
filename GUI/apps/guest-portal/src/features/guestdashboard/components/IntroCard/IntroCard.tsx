@@ -7,7 +7,7 @@ import classes from './IntroCard.module.scss'
 interface IntroCardProps{
     firstName: string;
     lastName: string;
-    tripsData: [Trip] | undefined;
+    tripsData: Trip[] | undefined;
 }
 
 export const IntroCard: React.FC<IntroCardProps> = ({firstName, lastName, tripsData}) => {

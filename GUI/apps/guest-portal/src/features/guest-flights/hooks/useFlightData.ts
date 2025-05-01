@@ -1,5 +1,7 @@
 import { useState, useEffect, useCallback } from 'react' 
-import { FlightBooking } from "@corporate-travel-frontend/types";
+import { Flight, FlightBooking, Passenger, FlightPrice } from "@corporate-travel-frontend/types";
+import { useAuthGuest } from '@/contexts/AuthContextGuest';
+import { useGetGuestTrips } from '@corporate-travel-frontend/api/hooks';
 
 const initialFlightData: FlightBooking={
     id: "",
@@ -40,6 +42,12 @@ const initialFlightData: FlightBooking={
 }
 
 export const useFlightData = () => {
+
+    const { authState } = useAuthGuest()
+    const userId = authState.user?.user_id || '';
+    const { data: tripsData, isSuccess: isTripsSuccess, isPending: isTripsPending, error: tripsError } = useGetGuestTrips(userId)
+
+
     const [ flightData, setFlightData ] = useState<FlightBooking>(() => {
         const savedFlightData = localStorage.getItem('flightBookingFormData');
         if (savedFlightData){
@@ -56,6 +64,24 @@ export const useFlightData = () => {
     useEffect(() => {
         console.log("Flight data after update:", flightData);
     }, [flightData]);
+
+    // Effect to update flight data with guest information
+    useEffect(() => {
+        if(tripsData && isTripsSuccess){
+            setFlightData(prevData => ({
+                ...prevData,
+                passenger: { 
+                    basicInfo: {
+                        firstName: tripsData[0].guest.firstName,
+                        lastName: tripsData[0].guest.lastName,
+                        phone: tripsData[0].guest.phone || "",
+                        email: tripsData[0].guest.email,
+                        gender: ""
+                    }
+                }
+            }))
+        }
+    }, [tripsData])
   
     //Cleanup function to clear form data from localStorage
     const clearFlightData= useCallback(()=>{
@@ -97,7 +123,25 @@ export const useFlightData = () => {
         }));
     };
 
-    const updatePrice = (details: Partial<FlightBooking>['price']) => {
+    const updatePassengerBasicInfo = (details: Partial<Passenger['basicInfo']>) => {
+        setFlightData(prevData => {
+            if (prevData.passenger){
+                return{
+                    ...prevData,
+                    passenger: {
+                        ...prevData.passenger,
+                        basicInfo: {
+                            ...prevData.passenger.basicInfo,
+                            ...details
+                        }
+                    }
+                };
+            }
+            return prevData;
+        });
+    }
+
+    const updatePrice = (details: Partial<FlightPrice>) => {
         setFlightData(prevData => ({
             ...prevData,
             price: {...prevData.price, ...details},
@@ -117,7 +161,8 @@ export const useFlightData = () => {
         updateOutboundFlight,
         updateInboundFlight,
         updatePrice,
-        updateBookingReference
+        updateBookingReference,
+        updatePassengerBasicInfo
     }
 }
                 

@@ -1,0 +1,115 @@
+
+.card {
+  overflow: visible;
+  border-radius: var(--mantine-radius-md);
+  box-shadow: var(--mantine-shadow-xs);
+  margin-bottom: var(--mantine-spacing-md);
+  padding: var(--mantine-spacing-lg)
+}
+
+    h3 {
+      font-size: var(--mantine-font-size-lg);
+      font-weight: 700;
+      color: var(--mantine-color-text);
+      margin-bottom: var(--mantine-spacing-md);
+    }
+
+    h4 {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--mantine-color-text);
+      margin-bottom: 1rem;
+    }
+
+    .formRow {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+
+    .validation-message {
+      font-size: 0.75rem;
+      margin-top: 0.25rem;
+
+      &.error {
+        color: var(--color-destructive);
+      }
+
+      &.info {
+        color: var(--color-muted-foreground);
+      }
+    }
+  
+    // Field validation styles
+    .field-required {
+      &::after {
+        content: '*';
+        color: var(--color-destructive);
+        margin-left: 0.25rem;
+      }
+    }
+  
+    .field-optional {
+      &::after {
+        content: '(optional)';
+        font-size: 0.75rem;
+        color: var(--color-muted-foreground);
+        margin-left: 0.5rem;
+      }
+    }
+  
+    // Tooltip styles
+    .tooltip {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+  
+      .tooltip-icon {
+        width: 1rem;
+        height: 1rem;
+        color: var(--color-muted-foreground);
+        margin-left: 0.5rem;
+        cursor: help;
+      }
+  
+      .tooltip-content {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: var(--color-foreground);
+        color: var(--color-card);
+        padding: 0.5rem 0.75rem;
+        border-radius: 0.25rem;
+        font-size: 0.75rem;
+        white-space: nowrap;
+        z-index: 10;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.2s ease;
+  
+        &::before {
+          content: '';
+          position: absolute;
+          bottom: 100%;
+          left: 50%;
+          transform: translateX(-50%);
+          border: 6px solid transparent;
+          border-bottom-color: var(--color-foreground);
+        }
+      }
+  
+      &:hover {
+        .tooltip-content {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+    }
+  

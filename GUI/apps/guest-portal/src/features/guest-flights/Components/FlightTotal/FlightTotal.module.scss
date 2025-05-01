@@ -1,0 +1,49 @@
+.card {
+    border-radius: var(--mantine-radius-md);
+    box-shadow: var(--mantine-shadow-xs);
+    padding: var(--mantine-spacing-md)
+  }
+
+.flightCard {
+    border-radius: var(--mantine-radius-md);
+    padding: var(--mantine-spacing-xs);
+    border-color: var(--mantine-color-default-border);
+    //margin-top: var(--mantine-spacing-md);
+    margin-bottom: var(--mantine-spacing-xs);
+}
+
+.title{
+    margin-bottom: var(--mantine-spacing-sm);
+    font-weight: 700;
+    font-size: var(--mantine-font-size-md);
+}
+
+.titleText{
+    font-weight: 700;
+    font-size: var(--mantine-font-size-xs);
+}
+
+.badge{
+    background-color: var(--mantine-color-blue-light);
+    color: var(--mantine-color-blue-light-color);
+    border-radius: var(--mantine-radius-sm);
+    margin-bottom: .4rem;
+}
+
+.smallFont{
+    font-size: var(--mantine-font-size-xs);
+}
+
+.farePrice{
+    display: flex;
+    justify-content: space-between;
+    //margin-bottom: var(--mantine-spacing-xs);
+}
+
+.fareCard{
+    display: flex;
+    flex-direction: column;
+    padding: var(--mantine-spacing-xs);
+    margin-top: var(--mantine-spacing-sm);
+    gap:  var(--mantine-spacing-xs);
+}

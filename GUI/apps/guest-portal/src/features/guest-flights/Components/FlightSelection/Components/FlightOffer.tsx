@@ -20,6 +20,7 @@ interface FlightOfferProps{
     oneWay: boolean
     segments: FlightSegment[]
     updateFlightData: ((update: Partial<FlightBooking['outBound']>) => void) | ((update: Partial<FlightBooking['inBound']>) => void);
+    updatePriceData:(update: Partial<FlightPrice>) => void;
 }
 
 export const FlightOffer: React.FC<FlightOfferProps> = ({
@@ -33,7 +34,8 @@ export const FlightOffer: React.FC<FlightOfferProps> = ({
     price,
     oneWay,
     segments,
-    updateFlightData
+    updateFlightData,
+    updatePriceData
 }) => {
 
     const airlineInfo = airlineMapping[airlineCode as AirlineCode];
@@ -86,6 +88,7 @@ export const FlightOffer: React.FC<FlightOfferProps> = ({
             })) ?? []
         }
         updateFlightData(flightDetails);
+        updatePriceData(flightDetails.price)
     }
 
     return(

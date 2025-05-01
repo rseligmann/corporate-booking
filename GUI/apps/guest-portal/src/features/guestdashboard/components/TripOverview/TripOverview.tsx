@@ -13,7 +13,7 @@ const formatDate = (date: Date) => {
 }
 
 interface TripOverviewProps {
-    tripsData: [Trip] | undefined;
+    tripsData: Trip[] | undefined;
 }
 
 export const TripOverview: React.FC<TripOverviewProps> = ({tripsData}) =>{

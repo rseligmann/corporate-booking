@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, Loader, Select, Text } from '@mantine/core';
 import { FlightOffer } from './Components/FlightOffer';
 import { formatDateToString, formatDuration, getMinutes, getUniqueOutboundFlights, sortFlightOffers, getMatchingInboundFlightsBySignature } from './Components/flightSelectionUtil';
-import { FlightAggregationRequest, Trip, FlightBooking } from '@corporate-travel-frontend/types';
+import { FlightAggregationRequest, Trip, FlightBooking, FlightPrice } from '@corporate-travel-frontend/types';
 import { useMultiAirportFlightOffers } from '@corporate-travel-frontend/api/hooks';
 import { DropdownSlider } from './Components/DropDownSlider/DropDownSlider';
 import { DropdownRangeSlider } from './Components/DropDownRangeSlider/DropDownRangeSlider';
@@ -10,13 +10,14 @@ import classes from './FlightSelection.module.scss';
 
 interface FlightSelectionProps {
   type: 'outbound' | 'return';
-  tripsData: [Trip] | undefined;
+  tripsData: Trip[] | undefined;
   updateOutboundFlightData: (update: Partial<FlightBooking['outBound']>) => void;
   updateReturnFlightData:(update: Partial<FlightBooking['inBound']>) => void;
+  updatePriceData:(update: Partial<FlightPrice>) => void;
   selectedFlightData: FlightBooking
 }
 
-export const FlightSelection: React.FC<FlightSelectionProps> = ({type, tripsData, updateOutboundFlightData, updateReturnFlightData, selectedFlightData}) => {
+export const FlightSelection: React.FC<FlightSelectionProps> = ({type, tripsData, updateOutboundFlightData, updateReturnFlightData, selectedFlightData, updatePriceData}) => {
   
   const [ flightSearch, setFlightSearch ] = useState<FlightAggregationRequest>()
   const flightDirection = type === 'outbound' ? 'Departing Flights' : 'Returning Flights'
@@ -153,6 +154,7 @@ export const FlightSelection: React.FC<FlightSelectionProps> = ({type, tripsData
               oneWay={flight.oneWay}
               segments={flight.segments}
               updateFlightData={type === 'outbound' ? updateOutboundFlightData : updateReturnFlightData}
+              updatePriceData={updatePriceData}
             />
         );
     })

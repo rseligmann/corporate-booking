@@ -26,6 +26,7 @@ export interface FlightBooking {
     price: FlightPrice;
     bookingReference?: string;
     bookingStatus?: string;
+    passenger?: Passenger;
 }
 
 export interface Flights {
@@ -75,4 +76,16 @@ interface Amenity {
     description: string;
     isChargeable: boolean;
     amenityType: string;
+}
+
+export interface Passenger {
+    basicInfo: {
+        firstName: string;
+        middleName?: string;
+        lastName: string;
+        dateOfBirth?: string;
+        gender: string;
+        email: string;
+        phone: string;
+      };
 }

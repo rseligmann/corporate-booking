@@ -12,12 +12,12 @@ export const TripServices = {
         return response.data
     },
 
-    async getGuestTrips(guest_profile_id: string): Promise<[Trip]> {
+    async getGuestTrips(guest_profile_id: string): Promise<Trip[]> {
         const response = await api.get<[Trip]>(`/trip/guest/${guest_profile_id}`);
         return response.data
     },
 
-    async getCompanyTrips(): Promise<[Trip]> {
+    async getCompanyTrips(): Promise<Trip[]> {
         const response = await api.get<[Trip]>('/trips');
         return response.data
     },

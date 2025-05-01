@@ -14,7 +14,7 @@ const formatDate = (dateString: string) => {
 
 
 interface WeatherForecaseProps{
-    tripsData: [Trip] | undefined;
+    tripsData: Trip[] | undefined;
 }
 
 export const WeatherForecast: React.FC<WeatherForecaseProps> = ({tripsData}) => {
