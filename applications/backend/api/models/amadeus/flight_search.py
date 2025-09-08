@@ -6,8 +6,8 @@ class Link(BaseModel):
     self: str
 
 class Meta(BaseModel):
-    count: int
-    links: Link
+    count: Optional[int] = None
+    links: Optional[Link] = None
 
 class Fee(BaseModel):
     amount: str
@@ -28,7 +28,7 @@ class Aircraft(BaseModel):
     code: str
 
 class Operating(BaseModel):
-    carrierCode: str
+    carrierCode: Optional[str] = None
 
 class Location(BaseModel):
     iataCode: str
@@ -96,7 +96,7 @@ class Dictionaries(BaseModel):
     carriers: Optional[Dict[str, str]] = None
 
 class FlightOffersResponse(BaseModel):
-    meta: Meta
+    meta: Optional[Meta] = None
     data: Optional[List[FlightOffer]] = []
     dictionaries: Optional[Dictionaries] = None
 
@@ -121,7 +121,7 @@ class FlightOffersRequest(BaseModel):
     nonStop: Optional[bool] = Field(False, description="If true, search only for non-stop flights from origin to destination")
     currencyCode: Optional[str] = Field(None, description="The preferred currency for the flight offers, specified in ISO 4217 format, e.g. EUR")
     maxPrice: Optional[int] = Field(None, gt=0, description="Maximum price per traveler, should be a positive number with no decimals")
-    max: Optional[int] = Field(250, ge=1, description="Maximum number of flight offers to return")
+    max: Optional[int] = Field(150, ge=1, description="Maximum number of flight offers to return")
     
     # custom fields to filter Amadeus response
     arrival_time_window_start: Optional[datetime] = Field(None, description="Earliest acceptable arrival time at destination in ISO8601 format YYYY-MM-ddThh:mm:ss format, e.g. 2017-02-10T20:40:00")
@@ -144,7 +144,7 @@ class FlightAggregationRequest(BaseModel):
     nonStop: Optional[bool] = Field(False, description="If true, search only for non-stop flights from origin to destination")
     currencyCode: Optional[str] = Field(None, description="The preferred currency for the flight offers, specified in ISO 4217 format, e.g. EUR")
     maxPrice: Optional[int] = Field(None, gt=0, description="Maximum price per traveler, should be a positive number with no decimals")
-    max: Optional[int] = Field(250, ge=1, description="Maximum number of flight offers to return")
+    max: Optional[int] = Field(150, ge=1, description="Maximum number of flight offers to return")
     
     # custom fields to filter Amadeus response
     arrival_time_window_start: Optional[datetime] = Field(None, description="Earliest acceptable arrival time at destination in ISO8601 format YYYY-MM-ddThh:mm:ss format, e.g. 2017-02-10T20:40:00")

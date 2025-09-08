@@ -103,8 +103,13 @@ async def multi_get_flight_offers(
         amadeus: AmadeusConfigDependency,
         request_query: FlightOffersRequest):
     await asyncio.sleep(sleep_time)
-    return await get_flight_offers(amadeus=amadeus, request_query=request_query)
-
+    try:
+        return await get_flight_offers(amadeus=amadeus, request_query=request_query)
+    except HTTPException as e:
+        return FlightOffersResponse(meta={"error": str(e.detail), "status_code": e.status_code}, data=[])
+    except Exception as e:
+        return FlightOffersResponse(meta={"error": str(e), "status_code": status.HTTP_500_INTERNAL_SERVER_ERROR}, data=[])
+    
 @router.get("/flight-offers-avg-price", response_model=FlightAggregationResponse)
 async def get_avg_flight_price(
     amadeus: AmadeusConfigDependency,
@@ -149,7 +154,7 @@ async def get_avg_flight_price(
                 )
                 task = tg.create_task(multi_get_flight_offers(counter,amadeus=amadeus, request_query=flight_request ))
                 tasks.append(task)
-                counter += .15
+                counter += .2
 
     results = [task.result() for task in tasks]
 
@@ -239,7 +244,7 @@ async def get_flight_offers_multi_airport(
                 )
                 task = tg.create_task(multi_get_flight_offers(counter,amadeus=amadeus, request_query=flight_request ))
                 tasks.append(task)
-                counter += .15
+                counter += .2
 
     results = [task.result() for task in tasks]
 
